@@ -5,10 +5,10 @@
 
 /* HERO */
 .cfu-hero { max-width:1400px; margin:0 auto; padding:8rem 2rem 5rem; display:grid; grid-template-columns:1fr 1.3fr; gap:4rem; align-items:center; min-height:90vh; }
-.cfu-hero-tag { display:inline-block; font-size:.7rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--text-faint); background:var(--bg-alt); border:1px solid var(--border); padding:.4rem 1rem; border-radius:100px; margin-bottom:1.75rem; }
-.cfu-title { font-size:clamp(2.4rem,4.5vw,3.8rem); font-weight:800; line-height:1.05; letter-spacing:-.04em; color:var(--text-primary); margin-bottom:1.25rem; }
+.cfu-hero-tag { display:inline-block; font-size:var(--body-s); font-weight:600; letter-spacing:var(--ls-body); text-transform:uppercase; color:var(--text-faint); background:var(--bg-alt); border:1px solid var(--border); padding:.4rem 1rem; border-radius:100px; margin-bottom:1.75rem; }
+.cfu-title { font-size:var(--heading-l); font-weight:500; line-height:var(--lh-heading); letter-spacing:var(--ls-heading); color:var(--text-primary); margin-bottom:1.25rem; }
 .cfu-accent { color:var(--text-muted); font-style:italic; }
-.cfu-desc { font-size:1.05rem; line-height:1.75; color:var(--text-muted); margin-bottom:2rem; max-width:480px; }
+.cfu-desc { font-size:var(--body-l); line-height:var(--lh-body); letter-spacing:var(--ls-body); color:var(--text-muted); margin-bottom:2rem; max-width:480px; }
 .cfu-meta-row { display:flex; gap:0; border:1px solid var(--border); border-radius:14px; overflow:hidden; background:var(--bg-card); }
 .cfu-meta-item { flex:1; padding:.9rem 1rem; display:flex; flex-direction:column; gap:.2rem; border-right:1px solid var(--border); }
 .cfu-meta-item:last-child { border-right:none; }
@@ -134,14 +134,15 @@
 }
 
 .cfu-flow-section-title {
-  font-size: 1.75rem;
-  font-weight: 600;
+  font-size: var(--heading-m);
+  font-weight: 500;
   color: var(--text-primary);
   margin-bottom: 1.5rem;
-  letter-spacing: -0.01em;
+  letter-spacing: var(--ls-heading);
+  line-height: var(--lh-heading);
 }
 
-.cfu-body { font-size:1rem; line-height:1.7; color:var(--text-muted); }
+.cfu-body { font-size:var(--body-l); line-height:var(--lh-body); letter-spacing:var(--ls-body); color:var(--text-muted); }
 
 .cfu-flow-img {
   width: 100%;

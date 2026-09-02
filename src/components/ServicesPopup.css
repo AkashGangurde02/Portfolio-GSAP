@@ -1,0 +1,142 @@
+/* ============================================================
+   SERVICES POPUP
+   Swiss Editorial Floating Card Component
+   ============================================================ */
+
+.services-popup {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  width: 270px;
+  max-width: calc(100vw - 36px);
+  background: var(--dark-bg, #1B1B1A);
+  border: 1px solid rgba(245, 244, 240, 0.16);
+  border-radius: 12px;
+  padding: 20px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  cursor: pointer;
+  z-index: 999;
+  opacity: 0;
+  transform: translateY(30px) scale(0.96);
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 300ms ease,
+              border-color 300ms ease,
+              box-shadow 300ms ease;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5),
+              0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.services-popup:hover {
+  transform: translateY(-4px) scale(1.01);
+  background: #242422;
+  border-color: rgba(245, 244, 240, 0.28);
+  box-shadow: 0 24px 48px -15px rgba(0, 0, 0, 0.65);
+}
+
+.services-popup:focus-visible {
+  outline: 2px solid var(--accent, #D94732);
+  outline-offset: 3px;
+}
+
+/* Close Button (×) */
+.services-popup__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #A0A09C;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.services-popup__close:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--dark-text, #F5F4F0);
+}
+
+/* Eyebrow Label */
+.services-popup__eyebrow {
+  font-family: 'Space Mono', 'Saans Trial', 'Inter', monospace, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent, #D94732);
+  margin: 0 0 8px 0;
+}
+
+/* Card Title */
+.services-popup__title {
+  font-family: 'Saans Trial', 'Geist', 'Inter', -apple-system, sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.28;
+  letter-spacing: -0.025em;
+  color: var(--dark-text, #F5F4F0);
+  margin: 0 0 10px 0;
+  padding-right: 24px;
+}
+
+/* Card Body Paragraph */
+.services-popup__body {
+  font-family: 'Saans Trial', 'Geist', 'Inter', -apple-system, sans-serif;
+  font-size: 13.5px;
+  color: #A0A09C;
+  line-height: 1.5;
+  margin: 0 0 18px 0;
+}
+
+/* Action CTA Link */
+.services-popup__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Space Mono', 'Saans Trial', 'Inter', monospace, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--dark-text, #F5F4F0);
+  text-transform: uppercase;
+}
+
+.services-popup__arrow {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.services-popup:hover .services-popup__arrow {
+  transform: translate(3px, -3px);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 640px) {
+  .services-popup {
+    width: calc(100vw - 32px);
+    right: 16px;
+    bottom: 20px;
+    padding: 18px 18px 20px;
+  }
+
+  .services-popup:hover {
+    transform: none;
+    background: var(--dark-bg, #1B1B1A);
+  }
+
+  .services-popup:hover .services-popup__arrow {
+    transform: none;
+  }
+}

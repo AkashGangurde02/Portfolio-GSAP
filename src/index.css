@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 * {
   margin: 0;
@@ -6,14 +6,16 @@
   box-sizing: border-box;
 }
 
+/* Apply Saans Trial editorial font stack globally */
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Saans Trial', 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #FFFFFF;
-  color: #1A1A1A;
+  background-color: var(--bg, #F5F4F0);
+  color: var(--text-primary);
+  font-size: var(--body-l);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
 }
 
 a {
@@ -21,8 +23,11 @@ a {
   color: inherit;
 }
 
-/* Apply Inter to all buttons and button-like links, plus nav/social links */
+/* Global button and interactive element font rules */
 button,
+input,
+textarea,
+select,
 .btn,
 .button,
 .hero-cta-btn,
@@ -33,7 +38,10 @@ button,
 .social-link,
 .footer-nav-link,
 .footer-social-link {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: var(--body-m);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
 }
 
 /* Smooth scrolling — scrollbar hidden globally */
@@ -46,4 +54,65 @@ html {
 /* Hide scrollbar for Chrome, Safari, Opera */
 ::-webkit-scrollbar {
   display: none;
+}
+
+/* ── STANDARDIZED DISPLAY & SECTION HEADINGS ── */
+h1, h2, h3, h4, h5, h6,
+.hero-title,
+.mobile-hero-title,
+.gw-hero-title,
+.cs2-hero-title,
+.cfu-title,
+.about-page-title,
+.about-title,
+.work-headline-modern,
+.contact-title,
+.experience-hero-title,
+.game-title,
+.wsc-section-title,
+.cf-header-title,
+.exp-headline,
+.exp-headline-line-content,
+.section-title,
+.sp-section-headline,
+.sp-outcome-headline,
+.cfu-flow-section-title,
+.content-title,
+.cta-headline,
+.scp-new-headline,
+.ms-headline {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif !important;
+  font-weight: 500 !important;
+}
+
+.hero-title,
+.mobile-hero-title,
+.about-title,
+.mobile-about-title,
+.gw-hero-title,
+.cs2-hero-title,
+.cfu-title,
+.about-page-title,
+.work-headline-modern,
+.contact-title,
+.experience-hero-title,
+.game-title,
+.wsc-section-title,
+.cf-header-title,
+.exp-headline,
+.exp-headline-line-content,
+.scp-new-headline,
+.ms-headline {
+  font-size: var(--heading-l);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  font-weight: 500 !important;
+}
+
+/* ── STANDARDIZED BODY PARAGRAPHS ── */
+p, .hero-description, .featured-description, .work-description, .home-about-description {
+  max-width: 65ch;
+  font-size: var(--body-l);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
 }

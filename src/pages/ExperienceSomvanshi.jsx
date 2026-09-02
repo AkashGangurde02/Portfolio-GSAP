@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
+import Button from '../components/ui/Button'
 import './ExperienceSomvanshi.css'
 import Footer from '../components/Footer'
 import chess1Image from '../images/experience/somvanshi/images/Chess_1.jpeg'
@@ -73,12 +74,9 @@ const ExperienceSomvanshi = () => {
                         <h1 className="experience-hero-title">UX/UI Designer Intern</h1>
                         <p className="experience-hero-subtitle">Somvanshi Technologies • 2025 – Present</p>
 
-                        <Link to="/about" className="back-link">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
+                        <Button variant="secondary" size="sm" to="/about">
                             Back to About
-                        </Link>
+                        </Button>
                     </div>
                 </div>
             </section>
@@ -203,7 +201,7 @@ const ExperienceSomvanshi = () => {
                 </div>
             )}
 
-            <Footer />
+            <Footer variant="inner" />
         </div>
     )
 }

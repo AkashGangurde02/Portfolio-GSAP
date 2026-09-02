@@ -1,12 +1,12 @@
 .experience-story-page {
     min-height: 100vh;
-    background-color: #ffffff;
+    background-color: var(--bg);
     padding-top: 80px;
 }
 
 .experience-hero {
     padding: 4rem 2rem 3rem;
-    background-color: #f9f9f9;
+    background-color: var(--surface);
     border-bottom: 1px solid #e5e5e5;
 }
 
@@ -101,7 +101,7 @@
 }
 
 .content-block.highlight {
-    background-color: #f9f9f9;
+    background-color: var(--surface);
     padding: 3rem;
     border-radius: 20px;
     border-left: 4px solid #000000;
@@ -187,7 +187,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
-    background-color: #f9f9f9;
+    background-color: var(--surface);
     padding: 3rem;
     border-radius: 20px;
     border-left: 4px solid #000000;

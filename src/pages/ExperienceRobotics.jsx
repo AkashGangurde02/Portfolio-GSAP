@@ -147,7 +147,7 @@ const ExperienceRobotics = () => {
                     </div>
                 </div>
             </section>
-            <Footer />
+            <Footer variant="inner" />
         </div>
     )
 }

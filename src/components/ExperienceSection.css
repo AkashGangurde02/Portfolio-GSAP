@@ -1,203 +1,412 @@
+/* ============================================================
+   EXPERIENCE SECTION STYLING
+   ============================================================ */
+
 .experience-section {
-    padding: 6rem 0 0;
-    background-color: #ffffff;
-    width: 100%;
+  position: relative;
+  width: 100%;
+  background-color: var(--bg);
+  border-bottom: 1px solid #E5E5E5;
+  padding: 64px 0;
+  overflow: hidden;
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
 }
 
-.experience-container {
-    max-width: 1400px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 2rem;
-    box-sizing: border-box;
+.exp-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 40px;
 }
 
-.experience-section.embedded {
-    padding: 2.5rem 0;
-    background-color: transparent;
-    width: 100%;
+/* ── Left Column Styling ── */
+.exp-left-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
-.experience-section.embedded .experience-container {
-    padding: 0;
-    max-width: 100%;
+.exp-headline {
+  margin: 0 0 1rem 0;
 }
 
-.experience-section .section-title {
-    font-size: clamp(1.5rem, 3vw, 2.2rem);
-    font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: -0.03em;
-    color: var(--text-primary);
-    margin-bottom: 2.5rem;
+.exp-headline-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.18em;
+  margin-bottom: -0.18em;
 }
 
-.experience-list {
+.exp-headline-line-content {
+  display: block;
+  width: max-content;
+  color: #1A1C1F;
+  font-size: var(--heading-l);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  font-weight: 500;
+}
+
+.exp-subtitle {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: var(--body-l);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
+  color: #636366;
+  max-width: 420px;
+  margin: 0 0 4rem 0;
+}
+
+/* ── Links General Styling ── */
+.exp-top-link,
+.exp-bottom-link {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #1A1C1F;
+  text-decoration: none;
+  border-bottom: 1.5px solid #000000;
+  padding-bottom: 5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: color 0.3s ease, border-color 0.3s ease;
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+}
+
+.exp-link-arrow {
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.exp-top-link:hover,
+.exp-bottom-link:hover {
+  opacity: 0.7;
+}
+
+.exp-top-link:hover .exp-link-arrow,
+.exp-bottom-link:hover .exp-link-arrow {
+  transform: translate(2px, -2px);
+}
+
+/* ── Right Column & Timeline ── */
+.exp-right-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.exp-right-header {
+  margin-bottom: 3.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.exp-right-footer {
+  margin-top: 3.5rem;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: calc(60px + 30px + 3rem);
+}
+
+/* ── Timeline Track ── */
+.exp-timeline-container {
+  position: relative;
+  width: 100%;
+}
+
+.exp-timeline-line {
+  position: absolute;
+  left: 75px; /* Center aligned to the middle block of item grid */
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: #E5E5EA;
+  z-index: 1;
+}
+
+.exp-timeline-line-progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 0%;
+  background-color: #000000;
+  will-change: height;
+}
+
+/* ── Timeline Row Item ── */
+.exp-timeline-item {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 0 1.5rem;
+  margin-bottom: 5rem;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  cursor: pointer;
+}
+
+.exp-timeline-item:last-child {
+  margin-bottom: 1rem;
+}
+
+.exp-number {
+  grid-column: 1;
+  text-align: right;
+  font-size: var(--title-s);
+  font-weight: 500;
+  color: #1A1C1F;
+  line-height: var(--lh-title);
+  margin-top: 6px;
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  transition: color 0.3s ease;
+}
+
+.exp-dot-container {
+  grid-column: 2;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.exp-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background-color: #E5E5EA;
+  margin-top: 9px;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 0 1px #E5E5EA;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.exp-details {
+  grid-column: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 2;
+}
+
+.exp-date {
+  font-size: var(--body-s);
+  font-weight: 600;
+  letter-spacing: var(--ls-body);
+  color: #8E8E93;
+  text-transform: uppercase;
+  margin-bottom: 0.85rem;
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+}
+
+.exp-role {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: var(--heading-m);
+  font-weight: 500;
+  color: #1A1C1F;
+  margin: 0 0 0.6rem 0;
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s ease;
+  transform-origin: left;
+}
+
+.exp-company {
+  font-size: var(--body-s);
+  font-weight: 600;
+  color: #1A1C1F;
+  letter-spacing: var(--ls-body);
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+}
+
+.exp-description {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: var(--body-m);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
+  color: #636366;
+  margin: 0 0 1.75rem 0;
+  max-width: 60ch;
+}
+
+.exp-divider {
+  width: 100%;
+  height: 1px;
+  background-color: #E5E5EA;
+  margin-top: 1.5rem;
+  transition: background-color 0.3s ease;
+}
+
+/* ── Interactive Hover State ── */
+.exp-timeline-item:hover .exp-dot {
+  transform: scale(1.6);
+  background-color: #000000;
+  box-shadow: 0 0 0 1px #000000;
+}
+
+.exp-timeline-item:hover .exp-role {
+  transform: translateX(6px);
+}
+
+.exp-timeline-item:hover .exp-divider {
+  background-color: #000000;
+}
+
+/* ── Responsive Adaptation ── */
+@media (max-width: 1200px) {
+  .exp-container {
+    padding: 0 4rem;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .experience-section {
+    padding: 4.5rem 0;
+  }
+  .exp-container {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 0 3rem;
+  }
+  .exp-left-col {
+    gap: 3rem;
+  }
+  .exp-subtitle {
+    margin-bottom: 0;
+  }
+  .exp-right-header {
+    justify-content: flex-start;
+  }
+  .exp-right-footer {
+    justify-content: flex-start;
+  }
+}
+
+/* ── MOBILE MEDIA QUERIES (< 769px) ── */
+@media (max-width: 768px) {
+  .experience-section {
+    padding: 48px 0 56px;
+    background-color: var(--bg);
+  }
+
+  .exp-container {
     display: flex;
     flex-direction: column;
-    gap: 0;
-}
+    gap: 32px;
+    padding: 0 20px;
+  }
 
-.experience-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid rgba(0,0,0,0.07);
+  .exp-left-col {
     width: 100%;
-}
+  }
 
-.experience-item:first-child {
-    border-top: 1px solid rgba(0,0,0,0.07);
-}
+  .exp-headline-line-content {
+    width: 100% !important;
+    white-space: normal !important;
+    font-size: clamp(32px, 8.5vw, 42px) !important;
+    font-weight: 600 !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.04em !important;
+  }
 
-.experience-left-group {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    flex: 1;
-}
+  .exp-subtitle {
+    font-size: 14.5px !important;
+    line-height: 1.5 !important;
+    color: #3A3F45 !important;
+    max-width: 100% !important;
+    margin: 12px 0 0 0 !important;
+  }
 
-.experience-logo {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-    flex-shrink: 0;
-}
+  .exp-right-col {
+    width: 100%;
+  }
 
-.experience-info {
-    flex: 1;
-}
-
-.experience-title {
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: #1A1A1A;
-    margin-bottom: 0.25rem;
-    letter-spacing: -0.01em;
-}
-
-.experience-company {
-    font-size: 1rem;
-    color: #888888;
-    margin: 0;
-}
-
-.experience-period {
-    font-size: 0.9rem;
-    color: #AAAAAA;
-    white-space: nowrap;
-}
-
-/* Clickable Experience Item */
-.experience-item-clickable {
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  .exp-timeline-container {
     position: relative;
+    padding-left: 24px;
+  }
+
+  /* Vertical progress line on left margin */
+  .exp-timeline-line {
+    left: 0 !important;
+    width: 1px !important;
+  }
+
+  .exp-timeline-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    margin-bottom: 36px !important;
+    padding-left: 12px !important;
+    position: relative !important;
+  }
+
+  .exp-number {
+    grid-column: auto !important;
+    text-align: left !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    color: var(--accent) !important;
+    margin-top: 0 !important;
+    font-family: 'Space Mono', monospace, sans-serif !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  .exp-details {
+    grid-column: auto !important;
+    width: 100% !important;
+  }
+
+  .exp-date {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
+    color: #8E8E93 !important;
+    margin-bottom: 6px !important;
+  }
+
+  .exp-role {
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    line-height: 1.25 !important;
+    color: #1A1C1F !important;
+    margin-bottom: 6px !important;
+  }
+
+  .exp-company {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: #48484A !important;
+    letter-spacing: 0.06em !important;
+    margin-bottom: 14px !important;
+  }
+
+  .exp-description {
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+    color: #636366 !important;
+    margin-bottom: 16px !important;
+  }
+
+  .exp-right-footer {
+    margin-top: 24px !important;
+    padding-left: 0 !important;
+    width: 100% !important;
+  }
+
+  .exp-right-footer a,
+  .exp-right-footer button {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
 }
-
-.experience-item-clickable:hover {
-    background-color: rgba(0,0,0,0.02);
-    padding-left: 1rem;
-    padding-right: 1rem;
-    margin-left: -1rem;
-    margin-right: -1rem;
-    border-radius: 8px;
-}
-
-.experience-item-clickable .experience-title {
-    transition: color 0.3s ease;
-}
-
-.experience-item-clickable:hover .experience-title {
-    color: #0F0F0F;
-}
-
-.experience-right {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.experience-arrow {
-    opacity: 0;
-    transform: translateX(-10px);
-    transition: all 0.3s ease;
-}
-
-.experience-item-clickable:hover .experience-arrow {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-@media (max-width: 768px) {
-    .experience-section {
-        padding: 4rem 0 0;
-    }
-
-    /* Break out of the About page's 1.5rem container padding on mobile */
-    .experience-section.embedded {
-        padding-left: 0;
-        padding-right: 0;
-        margin-left: -1.5rem;
-        margin-right: -1.5rem;
-        width: auto; /* Required when using negative margins to prevent overflow */
-    }
-
-    .experience-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-
-    .experience-left-group {
-        width: 100%;
-    }
-
-    .experience-right {
-        width: 100%;
-        justify-content: space-between;
-        margin-top: 0;
-        padding-left: calc(112px + 1.5rem);
-        /* Indent period to align with text */
-    }
-}
-
-@media (max-width: 480px) {
-    .experience-section {
-        padding: 3rem 0 0;
-    }
-
-    .experience-right {
-        padding-left: 0;
-        /* Align left on small mobile */
-        margin-top: 0.5rem;
-    }
-
-    .experience-title {
-        font-size: 1.25rem;
-    }
-}
-
-@media (max-width: 1024px) {
-    .experience-section .section-title {
-        font-size: clamp(1.35rem, 2.5vw, 1.75rem);
-    }
-}
-
-@media (max-width: 768px) {
-    .experience-section .section-title {
-        font-size: clamp(1.2rem, 5vw, 1.5rem);
-        margin-bottom: 1.25rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .experience-section .section-title {
-        font-size: clamp(1.1rem, 5vw, 1.35rem);
-        margin-bottom: 12px;
-    }
-}
-

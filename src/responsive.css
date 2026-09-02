@@ -310,7 +310,7 @@ img {
    ============================================================ */
 @media (max-width: 768px) {
   .experience-section {
-    padding: 3rem 1.5rem;
+    padding: 2.5rem 1.5rem;
     margin: 0;
   }
 
@@ -343,7 +343,7 @@ img {
 
 @media (max-width: 480px) {
   .experience-section {
-    padding: 2.5rem 1rem;
+    padding: 2rem 1rem;
   }
 
   .experience-left-group {
@@ -1158,3 +1158,126 @@ img {
     display: none !important;
   }
 }
+
+/* ============================================================
+   GLOBAL MINIMUM SIDE MARGIN NORMALIZATION (40PX)
+   ============================================================ */
+:root {
+  --site-side-padding: 40px;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --site-side-padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --site-side-padding: 16px;
+  }
+}
+
+/* 1. Global section/container padding overrides */
+.navbar,
+.navbar.scrolled,
+.hero-content-overlay,
+.about-content-overlay,
+.mobile-hero,
+.mobile-about,
+.mobile-image-card,
+.scp-new-inner,
+.work-container,
+.work-container-narrow,
+.ms-container,
+.about-section,
+.works-section,
+.impact-section,
+.testimonials-section,
+.experience-section,
+.process-section,
+.skills-section,
+.insights-section,
+.cf-section,
+.sumip-wrapper,
+.footer,
+.about-hero,
+.contact-section,
+.experience-hero,
+.experience-content-section,
+.cs2-hero,
+.cs2-breadcrumb,
+.cs2-container,
+.cs2-problem-band,
+.cs2-impact-band,
+.cs2-cta,
+.awards-section-standalone,
+.cta-container,
+.dino-game-page,
+.cfu-hero,
+.cfu-main-content,
+.cfu-cta,
+.cfu-footer-outro,
+.gw-hero,
+.gw-main-content,
+.gw-cta,
+.gw-breadcrumb,
+.mobile-nav-overlay,
+.hero-section-standalone,
+.aboutme-section {
+  padding-left: var(--site-side-padding) !important;
+  padding-right: var(--site-side-padding) !important;
+}
+
+/* 2. Prevent double-padding on nested elements */
+.works-section .work-container,
+.about-section .about-page-container,
+.testimonials-section .testimonials-container,
+.experience-section .experience-container,
+.experience-section .exp-container,
+.process-section .process-container,
+.skills-section .skills-container,
+.insights-section .insights-container,
+.footer .footer-container,
+.experience-hero .experience-container,
+.experience-content-section .experience-container,
+.cs2-stat-band .cs2-stat-inner,
+.cs2-problem-band .cs2-container,
+.cs2-impact-band .cs2-container,
+.cs2-hero .cs2-container,
+.cs2-cta .cs2-container,
+.cs2-stat-band .cs2-container,
+.cs2-section .cs2-container,
+.cfu-hero .cfu-hero-visual,
+.gw-hero .gw-hero-visual {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* 3. Stretch all main page containers to fill the screen width */
+.navbar-container,
+.hero-content-inner,
+.about-content-inner,
+.scp-new-inner,
+.work-container,
+.ms-container,
+.about-page-container,
+.experience-container,
+.exp-container,
+.cs2-container,
+.footer-container,
+.contact-container,
+.cf-container,
+.cfu-hero,
+.cfu-main-content,
+.cfu-cta,
+.cfu-footer-outro,
+.gw-hero,
+.gw-main-content,
+.gw-cta,
+.gw-breadcrumb,
+.hero-section-inner,
+.aboutme-inner {
+  max-width: 100% !important;
+}
+

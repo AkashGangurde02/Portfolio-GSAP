@@ -1,166 +1,175 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSEO } from '../hooks/useSEO'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import './Work.css'
-import contactFormImage from '../images/case-studies/case-study-1/contact-redesign.jpg'
-import hempHopImage from '../images/case-studies/case-study-2/hemp-hop-cover.png'
-import grubwalaImage from '../images/case-studies/case-study-3/grubwala-cover.jpg'
-import spotifyImage from '../images/case-studies/case-study-4/spotify-hero.png'
 import Footer from '../components/Footer'
+import './Work.css'
+
+import contactFormImage from '../images/case-studies/case-study-1/contact-redesign.jpg'
+import grubwalaCardImage from '../images/case-studies/case-study-3/grubwala-work-card-cover.jpg'
+import spotifyImage from '../images/case-studies/case-study-4/spotify-laptop-cover.jpg'
+import hempHopImage from '../images/case-studies/case-study-2/hemp-hop-cover.png'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const PROJECTS = [
+  {
+    id: 'grubwala',
+    title: 'Grubwala food ordering',
+    description: 'Redesigned the ordering journey to make decisions feel clearer, build trust, and remove checkout friction.',
+    image: grubwalaCardImage,
+    link: '/work/grubwala',
+    tags: ['PRODUCT DESIGN', 'UX RESEARCH', 'MOBILE APP'],
+    category: 'Product Design'
+  },
+  {
+    id: 'spotify',
+    title: 'Spotify Desktop Mini Player redesign',
+    description: 'A focused lyrics experience designed to reduce context switching and elevate continuous music playback.',
+    image: spotifyImage,
+    link: '/case-study/spotify',
+    tags: ['UX RESEARCH', 'INTERACTION DESIGN', 'DESKTOP APP'],
+    category: 'Interaction Design'
+  },
+  {
+    id: 'somvanshi',
+    title: 'Somvanshi lead capture workflow',
+    description: 'Simplified a complex multi-step contact form flow to reduce drop-off and boost lead completion rates.',
+    image: contactFormImage,
+    link: '/case-study',
+    tags: ['UX RESEARCH', 'UI DESIGN', 'WEB APP'],
+    category: 'UX Research'
+  },
+  {
+    id: 'hemp-hop',
+    title: 'HempHop e-commerce experience',
+    description: 'A modern e-commerce web platform crafted with intuitive product discovery and seamless checkout.',
+    image: hempHopImage,
+    link: '/case-study/hemp-hop',
+    tags: ['UI DESIGN', 'WEB DESIGN', 'E-COMMERCE'],
+    category: 'UI Design'
+  }
+]
+
+const CATEGORIES = ['All', 'UI/UX Design', 'Interaction Design', 'Product Design']
+
 const Work = () => {
-    useSEO({
-      title: 'Work',
-      description: 'Browse UX case studies by Akash Gangurde — covering food-tech, music UX, wellness e-commerce, and B2B SaaS. Mobile-first, user-centered design work.',
-      canonical: '/work',
-      ogImage: '/og/og-work.png',
-    })
-    const heroRef    = useRef(null)
-    const cardsRef   = useRef(null)
-    const ctaRef     = useRef(null)
+  useSEO({
+    title: 'Projects',
+    description: 'Browse selected UX case studies by Akash Gangurde — Spotify Mini Player redesign, Grubwala food ordering experience, Somvanshi lead capture, and HempHop e-commerce.',
+    canonical: '/work',
+    ogImage: '/og/og-work.png',
+  })
 
-    // All projects — featured first, rest follow
-    const projects = [
-        {
-            id: 1,
-            title: 'Reducing friction in lead capture workflows (B2B website)',
-            description: 'Users were abandoning a critical contact form mid-way due to unclear field labels, confusing error states, and a fragmented layout.',
-            image: contactFormImage,
-            link: '/case-study',
-            ctaText: 'View Case Study'
-        },
-        {
-            id: 4,
-            title: 'Spotify Desktop Mini Player Redesign',
-            description: 'Designed a lyrics-in-mini-player feature for Spotify Desktop using progressive disclosure and hover-based interaction — bringing live lyrics to users without disrupting their workflow.',
-            image: spotifyImage,
-            link: '/case-study/spotify',
-            ctaText: 'View Case Study'
-        },
-        {
-            id: 3,
-            title: 'Rebuilding a Trust-First Food Ordering Experience',
-            description: 'Led the end-to-end UX redesign of a food delivery platform, improving usability, strengthening user trust, and creating a more emotionally engaging ordering experience.',
-            image: grubwalaImage,
-            link: '/case-study/grubwala',
-            ctaText: 'View Case Study'
+  const [activeCategory, setActiveCategory] = useState('All')
+  const heroRef = useRef(null)
+  const gridRef = useRef(null)
+
+  const filteredProjects = activeCategory === 'All' 
+    ? PROJECTS 
+    : PROJECTS.filter(p => {
+        if (activeCategory === 'UI/UX Design') {
+          return p.category === 'UI/UX Design' || p.category === 'UX Research' || p.category === 'UI Design' || p.tags.includes('UI DESIGN') || p.tags.includes('UX RESEARCH')
         }
-    ]
+        if (activeCategory === 'Interaction Design') {
+          return p.category === 'Interaction Design' || p.tags.includes('INTERACTION DESIGN')
+        }
+        if (activeCategory === 'Product Design') {
+          return p.category === 'Product Design' || p.tags.includes('PRODUCT DESIGN')
+        }
+        return p.category === activeCategory
+      })
 
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            // Hero
-            gsap.from(heroRef.current.children, {
-                y: 40,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.15,
-                ease: 'power3.out',
-                delay: 0.2,
-                clearProps: 'all'
-            })
-
-            // Cards
-            if (cardsRef.current && cardsRef.current.children.length > 0) {
-                gsap.set(cardsRef.current.children, { opacity: 0, y: 40 })
-                gsap.to(cardsRef.current.children, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.65,
-                    stagger: 0.12,
-                    ease: 'power3.out',
-                    delay: 0.4,
-                    clearProps: 'all'
-                })
-            }
-
-            // CTA
-            gsap.from(ctaRef.current.children, {
-                scrollTrigger: {
-                    trigger: ctaRef.current,
-                    start: 'top 85%',
-                    toggleActions: 'play none none reverse'
-                },
-                y: 40,
-                opacity: 0,
-                duration: 0.8,
-                ease: 'power3.out'
-            })
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (heroRef.current) {
+        gsap.from(heroRef.current.children, {
+          y: 24,
+          opacity: 0,
+          duration: 0.75,
+          stagger: 0.08,
+          ease: 'power3.out',
+          clearProps: 'all'
         })
+      }
 
-        const timer = setTimeout(() => ScrollTrigger.refresh(), 300)
-        return () => {
-            clearTimeout(timer)
-            ctx.revert()
-        }
-    }, [])
+      if (gridRef.current) {
+        gsap.from(gridRef.current.children, {
+          scrollTrigger: {
+            trigger: gridRef.current,
+            start: 'top 88%',
+            toggleActions: 'play none none none',
+            once: true
+          },
+          y: 32,
+          opacity: 0,
+          duration: 0.7,
+          stagger: 0.12,
+          ease: 'power3.out',
+          clearProps: 'all'
+        })
+      }
+    })
 
-    return (
-        <div className="work-page">
+    const timer = setTimeout(() => ScrollTrigger.refresh(), 150)
+    return () => {
+      clearTimeout(timer)
+      ctx.revert()
+    }
+  }, [activeCategory])
 
-            {/* ── Hero ── */}
-            <section className="work-hero-modern">
-                <div className="work-container" ref={heroRef}>
-                    <h1 className="work-headline-modern">Featured UX Case Studies</h1>
-                    <p className="work-subheadline-modern">
-                        A selected showcase of projects exploring user-centered design, problem-solving, and seamless digital experiences.
-                    </p>
-                </div>
-            </section>
-
-            {/* ── Cards Grid ── */}
-            <section className="work-cards-section">
-                <div className="work-container">
-                    <div className="wc-grid" ref={cardsRef}>
-                        {projects.map((project) => (
-                            <Link key={project.id} to={project.link} className="wc-card">
-                                {/* Image */}
-                                <div className="wc-image-wrap">
-                                    <img src={project.image} alt={project.title} className="wc-image" />
-                                </div>
-
-                                {/* Body */}
-                                <div className="wc-body">
-                                    <h2 className="wc-title">{project.title}</h2>
-                                    <p className="wc-desc">{project.description}</p>
-                                </div>
-
-                                {/* CTA */}
-                                <div className="wc-footer">
-                                    <span className="wc-cta-link">
-                                        {project.ctaText}
-                                        <svg className="wc-cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
-                                    </span>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* ── Bottom CTA ── */}
-            <section className="work-bottom-cta">
-                <div className="cta-container" ref={ctaRef}>
-                    <h2 className="cta-headline">Have a project in mind?</h2>
-                    <p className="cta-subheadline">Let's build something users love, together.</p>
-                    <Link to="/contact" className="cta-button-large">
-                        Let's Talk
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                    </Link>
-                </div>
-            </section>
-
-            <Footer />
+  return (
+    <div className="work-page">
+      <div className="lyniq-container">
+        {/* ── HEADER SECTION ── */}
+        <div className="lyniq-header" ref={heroRef}>
+          <h1 className="lyniq-headline">Projects</h1>
+          <p className="lyniq-header-sub">
+            Every project I deliver is a reflection of my commitment to quality, designed to inspire and drive success.
+          </p>
         </div>
-    )
+
+        {/* ── CATEGORY FILTER BAR ── */}
+        <div className="lyniq-filter-bar">
+          {CATEGORIES.map(cat => (
+            <button
+              key={cat}
+              className={`lyniq-filter-btn ${activeCategory === cat ? 'active' : ''}`}
+              onClick={() => setActiveCategory(cat)}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* ── 2-COLUMN PROJECTS GRID ── */}
+        <section className="lyniq-projects-section">
+          <div className="lyniq-grid" ref={gridRef}>
+            {filteredProjects.map(project => (
+              <Link key={project.id} to={project.link} className="lyniq-card">
+                <div className="lyniq-card-media-wrap">
+                  <img src={project.image} alt={project.title} className="lyniq-card-image" />
+                  <span className="lyniq-card-arrow-badge">↗</span>
+                </div>
+                <div className="lyniq-card-info">
+                  <h3 className="lyniq-card-title">{project.title}</h3>
+                  <p className="lyniq-card-desc">{project.description}</p>
+                  <div className="lyniq-card-tags">
+                    {project.tags.map((tag, idx) => (
+                      <span key={idx} className="lyniq-tag-pill">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <Footer variant="inner" />
+    </div>
+  )
 }
 
 export default Work

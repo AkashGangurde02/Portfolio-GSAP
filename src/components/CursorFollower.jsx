@@ -3,9 +3,6 @@ import gsap from 'gsap'
 import './CursorFollower.css'
 
 const CursorFollower = () => {
-    // Don't render on touch/mobile devices — they have no cursor
-    if (window.matchMedia('(pointer: coarse)').matches) return null
-
     const dotRef = useRef(null)
     const ringRef = useRef(null)
     const dotPos = useRef({ x: 0, y: 0 })
@@ -16,8 +13,13 @@ const CursorFollower = () => {
     // Scale state for the ring
     const ringScaleRef = useRef(1)
     const isTextRef = useRef(false)
+    const rafIdRef = useRef(null)
+
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches
 
     useEffect(() => {
+        if (isTouchDevice) return
+
         const updateCursorPosition = (e) => {
             mousePos.current = { x: e.clientX, y: e.clientY }
 
@@ -80,16 +82,19 @@ const CursorFollower = () => {
                 })
             }
 
-            requestAnimationFrame(animateCursor)
+            rafIdRef.current = requestAnimationFrame(animateCursor)
         }
 
         window.addEventListener('mousemove', updateCursorPosition)
-        animateCursor()
+        rafIdRef.current = requestAnimationFrame(animateCursor)
 
         return () => {
             window.removeEventListener('mousemove', updateCursorPosition)
+            cancelAnimationFrame(rafIdRef.current)
         }
-    }, [])
+    }, [isTouchDevice])
+
+    if (isTouchDevice) return null
 
     return (
         <>

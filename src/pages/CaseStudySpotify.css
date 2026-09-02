@@ -22,36 +22,38 @@
 }
 
 .sp-section-eyebrow {
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
+  font-size: var(--caption);
+  font-weight: 600;
+  letter-spacing: var(--ls-caption);
   text-transform: uppercase;
   color: var(--text-faint);
   margin-bottom: 0.75rem;
 }
 
 .sp-section-headline {
-  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
-  font-weight: 800;
+  font-size: var(--heading-xl);
+  font-weight: 500;
   color: var(--text-primary);
-  letter-spacing: -0.03em;
-  line-height: 1.15;
+  letter-spacing: var(--ls-heading);
+  line-height: var(--lh-heading);
   margin-bottom: 0.9rem;
 }
 
 .sp-section-sub {
-  font-size: 0.95rem;
-  line-height: 1.75;
+  font-size: var(--body-l);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
   color: var(--text-muted);
   max-width: 620px;
   margin-bottom: 2rem;
 }
 
 .sp-sub-heading {
-  font-size: 1.25rem;
+  font-size: var(--title-m);
   color: var(--text-primary);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  letter-spacing: var(--ls-title);
+  line-height: var(--lh-title);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -1374,3 +1376,297 @@
   0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(29,185,84,0.5); }
   50%       { opacity: 0.7; box-shadow: 0 0 0 5px rgba(29,185,84,0); }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   RECRUITER-FIRST 6-SECTION STYLES
+───────────────────────────────────────────────────────────────────────────── */
+.sp-section-num {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #888888;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.toc-num {
+  font-weight: 700;
+  color: var(--text-faint);
+  margin-right: 6px;
+}
+
+/* Problem Statement Card */
+.sp-problem-statement-card {
+  padding: 24px 28px;
+  background: var(--bg-card);
+  border-left: 3px solid #111111;
+  border-radius: 0 12px 12px 0;
+  border-top: 1px solid var(--border-subtle);
+  border-right: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 2rem;
+}
+
+.sp-ps-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #666666;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.sp-ps-text {
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* Approach Cards */
+.sp-approach-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 1.5rem;
+}
+
+.sp-approach-card {
+  padding: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.25s ease;
+}
+
+.sp-approach-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--text-faint);
+}
+
+.sp-approach-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sp-approach-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #666666;
+}
+
+.sp-approach-header h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.sp-approach-desc {
+  font-size: 0.83rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+  margin: 0;
+  flex: 1;
+}
+
+.sp-approach-direction {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.04);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 2px solid #111111;
+  margin-top: auto;
+}
+
+/* Decision Cards (Problem -> Decision -> Why -> Result) */
+.sp-decisions-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 1.5rem;
+}
+
+.sp-decision-card {
+  padding: 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.sp-decision-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--text-primary);
+}
+
+.sp-dc-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 14px;
+}
+
+.sp-dc-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #888888;
+  text-transform: uppercase;
+}
+
+.sp-dc-title {
+  font-size: clamp(1.15rem, 2vw, 1.35rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.sp-dc-body {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.sp-dc-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.sp-dc-row p {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.sp-dc-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  width: max-content;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.sp-dc-problem { color: #DC2626; background: rgba(220, 38, 38, 0.08); }
+.sp-dc-decision { color: #2563EB; background: rgba(37, 99, 235, 0.08); }
+.sp-dc-why      { color: #D97706; background: rgba(217, 119, 6, 0.08); }
+.sp-dc-result   { color: #16A34A; background: rgba(22, 163, 74, 0.08); }
+
+/* Learnings Box */
+.sp-learnings-box {
+  padding: 24px 28px;
+  background: var(--bg-card);
+  border-left: 3px solid #111111;
+  border-radius: 0 12px 12px 0;
+  border-top: 1px solid var(--border-subtle);
+  border-right: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  margin-top: 2rem;
+}
+
+.sp-learnings-box h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.sp-learnings-box p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+  font-style: italic;
+}
+
+/* External Notion CTA */
+.sp-external-cta {
+  margin-top: 4rem;
+  padding: 56px 40px;
+  background: #111111;
+  color: #FFFFFF;
+  border-radius: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.sp-ext-cta-content {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.sp-ext-cta-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #888888;
+  text-transform: uppercase;
+}
+
+.sp-ext-cta-title {
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 500;
+  color: #FFFFFF !important;
+  margin: 0;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.sp-ext-cta-desc {
+  font-size: 15px;
+  line-height: 1.55;
+  color: #CCCCCC;
+  margin: 0;
+}
+
+.sp-ext-cta-btn-wrap {
+  margin-top: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .sp-approach-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sp-dc-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .sp-external-cta {
+    padding: 36px 20px;
+  }
+
+  .sp-decision-card {
+    padding: 20px;
+  }
+}
+

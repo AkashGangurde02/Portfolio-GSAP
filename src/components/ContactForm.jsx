@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import Button from './ui/Button'
 import './ContactForm.css'
 
 const ContactForm = () => {
@@ -85,7 +86,7 @@ const ContactForm = () => {
 
             <div className="form-row">
               <div className="form-group">
-                <label htmlFor="name">Name *</label>
+                <h3 className="form-label">Name *</h3>
                 <input
                   type="text"
                   id="name"
@@ -97,7 +98,7 @@ const ContactForm = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="email">Email *</label>
+                <h3 className="form-label">Email *</h3>
                 <input
                   type="email"
                   id="email"
@@ -110,37 +111,30 @@ const ContactForm = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="subject">Subject *</label>
+              <h3 className="form-label">Subject</h3>
               <input
                 type="text"
                 id="subject"
                 name="subject"
                 placeholder="What's this about?"
-                required
                 disabled={isLoading}
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="message">Message *</label>
+              <h3 className="form-label">Message</h3>
               <textarea
                 id="message"
                 name="message"
                 rows="6"
                 placeholder="Tell me about your project or inquiry..."
-                required
                 disabled={isLoading}
               ></textarea>
             </div>
 
-            <button type="submit" className="submit-btn" disabled={isLoading}>
-              {isLoading ? 'Sending...' : 'Send Message'}
-              {!isLoading && (
-                <svg className="arrow-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              )}
-            </button>
+            <Button variant="primary" size="lg" type="submit" isLoading={isLoading} showArrow arrowType="right">
+              Send Message
+            </Button>
           </form>
         </div>
       </div>

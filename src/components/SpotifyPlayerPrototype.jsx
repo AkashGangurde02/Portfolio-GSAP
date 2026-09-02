@@ -187,7 +187,7 @@ function SpotifyMiniPlayer({ isHovered, lyricsOn, onToggleLyrics, onMouseEnter, 
 }
 
 // ── MAIN EXPORT ────────────────────────────────────────────────────────────────
-export default function SpotifyPlayerPrototype() {
+export default function SpotifyPlayerPrototype({ showGuide = true }) {
   const [isHovered, setIsHovered] = useState(false)
   const [lyricsOn, setLyricsOn]   = useState(false)
   const hoverTimerRef = useRef(null)
@@ -218,10 +218,10 @@ export default function SpotifyPlayerPrototype() {
   ]
 
   return (
-    <div className="spp-wrapper">
+    <div className={`spp-wrapper ${!showGuide ? 'spp-wrapper--no-guide' : ''}`}>
 
       {/* ── Player ── */}
-      <div className="spp-stage">
+      <div className={`spp-stage ${!showGuide ? 'spp-stage--no-guide' : ''}`}>
         <SpotifyMiniPlayer
           isHovered={isHovered}
           lyricsOn={lyricsOn}
@@ -231,23 +231,36 @@ export default function SpotifyPlayerPrototype() {
         />
       </div>
 
-      {/* ── State guide pills ── */}
-      <div className="spp-state-guide">
-        {allStates.map((s) => (
-          <div key={s.num} className={`spp-guide-pill ${s.active ? 'spp-guide-pill--active' : ''}`}>
-            <span className="spp-guide-num">{s.num}</span>
-            <span className="spp-guide-label">{s.sub}</span>
-            {s.active && <span className="spp-guide-dot" />}
-          </div>
-        ))}
+      {/* ── Interactive Prototype label ── */}
+      <div className="spp-proto-label">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" />
+          <polyline points="12 8 12 12 14.5 14.5" />
+        </svg>
+        Interactive Prototype
       </div>
 
-      {/* ── Hint ── */}
-      <p className="spp-hint">
-        <span>Hover the player to reveal controls</span>
-        <span className="spp-hint-sep">·</span>
-        <span>Click <IconMic /> to toggle lyrics</span>
-      </p>
+      {showGuide && (
+        <>
+          {/* ── State guide pills ── */}
+          <div className="spp-state-guide">
+            {allStates.map((s) => (
+              <div key={s.num} className={`spp-guide-pill ${s.active ? 'spp-guide-pill--active' : ''}`}>
+                <span className="spp-guide-num">{s.num}</span>
+                <span className="spp-guide-label">{s.sub}</span>
+                {s.active && <span className="spp-guide-dot" />}
+              </div>
+            ))}
+          </div>
+
+          {/* ── Hint ── */}
+          <p className="spp-hint">
+            <span>Hover the player to reveal controls</span>
+            <span className="spp-hint-sep">·</span>
+            <span>Click <IconMic /> to toggle lyrics</span>
+          </p>
+        </>
+      )}
     </div>
   )
 }

@@ -5,7 +5,7 @@
 
 .works-section {
   padding: 6rem 0;
-  background-color: #ffffff;
+  background-color: var(--bg);
   border-top: 1px solid rgba(0,0,0,0.06);
   border-bottom: 1px solid rgba(0,0,0,0.06);
 }
@@ -19,19 +19,37 @@
 /* ── Header row ── */
 .wsc-header {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
+  gap: 2rem;
   margin-bottom: 2.5rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid rgba(0,0,0,0.07);
 }
 
+.wsc-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 680px;
+}
+
 .wsc-section-title {
-  font-size: clamp(1.5rem, 3vw, 2.2rem);
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.03em;
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: var(--heading-l);
+  font-weight: 500;
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
   color: #000000;
+  margin: 0;
+}
+
+.wsc-section-desc {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: var(--body-l);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
+  color: #666666;
   margin: 0;
 }
 
@@ -39,13 +57,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 20px;
+  padding: 10px 22px;
   border-radius: 50px;
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: var(--body-m);
+  font-weight: 600;
+  letter-spacing: var(--ls-body);
   text-decoration: none;
   cursor: pointer;
-  background-color: #ffffff;
+  background-color: var(--bg);
   color: #0D0D0D !important;
   border: 1.5px solid rgba(0, 0, 0, 0.2);
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -128,11 +148,12 @@
 }
 
 .wsc-title {
-  font-size: 1.25rem; /* Larger, bold title matching image */
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: var(--title-m);
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--ls-title);
   color: #0F0F0F;
-  line-height: 1.35;
+  line-height: var(--lh-title);
   margin: 0 0 4px 0;
 }
 
@@ -140,7 +161,8 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 0.8rem;
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: var(--body-s);
   color: #666666;
   margin-bottom: 4px;
 }
@@ -152,8 +174,10 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.82rem;
-  font-weight: 500;
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: var(--body-s);
+  font-weight: 600;
+  letter-spacing: var(--ls-body);
   color: #666666;
   background-color: transparent;
   text-decoration: underline;
@@ -194,7 +218,7 @@
   height: 36px;
   border-radius: 50%;
   border: 1.5px solid rgba(0,0,0,0.15);
-  background: #ffffff;
+  background: var(--bg);
   color: #333333;
   cursor: pointer;
   transition: all 0.2s ease;

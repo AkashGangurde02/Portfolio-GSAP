@@ -1,0 +1,362 @@
+/* ============================================================
+   SELECTED CASE STUDIES SECTION
+   Clean Editorial Single-Layer Layout matching Experience Section
+   ============================================================ */
+
+.motion-section {
+  position: relative;
+  width: 100%;
+  background-color: var(--bg);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 64px 0;
+  overflow: hidden;
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+}
+
+.ms-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+  position: relative;
+}
+
+/* ── Header ── */
+.ms-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3.5rem;
+}
+
+.ms-header-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.ms-headline {
+  margin: 0;
+}
+
+.ms-headline-line {
+  display: block;
+  overflow: hidden;
+  line-height: 1.05;
+}
+
+.ms-headline-line-content {
+  display: block;
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: var(--heading-l);
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: var(--ls-heading);
+}
+
+.ms-header-right {
+  display: flex;
+  align-items: flex-end;
+}
+
+.ms-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  border-bottom: 1.5px solid var(--text-primary);
+  padding-bottom: 4px;
+  text-transform: uppercase;
+  transition: opacity 0.3s ease;
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+}
+
+.ms-view-all:hover {
+  opacity: 0.7;
+}
+
+.ms-view-all-arrow {
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.ms-view-all:hover .ms-view-all-arrow {
+  transform: translate(2px, -2px);
+}
+
+.ms-card-num-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ms-featured-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ms-featured-dot::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--ink);
+}
+
+/* ── Grid & Cards ── */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  position: relative;
+}
+
+.ms-card {
+  position: relative;
+  z-index: 1;
+  text-decoration: none;
+  background: var(--bg);
+  border: 1px solid var(--border-light-18);
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 290px;
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  cursor: pointer;
+}
+
+.ms-card:hover {
+  z-index: 5;
+  background-color: var(--ink);
+  border-color: var(--ink);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+  transform: scale(1.05) rotate(-2deg);
+}
+
+/* Ensure alternate cards rotate slightly differently on hover for dynamic depth */
+.ms-grid > a:nth-child(even):hover {
+  transform: scale(1.05) rotate(2deg);
+}
+
+/* Card Elements */
+.ms-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.ms-card-num {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  transition: color 0.4s ease;
+}
+
+.ms-card:hover .ms-card-num {
+  color: var(--bg);
+}
+
+.ms-card-arrow {
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.ms-card:hover .ms-card-arrow {
+  transform: translateX(4px);
+}
+
+.ms-card-middle {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ms-card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.25;
+  transition: color 0.4s ease;
+}
+
+.ms-card:hover .ms-card-title {
+  color: var(--bg);
+}
+
+.ms-card-category {
+  font-family: 'Space Mono', 'Inter', monospace, sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 4px;
+  transition: color 0.4s ease;
+}
+
+.ms-card:hover .ms-card-category {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ── Responsive Adaptation ── */
+@media (max-width: 1200px) {
+  .ms-container {
+    padding: 0 4rem;
+  }
+  .ms-header {
+    gap: 4rem;
+  }
+  .ms-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .motion-section {
+    padding: 5rem 0;
+  }
+  .ms-container {
+    padding: 0 3rem;
+  }
+  .ms-header {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  .ms-header-right {
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+  .ms-view-all {
+    align-self: flex-start;
+    margin-bottom: 0;
+  }
+  .ms-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .motion-section {
+    padding: 48px 0 56px;
+    background-color: #FBF8F2;
+  }
+
+  .ms-container {
+    padding: 0 20px;
+  }
+
+  .ms-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .ms-headline-line-content {
+    font-size: clamp(32px, 8.5vw, 42px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: #1A1C1F;
+  }
+
+  .ms-subtext {
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: #3A3F45;
+    margin-top: 10px;
+    max-width: 100%;
+  }
+
+  .ms-header-right {
+    display: none;
+  }
+
+  .ms-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .ms-card {
+    border-radius: 8px;
+    padding: 24px 20px;
+    min-height: auto;
+    background-color: var(--surface);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+
+
+  .ms-card-top {
+    margin-bottom: 18px;
+  }
+
+  .ms-card-num {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .ms-card-title {
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+
+  .ms-card-category {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+}
+
+@media (max-width: 640px) {
+  .motion-section {
+    padding: 4rem 0;
+  }
+  .ms-container {
+    padding: 0 1.5rem;
+  }
+  .ms-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .ms-card {
+    padding: 2.5rem 2rem;
+    min-height: auto;
+  }
+}
+
+/* ── Respect reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .ms-headline-line-content,
+  .ms-subtitle,
+  .ms-card,
+  .ms-card-arrow,
+  .ms-card-cta-arrow,
+  .ms-watermark {
+    animation: none !important;
+    transition: opacity 0.3s ease !important;
+    transform: none !important;
+  }
+}

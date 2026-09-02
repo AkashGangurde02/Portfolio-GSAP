@@ -1,161 +1,259 @@
-import React, { useRef, useLayoutEffect } from 'react'
-import { gsap } from 'gsap'
+import { useEffect, useRef, useState } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Button from './ui/Button'
+import ReviewModal from './ReviewModal'
+import Toast from './ui/Toast'
+import ameyaAvatar from '../images/feedback/ameya.jpg'
+import shraddhaAvatar from '../images/feedback/shraddha.jpg'
+import anonymousAvatar from '../images/feedback/anonymous.jpg'
 import './CompanyFeedback.css'
 
-// Desktop  → GSAP wheel-driven horizontal carousel (no ScrollTrigger)
-// Mobile   → Pure native overflow-x scroll on .carousel-window; GSAP never runs
+gsap.registerPlugin(ScrollTrigger)
 
-const CompanyFeedback = () => {
-    const trackRef  = useRef(null)   // .carousel-track  (GSAP target on desktop)
-    const windowRef = useRef(null)   // .carousel-window (native scroll on mobile)
+const REVIEWERS = [
+  {
+    name: 'Ameya Somvanshi',
+    company: 'CEO & Founder, Somvanshi Technologies',
+    quote: 'Great initiatives! Your efforts are clearly visible.',
+    avatar: ameyaAvatar,
+  },
+  {
+    name: 'Shraddha Nagrani',
+    company: 'HR, Somvanshi Technologies',
+    quote: 'Akash demonstrated strong creativity, design thinking, and a user-centered approach, while being proactive and receptive to feedback. His dedication and problem-solving mindset make him a valuable UI/UX and digital product designer.',
+    avatar: shraddhaAvatar,
+  },
+  {
+    name: 'Company Leadership',
+    company: 'Grubwala',
+    quote: "Nice work Akash, UX-wise it’s really good, and I especially liked the idea you implemented for better clarity.",
+    avatar: anonymousAvatar,
+  },
+]
 
-    const testimonials = [
-        {
-            id: 1,
-            date: 'September 2025',
-            text: '\u201cAkash played a key role in developing HempHop\u2019s user interface and contributed meaningful improvements to Grubwala\u2019s UI. His strong grasp of UI/UX fundamentals, creative problem-solving, and ability to translate requirements into practical design solutions positively influenced overall usability and project outcomes.\u201d',
-            author: 'Somvanshi Technologies Pvt. Ltd.',
-            rating: '5/5'
-        },
-        {
-            id: 2,
-            date: 'October 2025',
-            text: '\u201cAkash delivered outstanding performance across HempHop UI modules and the digital reconstruction of the Somvanshi Technologies homepage. He combined strong technical understanding with creativity and attention to detail, effectively implementing feedback to produce high-quality results. His in-depth research on IT leaders, hemp industries, and consumer behavior added strategic value to the team\u2019s approach, demonstrating initiative, cognitive strength, and professionalism.\u201d',
-            author: 'Somvanshi Technologies Pvt. Ltd.',
-            rating: '5/5'
-        },
-        {
-            id: 3,
-            date: 'November 2025',
-            text: '\u201cAkash significantly contributed to major Routematic wireframe modules and led user experience development for key Somvanshi Technologies website pages, including Home, Solutions, and Healthcare. His strong ownership, stakeholder communication, and attention to detail reflect maturity and the ability to handle complex tasks with minimal supervision.\u201d',
-            author: 'Somvanshi Technologies Pvt. Ltd.',
-            rating: '4.5/5'
-        },
-        {
-            id: 4,
-            date: 'December 2025',
-            text: '\u201cAkash consistently delivered high-quality UI/UX work across the Somvanshi Technologies website and Grubwala applications. By engineering and implementing cohesive UI components across multiple modules, he strengthened visual consistency and usability while demonstrating reliability, initiative, and growing leadership capabilities.\u201d',
-            author: 'Somvanshi Technologies Pvt. Ltd.',
-            rating: '5/5'
-        },
-        {
-            id: 5,
-            date: 'January 2026',
-            text: '\u201cAkash maintained excellent professionalism and delivered refined, user-centered interfaces for both the Somvanshi Technologies website and Grubwala applications. His ability to ensure design consistency, responsiveness, and usability across projects\u2014combined with his receptiveness to feedback\u2014positions him strongly for higher-impact design responsibilities.\u201d',
-            author: 'Somvanshi Technologies Pvt. Ltd.',
-            rating: '5/5'
-        }
-    ]
+export default function CompanyFeedback() {
+  const sectionRef = useRef(null)
+  const gridRef = useRef(null)
 
-    useLayoutEffect(() => {
-        const mq = window.matchMedia('(max-width: 768px)')
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false)
+  const [toast, setToast] = useState({ message: '', type: 'success' })
 
-        let wheelCleanup = null
+  const handleReviewSuccess = (msg) => {
+    setToast({ message: msg, type: 'success' })
+  }
 
-        // ── DESKTOP SETUP ─────────────────────────────────────────────────────
-        const setup = () => {
-            const win = windowRef.current
-            if (!win) return
+  /* ── GSAP: Scroll-triggered entrance ── */
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const cards = gsap.utils.toArray('.cf-card')
+      cards.forEach((card, i) => {
+        gsap.from(card, {
+          y: 40,
+          opacity: 0,
+          scale: 0.97,
+          duration: 0.7,
+          delay: i * 0.06,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: gridRef.current,
+            start: 'top 85%',
+          },
+        })
+      })
+    }, sectionRef)
+    return () => ctx.revert()
+  }, [])
 
-            const handleWheel = (e) => {
-                if (window.innerWidth <= 768) return
+  /* ── GSAP: Mouse parallax on desktop ── */
+  useEffect(() => {
+    const section = sectionRef.current
+    const grid = gridRef.current
+    if (!section || !grid || window.innerWidth < 900) return
 
-                const rect       = win.getBoundingClientRect()
-                const centreDiff = Math.abs((rect.top + rect.height / 2) - window.innerHeight / 2)
-                
-                // Keep default scrolling if page section is not roughly centered in viewport
-                if (centreDiff > window.innerHeight * 0.25) return
+    const cards = grid.querySelectorAll('.cf-card')
+    const xTo = Array.from(cards).map(c => gsap.quickTo(c, 'x', { duration: 0.8, ease: 'power2.out' }))
+    const yTo = Array.from(cards).map(c => gsap.quickTo(c, 'y', { duration: 0.8, ease: 'power2.out' }))
 
-                const scrollingUp   = e.deltaY < 0
-                const scrollingDown = e.deltaY > 0
-                const maxScroll     = win.scrollWidth - win.clientWidth
+    const onMove = (e) => {
+      const rect = grid.getBoundingClientRect()
+      const cx = (e.clientX - rect.left) / rect.width - 0.5
+      const cy = (e.clientY - rect.top) / rect.height - 0.5
+      cards.forEach((_, i) => {
+        const depth = ((i % 3) + 1) * 1.5
+        xTo[i](cx * depth)
+        yTo[i](cy * depth)
+      })
+    }
 
-                if (win.scrollLeft <= 0 && scrollingUp)   return
-                if (win.scrollLeft >= maxScroll && scrollingDown) return
+    const onLeave = () => {
+      cards.forEach((_, i) => { xTo[i](0); yTo[i](0) })
+    }
 
-                // Intercept scroll wheel
-                e.preventDefault()
-                e.stopPropagation()
+    section.addEventListener('mousemove', onMove)
+    section.addEventListener('mouseleave', onLeave)
+    return () => {
+      section.removeEventListener('mousemove', onMove)
+      section.removeEventListener('mouseleave', onLeave)
+    }
+  }, [])
 
-                let raw = e.deltaY * 1.5
-                if (e.deltaMode === 1) raw *= 30
-                if (e.deltaMode === 2) raw *= 300
+  const scrollLeft = () => {
+    if (gridRef.current) {
+      gridRef.current.scrollBy({ left: -300, behavior: 'smooth' })
+    }
+  }
 
-                // Animate native scrollLeft smoothly using GSAP
-                gsap.to(win, {
-                    scrollLeft: win.scrollLeft + raw,
-                    duration: 0.45,
-                    ease: 'power2.out',
-                    overwrite: 'auto'
-                })
-            }
+  const scrollRight = () => {
+    if (gridRef.current) {
+      gridRef.current.scrollBy({ left: 300, behavior: 'smooth' })
+    }
+  }
 
-            win.addEventListener('wheel', handleWheel, { passive: false })
-            wheelCleanup = () => win.removeEventListener('wheel', handleWheel)
-        }
+  const [ceo, pm, dh] = REVIEWERS
 
-        // ── TEARDOWN ──────────────────────────────────────────────────────────
-        const teardown = () => {
-            if (wheelCleanup) { wheelCleanup(); wheelCleanup = null }
-            if (windowRef.current) {
-                gsap.killTweensOf(windowRef.current)
-            }
-        }
+  return (
+    <section className="cf-section" id="feedback" ref={sectionRef}>
 
-        // ── BREAKPOINT LISTENER ───────────────────────────────────────────────
-        const handleBreakpoint = (e) => {
-            teardown()
-            if (!e.matches) setup()
-        }
+      {/* ── Header ── */}
+      <div className="cf-header">
+        <h2 className="cf-header-title">
+          Kind Words,<br />
+          <span className="cf-header-title-light">Real Impact.</span>
+        </h2>
+      </div>
 
-        // Initial boot
-        if (!mq.matches) setup()
+      {/* ── Grid (4 Columns matching Figma wireframe) ── */}
+      <div className="cf-grid" ref={gridRef}>
 
-        mq.addEventListener('change', handleBreakpoint)
-        return () => {
-            mq.removeEventListener('change', handleBreakpoint)
-            teardown()
-        }
-    }, [])
-
-    return (
-        <section className="cf-section" id="feedback">
-            <div className="cf-container">
-
-                {/* ── HEADER ── */}
-                <div className="cf-header">
-                    <h2 className="cf-title">
-                        Internship Feedback
-                    </h2>
-                </div>
-
-                {/* ── DARK CAROUSEL BLOCK ── */}
-                <div className="cf-carousel-block">
-                    {/* scrollable window */}
-                    <div className="cf-window" ref={windowRef}>
-                        <div className="cf-track" ref={trackRef}>
-                            {testimonials.map((item) => (
-                                <div key={item.id} className="cf-card">
-                                    <div className="cf-card-header">
-                                        <h3>{item.date}</h3>
-                                    </div>
-                                    <div className="cf-card-body">
-                                        <p>{item.text}</p>
-                                    </div>
-                                    <div className="cf-card-footer">
-                                        <span className="cf-star">★</span>
-                                        <span className="cf-rating">{item.rating}</span>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                    {/* scrollbar lives here, below the window */}
-                </div>
-
+        {/* Column 1: Stats Card */}
+        <div className="cf-card cf-card--stats">
+          <div className="cf-stats-top">
+            <div className="cf-stats-score">
+              <span className="cf-stats-num">5</span>
+              <span className="cf-stats-denom">/5</span>
             </div>
-        </section>
-    )
-}
+          </div>
 
-export default CompanyFeedback
+          <div className="cf-card-rule" />
+
+          <div className="cf-stats-bottom">
+            <div className="cf-stats-trust">
+              <div className="cf-avatar-stack">
+                {REVIEWERS.map((r, i) => (
+                  <img key={i} src={r.avatar} alt={r.name} className="cf-stack-img" />
+                ))}
+              </div>
+              <div className="cf-trust-meta">
+                <span className="cf-trust-stars">★★★★★</span>
+                <span className="cf-trust-text">Rated by Senior & Mentors</span>
+              </div>
+            </div>
+
+            <Button 
+              variant="primary" 
+              size="md" 
+              onClick={() => setIsReviewModalOpen(true)} 
+              className="cf-stats-cta-btn"
+            >
+              Leave a review
+            </Button>
+          </div>
+        </div>
+
+        {/* Column 2: Person Top, Quote Bottom */}
+        <div className="cf-col">
+          <div className="cf-card cf-card--person">
+            <div className="cf-person-head">
+              <img src={ceo.avatar} alt={ceo.name} className="cf-person-avatar" />
+              <div className="cf-person-info">
+                <span className="cf-person-name">{ceo.name}</span>
+                <span className="cf-person-co">{ceo.company}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="cf-card cf-card--quote cf-card--flex-fill cf-card--quote-btm">
+            <p className="cf-quote-text">{ceo.quote}</p>
+          </div>
+        </div>
+
+        {/* Column 3: Quote Top, Person Bottom */}
+        <div className="cf-col">
+          <div className="cf-card cf-card--quote cf-card--flex-fill">
+            <p className="cf-quote-text">{pm.quote}</p>
+          </div>
+
+          <div className="cf-card cf-card--person">
+            <div className="cf-person-head">
+              <img src={pm.avatar} alt={pm.name} className="cf-person-avatar" />
+              <div className="cf-person-info">
+                <span className="cf-person-name">{pm.name}</span>
+                <span className="cf-person-co">{pm.company}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Column 4: Person Top, Quote Bottom */}
+        <div className="cf-col">
+          <div className="cf-card cf-card--person">
+            <div className="cf-person-head">
+              <img src={dh.avatar} alt={dh.name} className="cf-person-avatar" />
+              <div className="cf-person-info">
+                <span className="cf-person-name">{dh.name}</span>
+                <span className="cf-person-co">{dh.company}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="cf-card cf-card--quote cf-card--flex-fill cf-card--quote-btm">
+            <p className="cf-quote-text">{dh.quote}</p>
+          </div>
+        </div>
+
+      </div>
+
+      {/* ── Mobile Carousel Navigation Buttons ── */}
+      <div className="cf-carousel-controls">
+        <button
+          type="button"
+          className="cf-carousel-arrow-btn"
+          onClick={scrollLeft}
+          aria-label="Previous testimonial"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12" />
+            <polyline points="12 19 5 12 12 5" />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          className="cf-carousel-arrow-btn"
+          onClick={scrollRight}
+          aria-label="Next testimonial"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </button>
+      </div>
+
+      {/* ── Review Modal ── */}
+      <ReviewModal
+        isOpen={isReviewModalOpen}
+        onClose={() => setIsReviewModalOpen(false)}
+        onSuccess={handleReviewSuccess}
+      />
+
+      {/* ── Toast Notification ── */}
+      <Toast
+        message={toast.message}
+        type={toast.type}
+        onClose={() => setToast({ message: '', type: 'success' })}
+      />
+    </section>
+  )
+}

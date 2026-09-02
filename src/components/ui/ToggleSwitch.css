@@ -1,0 +1,91 @@
+.toggle-switch-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  padding: 12px 14px;
+  border-radius: 10px;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.toggle-switch-container:hover {
+  border-color: #d1d5db;
+  background-color: #f3f4f6;
+}
+
+.toggle-switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.toggle-switch-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-switch-title {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.toggle-switch-badge {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  letter-spacing: 0.02em;
+}
+
+.toggle-switch-track {
+  width: 46px;
+  height: 26px;
+  background-color: #d1d5db;
+  border-radius: 9999px;
+  border: none;
+  padding: 3px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-switch-track:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 2px;
+}
+
+.toggle-switch-track--checked {
+  background-color: #111111;
+}
+
+.toggle-switch-thumb {
+  width: 20px;
+  height: 20px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(0);
+}
+
+.toggle-switch-thumb--checked {
+  transform: translateX(20px);
+}
+
+.toggle-switch-helper {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.35;
+}

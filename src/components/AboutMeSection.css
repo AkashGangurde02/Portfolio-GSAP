@@ -1,0 +1,431 @@
+/* ============================================================
+   ABOUT ME SECTION — Scattered Editorial Image Layout
+   Asymmetric organic positioning with GSAP Parallax
+   ============================================================ */
+
+.aboutme-section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  clip-path: inset(0 0 0 0);
+  padding: 180px 5vw 100px;
+  box-sizing: border-box;
+  background-color: var(--bg);
+  min-height: 130vh;
+}
+
+/* ── LAYER 1: Parallax Background & Oversized Watermark Backdrop ── */
+.aboutme-bg {
+  position: absolute;
+  top: -10%;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  background-color: var(--bg);
+  z-index: 0;
+  will-change: transform;
+}
+
+.aboutme-watermark {
+  position: absolute;
+  top: 6rem;
+  left: 0;
+  width: 100%;
+  font-family: 'Saans Trial', 'Inter', -apple-system, sans-serif;
+  font-size: clamp(5.5rem, 11vw, 10.5rem);
+  font-weight: 900;
+  color: rgba(27, 27, 26, 0.06);
+  opacity: 1;
+  user-select: none;
+  pointer-events: none;
+  z-index: 1;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.aboutme-watermark-char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* ── LAYER 2: Foreground Content Layer ── */
+.aboutme-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  margin-top: 40px;
+  will-change: transform;
+}
+
+.aboutme-inner {
+  position: relative;
+  max-width: 1320px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ── Scattered Editorial Stage ── */
+.aboutme-scatter-stage {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  margin-top: 100px;
+  margin-bottom: 44px;
+}
+
+/* Base Card Style */
+.aboutme-card {
+  position: absolute;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 14px 36px -4px rgba(0, 0, 0, 0.14), 0 4px 12px -2px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background-color: var(--surface);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+  will-change: transform;
+}
+
+.aboutme-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Card 1: Work (Indented from left edge, square-ish portrait) */
+.aboutme-card-1 {
+  left: 6%;
+  top: 15px;
+  width: 300px;
+  height: 310px;
+  z-index: 2;
+}
+.aboutme-card-1 img {
+  object-position: center 25%;
+}
+
+/* Card 3: Selfie (Indented from right edge, tall portrait lower offset) */
+.aboutme-card-3 {
+  right: 6%;
+  top: 115px;
+  width: 260px;
+  height: 330px;
+  z-index: 1;
+}
+.aboutme-card-3 img {
+  object-position: center 45%;
+}
+
+/* Dynamic Hover Interaction */
+.aboutme-card:hover {
+  z-index: 10;
+  transform: scale(1.05) translateY(-6px) !important;
+  box-shadow: 0 28px 56px -6px rgba(0, 0, 0, 0.22), 0 8px 20px -4px rgba(0, 0, 0, 0.1);
+}
+
+/* ── Text Block ── */
+.aboutme-text-block {
+  max-width: 1280px;
+  position: relative;
+  z-index: 4;
+}
+
+.aboutme-heading {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: clamp(38px, 4.8vw, 68px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: var(--ink);
+  margin: 0 0 24px 0;
+  text-align: left;
+  max-width: 1100px;
+}
+
+.aboutme-desc-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 36px;
+  width: 100%;
+}
+
+.aboutme-description {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: clamp(22px, 2.5vw, 36px);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin: 0;
+  text-align: left;
+  flex: 1;
+  max-width: 1020px;
+}
+
+.aboutme-description .word {
+  display: inline-block;
+  color: rgba(27, 27, 26, 0.22);
+  will-change: color;
+  transition: color 0.15s ease;
+}
+
+/* Red CTA Button (Split Style matching screenshot) */
+.aboutme-cta-wrap {
+  margin: 0;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 6px;
+  transform: translateY(-10px);
+}
+
+.aboutme-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background-color: var(--accent);
+  color: #FFFFFF;
+  font-family: 'Space Mono', 'Inter', monospace, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 13px 24px;
+  border-radius: 4px;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(217, 71, 50, 0.32);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, filter 0.3s ease;
+}
+
+.aboutme-cta-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 10px 28px rgba(217, 71, 50, 0.45);
+}
+
+.aboutme-cta-btn .cta-arrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.aboutme-cta-btn:hover .cta-arrow {
+  transform: translateX(4px);
+}
+
+
+/* ── LAPTOP / MEDIUM DESKTOP (969px - 1200px) ── */
+@media (max-width: 1200px) and (min-width: 969px) {
+  .aboutme-section {
+    padding: 90px 4vw 110px;
+  }
+
+  .aboutme-scatter-stage {
+    height: 380px;
+  }
+
+  .aboutme-card-1 {
+    width: 240px;
+    height: 285px;
+    left: 4%;
+    top: 15px;
+  }
+
+  .aboutme-card-3 {
+    width: 310px;
+    height: 235px;
+    right: 4%;
+    top: 95px;
+  }
+}
+
+/* ── TABLET (769px - 968px) ── */
+@media (max-width: 968px) and (min-width: 769px) {
+  .aboutme-section {
+    padding: 80px 4vw 90px;
+  }
+
+  .aboutme-scatter-stage {
+    height: 310px;
+  }
+
+  .aboutme-card-1 {
+    width: 200px;
+    height: 240px;
+    left: 3%;
+    top: 15px;
+  }
+
+  .aboutme-card-3 {
+    width: 260px;
+    height: 195px;
+    right: 3%;
+    top: 75px;
+  }
+}
+
+/* ── MOBILE (< 769px) — Wireframe Overlapping Layout ── */
+@media (max-width: 768px) {
+  .aboutme-section {
+    padding: 48px 20px 56px;
+    background-color: var(--bg);
+  }
+
+  .aboutme-bg {
+    display: none;
+  }
+
+  .aboutme-inner {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Re-order elements for wireframe hierarchy: Heading -> Overlapping Images -> Subtitle -> Button */
+  .aboutme-text-block {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    order: 1;
+  }
+
+  .aboutme-heading {
+    order: 1;
+    font-size: clamp(26px, 7vw, 34px);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin: 0 0 20px 0;
+    text-align: left;
+  }
+
+  .aboutme-scatter-stage {
+    order: 2;
+    position: relative;
+    width: 100%;
+    height: 270px;
+    margin-top: 0;
+    margin-bottom: 28px;
+    display: block;
+  }
+
+  .aboutme-card {
+    position: absolute !important;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  /* Card 1: Top-Left Large Image */
+  .aboutme-card-1 {
+    top: 0 !important;
+    left: 0 !important;
+    right: auto !important;
+    width: 66% !important;
+    height: 200px !important;
+    z-index: 1 !important;
+  }
+
+  /* Card 3: Bottom-Right Offset Overlapping Image (Layered On Top) */
+  .aboutme-card-3 {
+    top: 60px !important;
+    right: 0 !important;
+    left: auto !important;
+    margin-top: 0 !important;
+    width: 56% !important;
+    height: 190px !important;
+    z-index: 3 !important;
+  }
+
+  .aboutme-desc-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    order: 3;
+    width: 100%;
+  }
+
+  .aboutme-description {
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--muted);
+    max-width: 100%;
+  }
+
+  .aboutme-cta-wrap {
+    transform: none;
+    margin-top: 4px;
+    width: 100%;
+  }
+
+  .aboutme-cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 13px 20px;
+    background-color: var(--accent);
+    border: 1px solid var(--accent);
+    color: #FFFFFF;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* ── SMALL MOBILE (< 480px) ── */
+@media (max-width: 480px) {
+  .aboutme-section {
+    padding: 40px 20px 48px;
+  }
+
+  .aboutme-scatter-stage {
+    height: 240px;
+    margin-bottom: 24px;
+  }
+
+  .aboutme-card-1 {
+    width: 66% !important;
+    height: 175px !important;
+  }
+
+  .aboutme-card-3 {
+    top: 50px !important;
+    width: 56% !important;
+    height: 165px !important;
+  }
+
+  .aboutme-heading {
+    font-size: clamp(24px, 6.8vw, 30px);
+  }
+
+  .aboutme-description {
+    font-size: 14px;
+  }
+}
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  .aboutme-card {
+    transition: none !important;
+    transform: none !important;
+    will-change: auto !important;
+  }
+
+  .aboutme-bg,
+  .aboutme-heading,
+  .aboutme-description {
+    will-change: auto !important;
+  }
+}

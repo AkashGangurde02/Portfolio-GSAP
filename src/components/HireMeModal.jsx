@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import Button from './ui/Button'
 import './HireMeModal.css'
 
 const HireMeModal = ({ isOpen, onClose }) => {
@@ -150,9 +151,9 @@ Best,
                                 {errors.message && <span className="error-text" style={{ color: 'red', fontSize: '0.8rem', marginTop: '4px', display: 'block' }}>{errors.message}</span>}
                             </div>
 
-                            <button type="submit" className="hire-me-submit-btn" disabled={isSubmitting}>
-                                {isSubmitting ? 'Sending...' : 'Send Message'}
-                            </button>
+                            <Button variant="primary" size="lg" type="submit" isLoading={isSubmitting} showArrow arrowType="right">
+                                Send Message
+                            </Button>
                         </form>
                     </>
                 ) : (
@@ -160,9 +161,9 @@ Best,
                         <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🎉</div>
                         <h3>Thank you for reaching out!</h3>
                         <p>I’ll get back to you within 24 hours.</p>
-                        <button className="hire-me-submit-btn" onClick={onClose} style={{ marginTop: '2rem' }}>
+                        <Button variant="secondary" size="md" onClick={onClose} style={{ marginTop: '2rem' }}>
                             Close
-                        </button>
+                        </Button>
                     </div>
                 )}
             </div>

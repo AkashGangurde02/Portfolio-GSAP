@@ -139,7 +139,7 @@ const ExperienceNonTechnical = () => {
                     </div>
                 </div>
             </section>
-            <Footer />
+            <Footer variant="inner" />
         </div>
     )
 }

@@ -1,6 +1,6 @@
 .process-section {
   padding: 6rem 2rem;
-  background-color: #ffffff;
+  background-color: var(--surface);
 }
 
 .process-container {
@@ -9,8 +9,10 @@
 }
 
 .process-title {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
+  font-size: var(--heading-xl);
+  font-weight: 500;
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
   margin-bottom: 4rem;
   color: #000000;
   text-align: center;
@@ -37,24 +39,28 @@
 }
 
 .step-number {
-  font-size: 3rem;
+  font-size: var(--heading-l);
   font-weight: 700;
   color: var(--accent);
   opacity: 0.35;
-  line-height: 1;
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
   margin-bottom: 1rem;
 }
 
 .step-title {
-  font-size: 1.5rem;
+  font-size: var(--title-m);
   font-weight: 600;
+  line-height: var(--lh-title);
+  letter-spacing: var(--ls-title);
   color: #000000;
   margin-bottom: 1rem;
 }
 
 .step-description {
-  font-size: 0.95rem;
-  line-height: 1.7;
+  font-size: var(--body-m);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
   color: #666666;
   margin: 0;
 }

@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { useSEO } from '../hooks/useSEO'
-import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Button from '../components/ui/Button'
 import '../components/HomeSubNavbar.css'
 import './CaseStudyGrubwala.css'
 import grubwalaImage from '../images/case-studies/case-study-3/grubwala-cover.jpg'
@@ -451,12 +451,66 @@ const AUDIT_BUGS = [
 
 const DURATION = 7000;
 
+// ── ACCORDION ITEM: GSAP height animation (replaces AnimatePresence height: auto) ──
+const AccordionItem = ({ bug, isOpen, onToggle }) => {
+  const contentRef = useRef(null);
+  const tweenRef = useRef(null);
+
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+    if (tweenRef.current) tweenRef.current.kill();
+    if (isOpen) {
+      gsap.set(el, { height: 'auto', opacity: 1 });
+      const fullH = el.scrollHeight;
+      gsap.set(el, { height: 0, opacity: 0 });
+      tweenRef.current = gsap.to(el, {
+        height: fullH,
+        opacity: 1,
+        duration: 0.32,
+        ease: 'power2.inOut',
+        onComplete: () => gsap.set(el, { height: 'auto' }),
+      });
+    } else {
+      tweenRef.current = gsap.to(el, {
+        height: 0,
+        opacity: 0,
+        duration: 0.28,
+        ease: 'power2.inOut',
+      });
+    }
+    return () => { if (tweenRef.current) tweenRef.current.kill(); };
+  }, [isOpen]);
+
+  return (
+    <div className={`aud-accordion-item ${isOpen ? 'open' : ''}`}>
+      <button
+        className="aud-accordion-header"
+        onClick={onToggle}
+        aria-expanded={isOpen}
+      >
+        <span className="aud-accordion-title">{bug.title}</span>
+        <span className="aud-accordion-icon">{isOpen ? '−' : '+'}</span>
+      </button>
+      <div ref={contentRef} className="aud-accordion-content" style={{ height: 0, overflow: 'hidden', opacity: 0 }}>
+        <div className="aud-accordion-inner">
+          <p className="aud-accordion-desc">{bug.description}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const InteractiveAuditSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [progressKey, setProgressKey] = useState(0);
   const intervalRef = useRef(null);
   const hoveredRef = useRef(false);
+  // GSAP refs for progress bar and content panel
+  const progressRef = useRef(null);
+  const contentRef = useRef(null);
+  const progressTweenRef = useRef(null);
 
   const goToNext = useCallback(() => {
     if (!hoveredRef.current) {
@@ -482,11 +536,51 @@ const InteractiveAuditSection = () => {
         setIsPaused(false);
       }
     };
-    
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // GSAP progress bar: replaces motion.div scaleX: 0→1
+  useEffect(() => {
+    const el = progressRef.current;
+    if (!el) return;
+    if (progressTweenRef.current) progressTweenRef.current.kill();
+    gsap.set(el, { scaleX: 0, transformOrigin: 'left center' });
+    if (!isPaused) {
+      progressTweenRef.current = gsap.to(el, {
+        scaleX: 1,
+        duration: DURATION / 1000,
+        ease: 'none',
+      });
+    }
+    return () => { if (progressTweenRef.current) progressTweenRef.current.kill(); };
+  }, [progressKey, isPaused]);
+
+  // GSAP content swap: replaces AnimatePresence mode="wait" content transition
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }
+      );
+      gsap.fromTo(el.querySelector('.aud-tag'),
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, delay: 0.1 }
+      );
+      gsap.fromTo(el.querySelector('.aud-content-title'),
+        { opacity: 0, y: 8 },
+        { opacity: 1, y: 0, duration: 0.4, delay: 0.15 }
+      );
+      gsap.fromTo(el.querySelector('.aud-content-desc'),
+        { opacity: 0, y: 8 },
+        { opacity: 1, y: 0, duration: 0.4, delay: 0.22 }
+      );
+    }, el);
+    return () => ctx.revert();
+  }, [activeIndex]);
 
   const handleHoverIn = (index) => {
     hoveredRef.current = true;
@@ -496,7 +590,7 @@ const InteractiveAuditSection = () => {
   };
 
   const handleHoverOut = () => {
-    if (window.innerWidth <= 860) return; // Don't unpause on mobile resize/hover out
+    if (window.innerWidth <= 860) return;
     hoveredRef.current = false;
     setIsPaused(false);
     setProgressKey(k => k + 1);
@@ -520,16 +614,13 @@ const InteractiveAuditSection = () => {
                 <span className={`aud-item-title ${isActive ? 'aud-active' : 'aud-inactive'}`}>
                   {bug.title}
                 </span>
-                {/* Track line */}
+                {/* Track line — plain div, GSAP animates scaleX */}
                 <div className="aud-track">
                   {isActive && (
-                    <motion.div
-                      key={progressKey}
+                    <div
+                      ref={progressRef}
                       className="aud-progress"
-                      initial={{ scaleX: 0 }}
-                      animate={{ scaleX: isPaused ? undefined : 1 }}
-                      transition={{ duration: DURATION / 1000, ease: 'linear' }}
-                      style={{ originX: 0 }}
+                      style={{ transformOrigin: 'left center', scaleX: 0 }}
                     />
                   )}
                 </div>
@@ -538,81 +629,26 @@ const InteractiveAuditSection = () => {
           })}
         </div>
 
-        {/* RIGHT — Content */}
+        {/* RIGHT — Content panel — plain div, GSAP animates on activeIndex change */}
         <div className="aud-right">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeIndex}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
-              className="aud-content"
-            >
-              <motion.span
-                className="aud-tag"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.1, duration: 0.3 }}
-              >
-                {AUDIT_BUGS[activeIndex]?.tag}
-              </motion.span>
-              <motion.h4
-                className="aud-content-title"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15, duration: 0.4 }}
-              >
-                {AUDIT_BUGS[activeIndex]?.title}
-              </motion.h4>
-              <motion.p
-                className="aud-content-desc"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.22, duration: 0.4 }}
-              >
-                {AUDIT_BUGS[activeIndex]?.description}
-              </motion.p>
-            </motion.div>
-          </AnimatePresence>
+          <div ref={contentRef} className="aud-content">
+            <span className="aud-tag">{AUDIT_BUGS[activeIndex]?.tag}</span>
+            <h4 className="aud-content-title">{AUDIT_BUGS[activeIndex]?.title}</h4>
+            <p className="aud-content-desc">{AUDIT_BUGS[activeIndex]?.description}</p>
+          </div>
         </div>
       </div>
 
       {/* MOBILE ACCORDION LAYOUT (Visible only on mobile/tablet) */}
       <div className="aud-mobile-accordion">
-        {AUDIT_BUGS.map((bug, index) => {
-          const isOpen = index === activeIndex;
-          return (
-            <div key={index} className={`aud-accordion-item ${isOpen ? 'open' : ''}`}>
-              <button
-                className="aud-accordion-header"
-                onClick={() => setActiveIndex(isOpen ? null : index)}
-                aria-expanded={isOpen}
-              >
-                <span className="aud-accordion-title">{bug.title}</span>
-                <span className="aud-accordion-icon">
-                  {isOpen ? '−' : '+'}
-                </span>
-              </button>
-              
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: 'easeInOut' }}
-                    className="aud-accordion-content"
-                  >
-                    <div className="aud-accordion-inner">
-                      <p className="aud-accordion-desc">{bug.description}</p>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          );
-        })}
+        {AUDIT_BUGS.map((bug, index) => (
+          <AccordionItem
+            key={index}
+            bug={bug}
+            isOpen={index === activeIndex}
+            onToggle={() => setActiveIndex(activeIndex === index ? null : index)}
+          />
+        ))}
       </div>
     </div>
   );
@@ -1051,16 +1087,22 @@ const EdgeCaseFlow = () => (
   </div>
 )
 
-export default function CaseStudyGrubwala() {
+export default function CaseStudyGrubwala({ initialFlow = 'onboarding' }) {
   useSEO({
     title: 'Grubwala UX Case Study',
     description: 'How I redesigned Grubwala’s onboarding and homepage to improve trust signals, ordering conversion, and the mobile food-ordering experience.',
     canonical: '/case-study/grubwala',
     ogImage: '/og/og-grubwala.png',
   })
-  const [activeFlow, setActiveFlow] = useState('onboarding')
+  const [activeFlow, setActiveFlow] = useState(initialFlow)
   const [activeSection, setActiveSection] = useState('')
   const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    if (initialFlow) {
+      setActiveFlow(initialFlow)
+    }
+  }, [initialFlow])
 
   const navContainerRef = useRef(null)
   const indicatorRef = useRef(null)
@@ -1210,25 +1252,7 @@ export default function CaseStudyGrubwala() {
         </div>
       </section>
 
-      {/* ── FLOW NAV (BEHAVES EXACTLY LIKE HOMESUBNAVBAR) ── */}
-      <div className={`home-sub-navbar ${isVisible ? 'sub-nav-visible' : 'sub-nav-hidden'}`}>
-        <div className="sub-nav-container" ref={navContainerRef}>
-          {FLOWS.map(f => (
-            <button
-              key={f.id}
-              ref={(el) => (itemRefs.current[f.id] = el)}
-              onClick={() => {
-                setActiveFlow(f.id)
-                window.scrollTo({ top: document.querySelector('.gw-main-content').offsetTop - 180, behavior: 'smooth' })
-              }}
-              className={`sub-nav-item ${activeFlow === f.id ? 'active' : ''}`}
-            >
-              {f.label}
-            </button>
-          ))}
-          <div className="sub-nav-indicator" ref={indicatorRef}></div>
-        </div>
-      </div>
+
 
       {/* ── MAIN CONTENT ── */}
       <div className="gw-main-content">
@@ -1266,12 +1290,12 @@ export default function CaseStudyGrubwala() {
         <h2>Want to see more of my work?</h2>
         <p>Explore other case studies or get in touch.</p>
         <div className="gw-cta-btns">
-          <Link to="/work" className="gw-btn gw-btn-ghost">← Back to Work</Link>
-          <Link to="/contact" className="gw-btn gw-btn-primary">Let's Talk →</Link>
+          <Button variant="secondary" size="md" to="/work">Back to Work</Button>
+          <Button variant="primary" size="md" to="/contact" showArrow arrowType="right">Let's Talk</Button>
         </div>
       </section>
 
-      <Footer />
+      <Footer variant="inner" />
     </div>
   )
 }

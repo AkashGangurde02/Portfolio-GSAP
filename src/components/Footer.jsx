@@ -1,191 +1,115 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import workspaceImage from '../images/profile/footer-workspace.png'
+import resumePDF from '../images/Akash_Gangurde.pdf'
 import './Footer.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const Footer = () => {
+const Footer = ({ variant = 'home' }) => {
   const footerRef = useRef(null)
-  const headingRef = useRef(null)
-  const contentRef = useRef(null)
-  const wordsRef = useRef([])
-  const [isHovered, setIsHovered] = useState(false)
-  const [showBanner, setShowBanner] = useState(true)
-  const [currentText, setCurrentText] = useState('Good design disappears. Great UX remains.')
+  const bigTextRef = useRef(null)
+
+  const isInner = variant === 'inner'
 
   useEffect(() => {
-    // Safety fallback: ensure content is always visible if animation doesn't fire
-    const ensureVisible = setTimeout(() => {
-      if (headingRef.current) headingRef.current.style.opacity = '1'
-      if (contentRef.current) {
-        Array.from(contentRef.current.children).forEach(child => {
-          child.style.opacity = '1'
-          child.style.transform = 'none'
-        })
-      }
-    }, 800)
-
     const ctx = gsap.context(() => {
-      // Check if mobile or tablet - simplified check matching CSS breakpoint
-      if (window.innerWidth <= 968) {
-        return // Skip animations on mobile to ensure visibility
-      }
+      if (window.innerWidth <= 768) return
 
-      gsap.from(headingRef.current, {
+      // Brand + heading
+      gsap.from('.footer-brand', {
         scrollTrigger: {
           trigger: footerRef.current,
-          start: 'top bottom', // Fire as soon as footer enters viewport
-          toggleActions: 'play none none none' // Don't reverse
+          start: 'top 90%',
+          toggleActions: 'play none none none',
+          once: true,
         },
-        y: 50,
+        y: 24,
         opacity: 0,
-        duration: 1,
-        ease: 'power3.out'
+        duration: 0.6,
+        ease: 'power3.out',
       })
 
-      if (contentRef.current && contentRef.current.children.length > 0) {
-        gsap.from(contentRef.current.children, {
-          scrollTrigger: {
-            trigger: footerRef.current,
-            start: 'top bottom', // Fire as soon as footer enters viewport
-            toggleActions: 'play none none none'
-          },
-          y: 30,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power3.out'
-        })
-      }
+      // Link columns
+      gsap.from('.footer-link-col', {
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: 'top 90%',
+          toggleActions: 'play none none none',
+          once: true,
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.55,
+        stagger: 0.12,
+        ease: 'power3.out',
+        clearProps: 'all',
+      })
+
     }, footerRef)
 
-    return () => {
-      clearTimeout(ensureVisible)
-      ctx.revert()
-    }
+    return () => ctx.revert()
   }, [])
 
-  // Word slide-up animation on hover
-  useEffect(() => {
-    if (isHovered) {
-      gsap.to(wordsRef.current, {
-        y: -100,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.05,
-        ease: 'power2.in',
-        onComplete: () => {
-          setCurrentText('Yes, even this text was intentional 😄')
-          requestAnimationFrame(() => {
-            gsap.set(wordsRef.current, { y: 100, opacity: 0 })
-            gsap.to(wordsRef.current, {
-              y: 0,
-              opacity: 1,
-              duration: 0.5,
-              stagger: 0.05,
-              ease: 'power2.out'
-            })
-          })
-        }
-      })
-    } else {
-      gsap.to(wordsRef.current, {
-        y: -100,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.05,
-        ease: 'power2.in',
-        onComplete: () => {
-          setCurrentText('Good design disappears. Great UX remains.')
-          requestAnimationFrame(() => {
-            gsap.set(wordsRef.current, { y: 100, opacity: 0 })
-            gsap.to(wordsRef.current, {
-              y: 0,
-              opacity: 1,
-              duration: 0.5,
-              stagger: 0.05,
-              ease: 'power2.out'
-            })
-          })
-        }
-      })
-    }
-  }, [isHovered])
-
-  const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'About me', href: '/about' },
-    { name: 'Works', href: '/work' }
-  ]
-
   return (
-    <>
-      {showBanner && (
-        <div className="footer-magic-banner">
-          <span className="magic-banner-text">
-            ✨ Hover on the below heading and see the magic
-          </span>
-          <button
-            className="magic-banner-close"
-            onClick={() => setShowBanner(false)}
-            aria-label="Close"
-          >
-            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M13 1L1 13M1 1L13 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
+    <footer ref={footerRef} className={`footer ${isInner ? 'footer-inner' : ''}`}>
+      {/* Top Section */}
+      <div className="footer-top">
+        {/* Left Column: Brand + Description */}
+        <div className="footer-brand">
+          <h3 className="footer-brand-name">Akash Gangurde</h3>
+          <p className="footer-brand-desc">
+            Crafting intuitive digital experiences through thoughtful UX and pixel-perfect design.
+          </p>
+        </div>
+
+        {/* Right Column: Links Grid (EXPLORE & CONNECT) */}
+        <div className="footer-links-grid">
+          <div className="footer-link-col">
+            <h4 className="footer-col-heading">EXPLORE</h4>
+            <ul className="footer-col-list">
+              <li><Link to="/about" className="footer-col-link">About Me</Link></li>
+              <li><Link to="/work" className="footer-col-link">Selected Work</Link></li>
+              <li><a href="/#experience" className="footer-col-link">Experience</a></li>
+              <li><Link to="/services" className="footer-col-link">Services</Link></li>
+            </ul>
+          </div>
+
+          <div className="footer-link-col">
+            <h4 className="footer-col-heading">CONNECT</h4>
+            <ul className="footer-col-list">
+              <li><a href="https://www.linkedin.com/in/akash-gangurde-0794aa258" target="_blank" rel="noopener noreferrer" className="footer-col-link">LinkedIn</a></li>
+              <li><a href="mailto:akashgangurde0204@gmail.com" className="footer-col-link">Email</a></li>
+              <li><a href={resumePDF} target="_blank" rel="noopener noreferrer" className="footer-col-link">Resume</a></li>
+              <li><Link to="/contact" className="footer-col-link">Contact</Link></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Visual THANK YOU Section — Home Page Variant Only */}
+      {!isInner && (
+        <div
+          className="footer-visual-section"
+          ref={bigTextRef}
+          style={{ '--footer-img': `url(${workspaceImage})` }}
+        >
+          <div className="footer-text-band">
+            <span className="footer-big-text">THANK YOU</span>
+          </div>
+
+          <div className="footer-photo-reveal">
+            <img
+              src={workspaceImage}
+              alt="Akash's creative workspace"
+              className="footer-reveal-img"
+            />
+          </div>
         </div>
       )}
-      <footer ref={footerRef} className="footer">
-        <div className="footer-container">
-          {/* Tagline Section */}
-          <div className="footer-tagline">
-            <h2
-              ref={headingRef}
-              className="footer-heading"
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-            >
-              <span className="heading-text-wrapper">
-                {currentText.split(' ').map((word, index) => (
-                  <span
-                    key={`${word}-${index}`}
-                    className="word-wrapper"
-                    ref={(el) => (wordsRef.current[index] = el)}
-                  >
-                    {word}
-                    {index < currentText.split(' ').length - 1 && ' '}
-                  </span>
-                ))}
-              </span>
-            </h2>
-          </div>
-
-          {/* Main Footer Content */}
-          <div ref={contentRef} className="footer-main">
-
-
-            {/* Center: Navigation Links */}
-            <nav className="footer-nav">
-              {navLinks.map((link) => (
-                <Link key={link.name} to={link.href} className="footer-nav-link">
-                  {link.name}
-                </Link>
-              ))}
-            </nav>
-          </div>
-
-          {/* Footer Bottom */}
-          <div className="footer-bottom">
-            <p className="footer-credits">
-              © 2025 Akash Gangurde. | Designed best so users don't have to think.
-            </p>
-          </div>
-        </div>
-      </footer>
-    </>
+    </footer>
   )
 }
 

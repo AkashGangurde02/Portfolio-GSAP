@@ -1,367 +1,248 @@
-/* ═══════════════════════════════════════════
-   Work.css — unified card design
-   ═══════════════════════════════════════════ */
+/* ============================================================
+   WORK PAGE — REFERENCE LAYOUT & 2-COLUMN PROJECT CARDS
+   Strict Saans Trial / Geist Typography | Clean 2-Column Grid
+   ============================================================ */
 
-/* ── Tokens ── */
-:root {
-    --wc-bg:        var(--bg-page);   /* page bg — matches home page             */
-    --wc-card:      var(--bg-card);   /* card surface                                */
-    --wc-border:    var(--border);    /* subtle border                               */
-    --wc-text:      var(--text-primary);   /* headings                                    */
-    --wc-muted:     var(--text-muted);   /* descriptions                                */
-    --wc-radius:    16px;      /* card corner radius                          */
-    --wc-shadow:    0 2px 12px rgba(0, 0, 0, 0.06);
-    --wc-shadow-hv: 0 10px 32px rgba(0, 0, 0, 0.12);
-}
-
-/* ── Page shell ── */
 .work-page {
-    background-color: var(--wc-bg);
-    min-height: 100vh;
-    padding-top: 60px;
+  background-color: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  padding-top: 120px;
 }
 
-/* ── Containers ── */
-.work-container,
-.work-container-narrow {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 24px;
+.lyniq-container {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 !important;
+  box-sizing: border-box;
 }
 
-.work-container-narrow {
-    max-width: 720px;
-    text-align: center;
+/* ── Header ── */
+.lyniq-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: flex-end;
+  margin-bottom: 44px;
 }
 
-/* ── Hero ── */
-.work-hero-modern {
-    padding: 48px 0 64px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
+.lyniq-headline {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: clamp(48px, 6vw, 84px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--ink) !important;
+  margin: 0;
+  text-align: left;
 }
 
-.work-headline-modern {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: #000000;
-    opacity: 1;
-    line-height: 1.1;
-    margin-bottom: 20px;
-    text-align: left;
+.lyniq-header-sub {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: clamp(15px, 1.3vw, 17px);
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 440px;
+  margin: 0 0 8px auto;
+  text-align: left;
 }
 
-.work-subheadline-modern {
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    color: var(--wc-muted);
-    line-height: 1.65;
-    max-width: 560px;
-    margin: 0;
-    text-align: left;
+/* ── Filter Bar ── */
+.lyniq-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border-light-18);
+  scrollbar-width: none;
 }
 
-/* ── Cards section ── */
-.work-cards-section {
-    padding: 24px 0 80px;
+.lyniq-filter-bar::-webkit-scrollbar {
+  display: none;
 }
 
-/* 3-column grid on desktop, collapses gracefully */
-.wc-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0; /* Zero gap so card padding centers the border */
+.lyniq-filter-btn {
+  background: transparent;
+  border: none;
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 6px 0;
+  white-space: nowrap;
+  position: relative;
+  transition: color 0.3s ease;
 }
 
-/* ── Individual card (Padded Frame Premium UI) ── */
-.wc-card {
-    background-color: transparent; /* Borderless & backgroundless */
-    border-radius: 0;
-    border: none;
-    box-shadow: none;
-    padding: 0 1.5rem;
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    box-sizing: border-box;
-    border-right: 1px solid #E5E5E5; /* Vertical line separator */
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    cursor: pointer;
+.lyniq-filter-btn:hover {
+  color: var(--ink);
 }
 
-.wc-card:last-child {
-    border-right: none !important;
+.lyniq-filter-btn.active {
+  color: var(--ink);
+  font-weight: 700;
 }
 
-.wc-card:hover {
-    transform: translateY(-6px);
+.lyniq-filter-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -17px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent);
 }
 
-/* ── Image area (Nested with rounded corners) ── */
-.wc-image-wrap {
-    width: 100%;
-    aspect-ratio: 16 / 10.5; /* Premium widescreen ratio */
-    border-radius: 16px; /* Smooth rounded corners for inner image */
-    overflow: hidden;
-    background-color: transparent;
-    flex-shrink: 0;
+/* ── 3-Column Projects Grid ── */
+.lyniq-projects-section {
+  padding: 10px 0 80px;
 }
 
-.wc-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+.lyniq-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 44px 28px;
+  width: 100%;
 }
 
-.wc-card:hover .wc-image {
-    transform: scale(1.03); /* Soft subtle zoom on hover */
+/* ── Card Styling ── */
+.lyniq-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-decoration: none;
+  color: inherit;
 }
 
-/* ── Text body ── */
-.wc-body {
-    padding: 1.25rem 0 0 0; /* Align perfectly with image edges */
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.lyniq-card-media-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9.5;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border-light-18);
+  box-shadow: 0 10px 24px rgba(27, 27, 26, 0.03);
 }
 
-.wc-title {
-    font-size: 1.35rem;
-    font-weight: 700;
-    line-height: 1.35;
-    color: #1A1A1A;
-    margin: 0;
-    transition: color 0.3s ease;
+.lyniq-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.0);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.wc-card:hover .wc-title {
-    color: #000000; /* Accent highlights title on hover */
+.lyniq-card:hover .lyniq-card-image {
+  transform: scale(1.04);
 }
 
-.wc-desc {
-    font-size: 0.925rem;
-    line-height: 1.6;
-    color: #555558; /* charcoal gray for premium readability */
-    margin: 0;
-    /* Clamp text to 3 lines */
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+.lyniq-card-arrow-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  font-size: 16px;
+  font-weight: 700;
+  opacity: 0.85;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* ── Footer CTA ── */
-.wc-footer {
-    padding: 0.75rem 0 0 0; /* Align with body and image */
+.lyniq-card:hover .lyniq-card-arrow-badge {
+  transform: translate(2px, -2px);
+  opacity: 1;
 }
 
-.wc-cta-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: #555558;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    transition: all 0.3s ease;
-    background-color: transparent;
+.lyniq-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
 }
 
-.wc-cta-arrow {
-    transition: transform 0.3s ease;
+.lyniq-card-title {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: clamp(18px, 1.8vw, 22px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: var(--ink);
+  margin: 0;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.wc-card:hover .wc-cta-link {
-    gap: 9px;
-    color: #000000 !important;
-    background-color: transparent !important;
+.lyniq-card:hover .lyniq-card-title {
+  color: var(--accent);
+  transform: translateX(4px);
 }
 
-.wc-card:hover .wc-cta-arrow {
-    transform: translateX(4px);
+.lyniq-card-desc {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.48;
+  color: var(--muted);
+  margin: 0 0 4px 0;
+  text-align: left;
 }
 
-/* ── Bottom CTA section (unchanged) ── */
-.work-bottom-cta {
-    padding: 64px 0;
-    background: var(--bg-alt);
-    border-top: 1px solid var(--wc-border);
+.lyniq-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.cta-container {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-    padding: 0 24px;
+.lyniq-tag-pill {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background-color: var(--surface);
+  padding: 4px 9px;
+  border-radius: 4px;
+  border: 1px solid var(--border-light-18);
 }
-
-.cta-headline {
-    font-size: clamp(2.25rem, 4vw, 3.25rem);
-    font-weight: 800;
-    color: var(--wc-text);
-    line-height: 1.1;
-    margin-bottom: 14px;
-    letter-spacing: -0.02em;
-}
-
-.cta-subheadline {
-    font-size: 1.2rem;
-    color: var(--wc-muted);
-    margin-bottom: 36px;
-}
-
-.cta-button-large {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    background-color: var(--wc-text);
-    color: #ffffff;
-    padding: 18px 40px;
-    border-radius: 100px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.cta-button-large:hover {
-    background-color: #333333;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-}
-
-.cta-button-large svg {
-    transition: transform 0.3s ease;
-}
-
-.cta-button-large:hover svg {
-    transform: translateX(4px);
-}
-
 
 /* ── Responsive ── */
-
-/* 2 columns on tablet */
 @media (max-width: 1024px) {
-    .wc-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2.5rem 0; /* Vertical gap, no horizontal gap */
-    }
-
-    .wc-card {
-        padding: 0 1.25rem !important;
-        border-right: 1px solid #E5E5E5 !important;
-    }
-
-    /* Right column cards (even child) and last card */
-    .wc-card:nth-child(2n),
-    .wc-card:last-child {
-        border-right: none !important;
-    }
+  .lyniq-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 36px 28px;
+  }
 }
 
-/* 1 column on mobile */
-@media (max-width: 640px) {
-    .wc-card {
-        margin-left: 0;
-        margin-right: 0;
-        padding: 0 0 1.5rem 0 !important;
-        border-right: none !important;
-        border-bottom: 1px solid #EBEBEB;
-    }
+@media (max-width: 680px) {
+  .work-page {
+    padding-top: 90px;
+  }
 
-    .wc-card:last-child {
-        border-bottom: none;
-        padding-bottom: 0 !important;
-    }
+  .lyniq-header {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
 
-    .wc-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
+  .lyniq-header-sub {
+    margin: 0;
+    max-width: 100%;
+  }
 
-    .work-hero-modern {
-        padding: 24px 0 36px;
-    }
+  .lyniq-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
 
-    .work-headline-modern {
-        font-size: clamp(1.75rem, 6vw, 2.5rem);
-        margin-bottom: 12px;
-    }
-
-    .work-subheadline-modern {
-        font-size: 0.92rem;
-    }
-
-    .work-cards-section {
-        padding: 16px 0 16px;
-    }
-
-    .wc-image-wrap {
-        border-radius: 12px;
-        aspect-ratio: 16 / 10;
-    }
-
-    .wc-body {
-        padding: 10px 0 0 0;
-        gap: 6px;
-    }
-
-    .wc-title {
-        font-size: 1.15rem;
-        line-height: 1.3;
-    }
-
-    .wc-desc {
-        font-size: 0.88rem;
-        -webkit-line-clamp: 2;
-    }
-
-    .wc-footer {
-        padding: 6px 0 0 0;
-    }
-
-    .wc-cta-link {
-        font-size: 0.82rem;
-    }
-
-    .work-bottom-cta {
-        padding: 32px 20px 40px;
-        background: #ffffff;
-        border-top: 1px solid var(--wc-border);
-        border-bottom: 1px solid var(--wc-border);
-    }
-
-    .cta-container {
-        padding: 0;
-    }
-
-    .cta-headline {
-        font-size: 1.75rem;
-        margin-bottom: 8px;
-    }
-
-    .cta-subheadline {
-        font-size: 1rem;
-        color: #4b5563;
-        margin-bottom: 20px;
-        line-height: 1.5;
-        opacity: 1 !important;
-    }
-
-    .cta-button-large {
-        width: 100%;
-        justify-content: center;
-        padding: 14px 0;
-        font-size: 1rem;
-    }
+  .lyniq-card-media-wrap {
+    aspect-ratio: 16 / 9.5;
+  }
 }

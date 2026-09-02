@@ -13,9 +13,10 @@
 }
 
 .about-page-title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: var(--display-xl);
+  font-weight: 500;
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display);
   color: #000000;
   margin-bottom: 4rem;
 }
@@ -87,24 +88,26 @@
   color: #888888;
   padding: 0.3rem 0.85rem;
   border: 1px solid #e0e0e0;
-  border-radius: 999px;
+  border-radius: 6px;
   background: #f7f7f7;
   width: fit-content;
 }
 
 /* Subheading */
 .about-hero-subheading {
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
-  font-weight: 700;
+  font-size: var(--heading-m);
+  font-weight: 500;
   color: #000000;
-  line-height: 1.2;
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
   margin: 0;
 }
 
 /* Description paragraphs */
 .about-hero-desc {
-  font-size: 1.05rem;
-  line-height: 1.75;
+  font-size: var(--body-l);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
   color: #444444;
   margin: 0;
 }
@@ -128,7 +131,7 @@
   color: #000000;
   background: #f4f4f4;
   border: 1.5px solid #e0e0e0;
-  border-radius: 999px;
+  border-radius: 6px;
   padding: 0.35rem 0.9rem;
   white-space: nowrap;
   transition: border-color 0.2s ease, background 0.2s ease;
@@ -151,7 +154,7 @@
   gap: 6px;
   padding: 0.75rem 1.6rem;
   border: 1.5px solid #000000;
-  border-radius: 999px;
+  border-radius: 8px;
   background-color: transparent;
   color: #000000;
   font-size: 0.9rem;
@@ -186,8 +189,10 @@
    Section Title 
 ───────────────────────────────────────────── */
 .section-title {
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
-  font-weight: 700;
+  font-size: var(--heading-xl);
+  font-weight: 500;
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
   color: #000000;
   margin-bottom: 1.5rem;
 }
@@ -272,7 +277,7 @@
 }
 
 .tool-card-square {
-  background-color: #ffffff;
+  background-color: var(--bg);
   border-radius: 16px;
   display: flex;
   flex-direction: column;
@@ -327,7 +332,7 @@
    Only visual / arrow styles live here.
 ───────────────────────────────────────────── */
 .tool-tooltip-portal {
-  background: #ffffff;
+  background: var(--bg);
   padding: 14px 16px;
   border-radius: 12px;
   box-shadow: 0 10px 32px rgba(0, 0, 0, 0.13);
@@ -399,15 +404,19 @@
 }
 
 .partner-name {
-  font-size: 1.5rem;
+  font-size: var(--title-m);
   font-weight: 600;
+  line-height: var(--lh-title);
+  letter-spacing: var(--ls-title);
   color: #b8b8b8;
   margin-bottom: 1rem;
 }
 
 .partner-category {
-  font-size: 0.9rem;
+  font-size: var(--body-s);
   font-weight: 600;
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
   color: #000000;
   margin-bottom: 0.25rem;
   margin-top: 0;
@@ -438,7 +447,7 @@
   gap: 3rem;
   margin-bottom: 3rem;
   padding: 3rem;
-  background-color: #f8f8f8;
+  background-color: var(--surface);
   border-radius: 20px;
   align-items: center;
 }
@@ -518,14 +527,18 @@
 }
 
 .award-title {
-  font-size: 1.25rem;
+  font-size: var(--title-m);
   font-weight: 600;
+  line-height: var(--lh-title);
+  letter-spacing: var(--ls-title);
   color: #000000;
   margin-bottom: 0.25rem;
 }
 
 .award-org {
-  font-size: 0.9rem;
+  font-size: var(--body-m);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
   color: #666666;
   margin: 0;
 }

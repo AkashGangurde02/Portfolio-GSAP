@@ -3,30 +3,30 @@
     /* Sit to the LEFT of the Chatbase bubble so they're side by side */
     bottom: 60px;
     right: 90px;
-    background-color: #ffffff;
-    color: #333333;
-    width: 45.5px;
-    height: 45.5px;
+    background-color: var(--bg) !important;
+    color: #000000 !important;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
     opacity: 0;
     visibility: hidden;
     transform: translateY(20px);
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     z-index: 998;
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid #E5E5E5 !important;
 }
 
 .scroll-to-top-btn:hover {
-    background-color: #f8f8f8;
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    border-color: rgba(0, 0, 0, 0.15);
-    color: #000;
+    background-color: var(--bg) !important;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    border-color: #D1D1D6 !important;
+    color: #000000 !important;
 }
 
 .scroll-to-top-btn.visible {
@@ -36,11 +36,11 @@
 }
 
 .arrow-icon {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     transition: transform 0.3s ease;
     stroke-width: 2.5px;
-    stroke: #ffffff !important;
+    stroke: #000000 !important;
 }
 
 .scroll-to-top-btn:hover .arrow-icon {

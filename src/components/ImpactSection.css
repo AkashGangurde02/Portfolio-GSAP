@@ -6,7 +6,7 @@
 /* ── Section Wrapper ── */
 .impact-section {
   padding: 6rem 2rem;
-  background-color: #ffffff;
+  background-color: var(--surface);
   border-bottom: 1px solid #f0f0f0;
 }
 
@@ -30,18 +30,19 @@
 
 .impact-eyebrow {
   display: block;
-  font-size: 0.875rem;
+  font-size: var(--body-s);
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: var(--ls-body);
   text-transform: uppercase;
   color: #666666;
   margin-bottom: 1rem;
 }
 
 .impact-title {
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: var(--heading-xl);
+  font-weight: 500;
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
   color: #000000;
   margin-bottom: 1.5rem;
 }
@@ -69,10 +70,11 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  font-size: 1rem;
+  font-size: var(--body-m);
   font-weight: 500;
   color: #666666;
-  line-height: 1.5;
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
 }
 
 .impact-bullet-dot {
@@ -94,7 +96,7 @@
 
 /* ── Base Card ── */
 .impact-card {
-  background: #fafafa;
+  background: var(--bg);
   border: 1px solid #e8e8e8;
   border-radius: 20px;
   padding: 2.5rem 2rem;
@@ -116,27 +118,28 @@
 
 /* ── Card Number ── */
 .impact-card-number {
-  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
+  font-size: var(--heading-m);
+  font-weight: 600;
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
   color: #000000;
   margin-bottom: 0.5rem;
 }
 
 /* ── Card Label ── */
 .impact-card-label {
-  font-size: 0.95rem;
+  font-size: var(--body-m);
   font-weight: 500;
-  line-height: 1.6;
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
   color: #666666;
   margin: 0;
 }
 
 /* ── Highlight / Dark Card ── */
 .impact-card--dark {
-  background: #000000;
-  border-color: #000000;
+  background: var(--ink);
+  border-color: var(--ink);
 }
 
 .impact-card--dark:hover {
@@ -155,9 +158,9 @@
 /* Small top tag on highlighted card */
 .impact-card-tag {
   display: inline-block;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  font-size: var(--caption);
+  font-weight: 600;
+  letter-spacing: var(--ls-caption);
   text-transform: uppercase;
   color: #666666;
   margin-bottom: 0.5rem;

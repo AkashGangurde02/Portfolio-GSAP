@@ -75,17 +75,18 @@
 }
 
 .cs2-hero-title {
-  font-size: clamp(2.5rem, 4.5vw, 4rem);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
+  font-size: var(--heading-l);
+  font-weight: 500;
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
   color: var(--text-primary);
   margin-bottom: 1.25rem;
 }
 
 .cs2-hero-sub {
-  font-size: 1.1rem;
-  line-height: 1.7;
+  font-size: var(--body-l);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
   color: var(--text-body);
   margin-bottom: 2.5rem;
   max-width: 480px;
@@ -152,19 +153,21 @@
 }
 
 .cs2-stat-num {
-  font-size: 3.5rem;
-  font-weight: 800;
+  font-size: var(--display-l);
+  font-weight: 700;
   color: var(--text-primary);
-  line-height: 1;
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display);
   margin-bottom: 0.5rem;
 }
 
 .cs2-stat-label {
-  font-size: 0.9rem;
+  font-size: var(--body-s);
   font-weight: 500;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: var(--ls-body);
+  line-height: var(--lh-body);
 }
 
 .cs2-stat-divider {
@@ -179,11 +182,12 @@
 }
 
 .cs2-heading {
-  font-size: 2.5rem;
-  font-weight: 800;
+  font-size: var(--heading-xl);
+  font-weight: 500;
   color: var(--text-primary);
   margin-bottom: 1.5rem;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--ls-heading);
+  line-height: var(--lh-heading);
 }
 
 .cs2-heading--center {
@@ -202,8 +206,9 @@
 }
 
 .cs2-body {
-  font-size: 1.1rem;
-  line-height: 1.8;
+  font-size: var(--body-l);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
   color: var(--text-body);
   margin-bottom: 1.5rem;
 }

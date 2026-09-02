@@ -3,11 +3,12 @@ import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import About from './pages/About'
 import Work from './pages/Work'
-// import Blog from './pages/Blog'
+import Services from './pages/Services'
 import Contact from './pages/Contact'
 import CaseStudyContactForm from './pages/CaseStudyContactForm'
 import CaseStudyHempHop from './pages/CaseStudyHempHop'
 import CaseStudyGrubwala from './pages/CaseStudyGrubwala'
+import GrubwalaHub from './pages/GrubwalaHub'
 import CaseStudySpotify from './pages/CaseStudySpotify'
 import ExperienceRobotics from './pages/ExperienceRobotics'
 import ExperienceNonTechnical from './pages/ExperienceNonTechnical'
@@ -17,6 +18,7 @@ import DinoGame from './pages/DinoGame'
 import CursorFollower from './components/CursorFollower'
 import ScrollToTop from './components/ScrollToTop'
 import ScrollToTopButton from './components/ScrollToTopButton'
+import { useLenis } from './hooks/useLenis'
 
 // import WhatsAppFloat from './components/WhatsAppFloat'
 // import IntroOverlay from './components/IntroOverlay'
@@ -26,6 +28,8 @@ import './mobile-polish.css'
 import './responsive.css'
 
 function App() {
+  useLenis()
+
   return (
     <Router>
       <ScrollToTop />
@@ -36,8 +40,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/work" element={<Work />} />
           {/* <Route path="/blog" element={<Blog />} /> */}
+          <Route path="/work" element={<Work />} />
+          <Route path="/work/grubwala" element={<GrubwalaHub />} />
+          <Route path="/work/grubwala/homepage" element={<CaseStudyGrubwala initialFlow="ordering" />} />
+          <Route path="/work/grubwala/onboarding" element={<CaseStudyGrubwala initialFlow="onboarding" />} />
+          <Route path="/work/grubwala/edge-cases" element={<CaseStudyGrubwala initialFlow="edgecases" />} />
+          <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/case-study" element={<CaseStudyContactForm />} />
           <Route path="/case-study/hemp-hop" element={<CaseStudyHempHop />} />

@@ -2,20 +2,21 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Button from './ui/Button'
 import './WorksSection.css'
 import contactFormImage from '../images/case-studies/case-study-1/contact-redesign.jpg'
 import hempHopImage from '../images/case-studies/case-study-2/hemp-hop-cover.png'
 import grubwalaImage from '../images/case-studies/case-study-3/grubwala-cover.jpg'
-import spotifyImage from '../images/case-studies/case-study-4/spotify-hero.png'
+import spotifyImage from '../images/case-studies/case-study-4/spotify-laptop-cover.jpg'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const projects = [
   {
     id: 1,
-    title: 'Reducing friction in lead capture workflows',
-    category: 'UX/UI Redesign',
-    description: 'Users were abandoning a critical contact form mid-way. Redesigned the end-to-end form experience resulting in a 40% increase in completion rates.',
+    title: 'Lead Capture Form Usability Redesign',
+    category: 'UX Research · UX/UI Design',
+    description: 'Users were abandoning a critical B2B contact form. Redesigned the end-to-end form experience resulting in a 40% increase in completion rates.',
     image: contactFormImage,
     link: '/case-study',
     date: 'Jan 2025',
@@ -23,7 +24,7 @@ const projects = [
   {
     id: 4,
     title: 'Spotify Desktop Mini Player Redesign',
-    category: 'Interaction Design',
+    category: 'UX Research · Interaction Design',
     description: 'Designed a lyrics-in-mini-player feature for Spotify Desktop using progressive disclosure and hover-based interaction — bringing live lyrics to users without disrupting their workflow.',
     image: spotifyImage,
     link: '/case-study/spotify',
@@ -32,13 +33,12 @@ const projects = [
   {
     id: 3,
     title: 'Rebuilding a Trust-First Food Ordering Experience',
-    category: 'Mobile App UX',
+    category: 'Product Design · End-to-End',
     description: 'Led the end-to-end UX redesign of a food delivery platform, improving usability, trust, and creating an emotionally engaging ordering experience.',
     image: grubwalaImage,
     link: '/case-study/grubwala',
     date: 'May 2025',
   },
-
 ]
 
 const WorksSection = () => {
@@ -114,10 +114,17 @@ const WorksSection = () => {
 
         {/* ── Header row ── */}
         <div className="wsc-header">
-          <h2 className="wsc-section-title">Selected Works</h2>
-          <Link to="/work" className="wsc-view-all-btn">
+          <div className="wsc-header-left">
+            <h2 className="wsc-section-title">
+              Every Product Solved<br />A Different Problem.
+            </h2>
+            <p className="wsc-section-desc">
+              A selection of projects where research, strategy, and interface design came together to solve real user problems across web and mobile experiences.
+            </p>
+          </div>
+          <Button variant="secondary" size="sm" to="/work" showArrow arrowType="right">
             View all works
-          </Link>
+          </Button>
         </div>
 
         {/* ── Cards grid ── */}
@@ -140,12 +147,11 @@ const WorksSection = () => {
                   <span className="wsc-date">{project.date}</span>
                   <span className="wsc-category">{project.category}</span>
                 </div>
-                <span className="wsc-cta-link">
-                  View case study
-                  <svg className="wsc-cta-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none">
-                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
+                <div className="wsc-cta-wrap">
+                  <Button variant="tertiary" size="sm" showArrow arrowType="right">
+                    View case study
+                  </Button>
+                </div>
               </div>
             </Link>
           ))}

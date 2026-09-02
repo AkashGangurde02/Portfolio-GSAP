@@ -1,109 +1,150 @@
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import './ExperienceSection.css'
-import { forwardRef, useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import somvanshiLogo from '../images/icons/Somvanshi_tech_logo.svg'
-import vrcLogo from '../images/icons/VRC_logo.png'
+import Button from './ui/Button'
+import resumePDF from '../images/Akash_Gangurde.pdf'
+import './ExperienceSection.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const ExperienceSection = forwardRef((props, ref) => {
-    const titleRef = useRef(null)
-    const listRef = useRef(null)
+const EXPERIENCES = [
+  {
+    num: '01',
+    date: 'SEP 2025 — MAR 2026',
+    role: 'UX/UI Designer Intern',
+    company: 'SOMVANSHI TECHNOLOGIES PVT. LTD., PUNE',
+    desc: 'Working on end-to-end UX/UI design for AI-powered products and digital solutions. Involved in user research, wireframing, UI design, prototyping, and collaborating with developers to deliver meaningful user experiences.',
+    link: '/experience/somvanshi'
+  }
+]
 
-    useEffect(() => {
-        // Skip animation if embedded (About page handles its own animation)
-        if (props.className?.includes('embedded')) return
+export default function ExperienceSection() {
+  const containerRef = useRef(null)
+  const leftColRef = useRef(null)
+  const timelineRef = useRef(null)
 
-        const ctx = gsap.context(() => {
-            gsap.from(titleRef.current, {
-                scrollTrigger: {
-                    trigger: titleRef.current,
-                    start: 'top 85%',
-                    toggleActions: 'play none none reverse'
-                },
-                y: 30,
-                opacity: 0,
-                duration: 0.8,
-                ease: 'power3.out'
-            })
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Headline text reveal animation (similar to case studies)
+      // Header entrance animation
+      gsap.from('.exp-headline-line-content', {
+        scrollTrigger: {
+          trigger: leftColRef.current,
+          start: 'top 95%',
+          toggleActions: 'play none none none',
+          once: true,
+        },
+        y: '100%',
+        duration: 0.5,
+        stagger: 0.05,
+        ease: 'power2.out',
+      })
 
-            gsap.from(listRef.current.children, {
-                scrollTrigger: {
-                    trigger: listRef.current,
-                    start: 'top 85%',
-                    toggleActions: 'play none none reverse'
-                },
-                y: 20,
-                opacity: 0,
-                duration: 0.6,
-                stagger: 0.1,
-                ease: 'power3.out',
-                clearProps: 'all' // Ensure props are cleared after animation
-            })
+      gsap.from('.exp-subtitle', {
+        scrollTrigger: {
+          trigger: leftColRef.current,
+          start: 'top 95%',
+          toggleActions: 'play none none none',
+          once: true,
+        },
+        opacity: 0,
+        y: 15,
+        duration: 0.4,
+        delay: 0.05,
+        ease: 'power2.out',
+      })
+
+      // Timeline vertical progress line animation
+      gsap.fromTo('.exp-timeline-line-progress', 
+        { height: '0%' },
+        {
+          scrollTrigger: {
+            trigger: timelineRef.current,
+            start: 'top 90%',
+            end: 'bottom 60%',
+            scrub: true,
+          },
+          height: '100%',
+          ease: 'none'
+        }
+      )
+
+      // Timeline items entrance animation
+      const items = timelineRef.current.querySelectorAll('.exp-timeline-item')
+      items.forEach((item) => {
+        const num = item.querySelector('.exp-number')
+        const details = item.querySelector('.exp-details')
+
+        gsap.from([num, details].filter(Boolean), {
+          scrollTrigger: {
+            trigger: item,
+            start: 'top 95%',
+            toggleActions: 'play none none none',
+            once: true,
+          },
+          opacity: 0,
+          y: 20,
+          stagger: 0.04,
+          duration: 0.4,
+          ease: 'power2.out',
         })
+      })
+    }, containerRef)
 
-        return () => ctx.revert()
-    }, [props.className])
+    return () => ctx.revert()
+  }, [])
 
-    const experiences = [
-        { title: 'UX/UI Designer Intern', company: 'Somvanshi Technologies', period: '2025 – Present', logo: somvanshiLogo },
-        { title: 'Non-Technical Head (Design & Coordination)', company: 'VIIT Robotics Club', period: '2024 – 2025', logo: vrcLogo },
-        { title: 'Software Team Member', company: 'VIIT Robotics Club', period: '2023 – 2024', logo: vrcLogo }
-    ]
+  return (
+    <section ref={containerRef} id="experience" className="experience-section">
+      <div className="exp-container">
+        
+        {/* ── Left Column ── */}
+        <div ref={leftColRef} className="exp-left-col">
+          <div>
+            <h2 className="exp-headline">
+              <span className="exp-headline-line">
+                <span className="exp-headline-line-content">More Than Experience.</span>
+              </span>
+            </h2>
+            <p className="exp-subtitle">
+              A journey of mentorship, ownership, and collaboration that shaped my approach to product design.
+            </p>
+          </div>
+        </div>
 
-    return (
-        <section ref={ref} id="experience" className={`experience-section ${props.className || ''}`}>
-            <div className="experience-container">
-                <h2 ref={titleRef} className="section-title">My work experience</h2>
-                <div ref={listRef} className="experience-list">
-                    {experiences.map((exp, index) => {
-                        let linkPath = null;
-                        if (exp.title === 'Software Team Member') linkPath = '/experience/robotics';
-                        else if (exp.title === 'Non-Technical Head (Design & Coordination)') linkPath = '/experience/non-technical';
-                        else if (exp.title === 'UX/UI Designer Intern') linkPath = '/experience/somvanshi';
-
-                        const content = (
-                            <>
-                                <div className="experience-left-group">
-                                    <img src={exp.logo} alt={`${exp.company} logo`} className="experience-logo" />
-                                    <div className="experience-info">
-                                        <h3 className="experience-title">{exp.title}</h3>
-                                        <p className="experience-company">{exp.company}</p>
-                                    </div>
-                                </div>
-                                <div className="experience-right">
-                                    <span className="experience-period">{exp.period}</span>
-                                    {linkPath && (
-                                        <svg className="experience-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                            <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
-                                    )}
-                                </div>
-                            </>
-                        );
-
-                        return linkPath ? (
-                            <Link
-                                key={index}
-                                to={linkPath}
-                                className="experience-item experience-item-clickable"
-                            >
-                                {content}
-                            </Link>
-                        ) : (
-                            <div key={index} className="experience-item">
-                                {content}
-                            </div>
-                        );
-                    })}
-                </div>
+        {/* ── Right Column ── */}
+        <div className="exp-right-col">
+          {/* ── Timeline Container ── */}
+          <div ref={timelineRef} className="exp-timeline-container">
+            {/* The vertical timeline track line */}
+            <div className="exp-timeline-line">
+              <div className="exp-timeline-line-progress" />
             </div>
-        </section>
-    )
-})
 
-ExperienceSection.displayName = 'ExperienceSection'
+            {/* Timeline Rows */}
+            {EXPERIENCES.map((exp) => (
+              <Link key={exp.num} to={exp.link} className="exp-timeline-item">
+                <div className="exp-number">{exp.num}</div>
+                <div className="exp-details">
+                  <span className="exp-date">{exp.date}</span>
+                  <h3 className="exp-role">{exp.role}</h3>
+                  <span className="exp-company">{exp.company}</span>
+                  <p className="exp-description">{exp.desc}</p>
+                  <div className="exp-divider" />
+                </div>
+              </Link>
+            ))}
+          </div>
 
-export default ExperienceSection
+          <div className="exp-right-footer">
+            <Button variant="secondary" size="md" href={resumePDF} target="_blank" showArrow arrowType="up-right">
+              VIEW RESUME
+            </Button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  )
+}

@@ -1,6 +1,6 @@
 .skills-section {
   padding: 6rem 2rem;
-  background-color: #f8f8f8;
+  background-color: var(--bg);
 }
 
 .skills-container {
@@ -9,8 +9,10 @@
 }
 
 .skills-title {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
+  font-size: var(--heading-xl);
+  font-weight: 500;
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
   margin-bottom: 4rem;
   color: #000000;
   text-align: center;
@@ -23,7 +25,7 @@
 }
 
 .skill-category {
-  background-color: #ffffff;
+  background-color: var(--surface);
   padding: 2.5rem;
   border-radius: 20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -35,8 +37,10 @@
 }
 
 .category-title {
-  font-size: 1.5rem;
+  font-size: var(--title-m);
   font-weight: 600;
+  line-height: var(--lh-title);
+  letter-spacing: var(--ls-title);
   color: #000000;
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
@@ -53,11 +57,12 @@
 }
 
 .skill-item {
-  font-size: 0.95rem;
+  font-size: var(--body-m);
   color: #333333;
   padding-left: 1.5rem;
   position: relative;
-  line-height: 1.6;
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
 }
 
 .skill-item::before {

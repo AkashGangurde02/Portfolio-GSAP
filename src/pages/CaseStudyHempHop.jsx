@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useSEO } from '../hooks/useSEO'
 import { Link } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './CaseStudyHempHop.css'
@@ -29,6 +28,59 @@ const HEMP_HOP_PROBLEMS = [
     { number: '02', title: 'Poor Comparisons', description: 'The Product Listing Pages (PLP) lacked scannability, making it hard to efficiently compare different wellness items.' },
     { number: '03', title: 'Weak Trust Signals', description: 'Reassurance at key conversion moments was presented inconsistently, failing to mitigate hesitation.' }
 ]
+
+// GSAP accordion item — replaces AnimatePresence height: 0 → auto
+const AccordionItem = ({ prob, isOpen, onToggle }) => {
+  const contentRef = useRef(null)
+  const tweenRef = useRef(null)
+
+  useEffect(() => {
+    const el = contentRef.current
+    if (!el) return
+    if (tweenRef.current) tweenRef.current.kill()
+    if (isOpen) {
+      gsap.set(el, { height: 'auto', opacity: 1 })
+      const fullH = el.scrollHeight
+      gsap.set(el, { height: 0, opacity: 0 })
+      tweenRef.current = gsap.to(el, {
+        height: fullH,
+        opacity: 1,
+        duration: 0.32,
+        ease: 'power2.inOut',
+        onComplete: () => gsap.set(el, { height: 'auto' }),
+      })
+    } else {
+      tweenRef.current = gsap.to(el, {
+        height: 0,
+        opacity: 0,
+        duration: 0.28,
+        ease: 'power2.inOut',
+      })
+    }
+    return () => { if (tweenRef.current) tweenRef.current.kill() }
+  }, [isOpen])
+
+  return (
+    <div className={`cs2-accordion-item ${isOpen ? 'open' : ''}`}>
+      <button
+        className="cs2-accordion-header"
+        onClick={onToggle}
+        aria-expanded={isOpen}
+      >
+        <span className="cs2-accordion-title">
+          <span className="cs2-accordion-num">{prob.number}</span>
+          {prob.title}
+        </span>
+        <span className="cs2-accordion-icon">{isOpen ? '−' : '+'}</span>
+      </button>
+      <div ref={contentRef} className="cs2-accordion-content" style={{ height: 0, overflow: 'hidden', opacity: 0 }}>
+        <div className="cs2-accordion-inner">
+          <p className="cs2-accordion-desc">{prob.description}</p>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 const CaseStudyHempHop = () => {
     useSEO({
@@ -199,42 +251,14 @@ const CaseStudyHempHop = () => {
 
                     {/* MOBILE ACCORDION LAYOUT (Visible only on mobile/tablet) */}
                     <div className="cs2-problem-accordion">
-                        {HEMP_HOP_PROBLEMS.map((prob, index) => {
-                            const isOpen = index === activeProblemIndex
-                            return (
-                                <div key={index} className={`cs2-accordion-item ${isOpen ? 'open' : ''}`}>
-                                    <button
-                                        className="cs2-accordion-header"
-                                        onClick={() => setActiveProblemIndex(isOpen ? null : index)}
-                                        aria-expanded={isOpen}
-                                    >
-                                        <span className="cs2-accordion-title">
-                                            <span className="cs2-accordion-num">{prob.number}</span>
-                                            {prob.title}
-                                        </span>
-                                        <span className="cs2-accordion-icon">
-                                            {isOpen ? '−' : '+'}
-                                        </span>
-                                    </button>
-                                    
-                                    <AnimatePresence initial={false}>
-                                        {isOpen && (
-                                            <motion.div
-                                                initial={{ height: 0, opacity: 0 }}
-                                                animate={{ height: 'auto', opacity: 1 }}
-                                                exit={{ height: 0, opacity: 0 }}
-                                                transition={{ duration: 0.3, ease: 'easeInOut' }}
-                                                className="cs2-accordion-content"
-                                            >
-                                                <div className="cs2-accordion-inner">
-                                                    <p className="cs2-accordion-desc">{prob.description}</p>
-                                                </div>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-                                </div>
-                            )
-                        })}
+                        {HEMP_HOP_PROBLEMS.map((prob, index) => (
+                            <AccordionItem
+                                key={index}
+                                prob={prob}
+                                isOpen={index === activeProblemIndex}
+                                onToggle={() => setActiveProblemIndex(activeProblemIndex === index ? null : index)}
+                            />
+                        ))}
                     </div>
                 </div>
             </section>
@@ -348,7 +372,7 @@ const CaseStudyHempHop = () => {
                 </div>
             </section >
 
-            <Footer />
+            <Footer variant="inner" />
         </div >
     )
 }

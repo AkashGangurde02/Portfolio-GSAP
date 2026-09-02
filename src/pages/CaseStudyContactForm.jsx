@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { useSEO } from '../hooks/useSEO'
-import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Button from '../components/ui/Button'
 import '../components/HomeSubNavbar.css'
 import './CaseStudyContactForm.css'
 import contactFormImage from '../images/case-studies/case-study-1/contact-redesign.jpg'
@@ -141,12 +141,66 @@ const ImprovementCard = ({ icon, title, description }) => (
   </div>
 )
 
+// ── ACCORDION ITEM: GSAP height animation (replaces AnimatePresence height: auto) ──
+const AccordionItem = ({ bug, isOpen, onToggle }) => {
+  const contentRef = useRef(null);
+  const tweenRef = useRef(null);
+
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+    if (tweenRef.current) tweenRef.current.kill();
+    if (isOpen) {
+      gsap.set(el, { height: 'auto', opacity: 1 });
+      const fullH = el.scrollHeight;
+      gsap.set(el, { height: 0, opacity: 0 });
+      tweenRef.current = gsap.to(el, {
+        height: fullH,
+        opacity: 1,
+        duration: 0.32,
+        ease: 'power2.inOut',
+        onComplete: () => gsap.set(el, { height: 'auto' }),
+      });
+    } else {
+      tweenRef.current = gsap.to(el, {
+        height: 0,
+        opacity: 0,
+        duration: 0.28,
+        ease: 'power2.inOut',
+      });
+    }
+    return () => { if (tweenRef.current) tweenRef.current.kill(); };
+  }, [isOpen]);
+
+  return (
+    <div className={`cfu-aud-accordion-item ${isOpen ? 'open' : ''}`}>
+      <button
+        className="cfu-aud-accordion-header"
+        onClick={onToggle}
+        aria-expanded={isOpen}
+      >
+        <span className="cfu-aud-accordion-title">{bug.title}</span>
+        <span className="cfu-aud-accordion-icon">{isOpen ? '−' : '+'}</span>
+      </button>
+      <div ref={contentRef} className="cfu-aud-accordion-content" style={{ height: 0, overflow: 'hidden', opacity: 0 }}>
+        <div className="cfu-aud-accordion-inner">
+          <p className="cfu-aud-accordion-desc">{bug.description}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const InteractiveAuditSection = () => {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const [progressKey, setProgressKey] = useState(0)
   const intervalRef = useRef(null)
   const hoveredRef = useRef(false)
+  // GSAP refs for progress bar and content panel
+  const progressRef = useRef(null)
+  const contentRef = useRef(null)
+  const progressTweenRef = useRef(null)
 
   const DURATION = 7000
 
@@ -174,11 +228,51 @@ const InteractiveAuditSection = () => {
         setIsPaused(false)
       }
     }
-    
     checkMobile()
     window.addEventListener('resize', checkMobile)
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
+
+  // GSAP progress bar: replaces motion.div scaleX: 0→1
+  useEffect(() => {
+    const el = progressRef.current
+    if (!el) return
+    if (progressTweenRef.current) progressTweenRef.current.kill()
+    gsap.set(el, { scaleX: 0, transformOrigin: 'left center' })
+    if (!isPaused) {
+      progressTweenRef.current = gsap.to(el, {
+        scaleX: 1,
+        duration: DURATION / 1000,
+        ease: 'none',
+      })
+    }
+    return () => { if (progressTweenRef.current) progressTweenRef.current.kill() }
+  }, [progressKey, isPaused])
+
+  // GSAP content swap: replaces AnimatePresence mode="wait" content transition
+  useEffect(() => {
+    const el = contentRef.current
+    if (!el) return
+    const ctx = gsap.context(() => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }
+      )
+      gsap.fromTo(el.querySelector('.cfu-aud-tag'),
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, delay: 0.1 }
+      )
+      gsap.fromTo(el.querySelector('.cfu-aud-content-title'),
+        { opacity: 0, y: 8 },
+        { opacity: 1, y: 0, duration: 0.4, delay: 0.15 }
+      )
+      gsap.fromTo(el.querySelector('.cfu-aud-content-desc'),
+        { opacity: 0, y: 8 },
+        { opacity: 1, y: 0, duration: 0.4, delay: 0.22 }
+      )
+    }, el)
+    return () => ctx.revert()
+  }, [activeIndex])
 
   const handleHoverIn = (index) => {
     hoveredRef.current = true
@@ -188,7 +282,7 @@ const InteractiveAuditSection = () => {
   }
 
   const handleHoverOut = () => {
-    if (window.innerWidth <= 860) return // Don't unpause on mobile
+    if (window.innerWidth <= 860) return
     hoveredRef.current = false
     setIsPaused(false)
     setProgressKey(k => k + 1)
@@ -212,16 +306,13 @@ const InteractiveAuditSection = () => {
                 <span className={`cfu-aud-item-title ${isActive ? 'cfu-aud-active' : 'cfu-aud-inactive'}`}>
                   {bug.title}
                 </span>
-                {/* Track line */}
+                {/* Track line — plain div, GSAP animates scaleX */}
                 <div className="cfu-aud-track">
                   {isActive && (
-                    <motion.div
-                      key={progressKey}
+                    <div
+                      ref={progressRef}
                       className="cfu-aud-progress"
-                      initial={{ scaleX: 0 }}
-                      animate={{ scaleX: isPaused ? undefined : 1 }}
-                      transition={{ duration: DURATION / 1000, ease: 'linear' }}
-                      style={{ originX: 0 }}
+                      style={{ transformOrigin: 'left center' }}
                     />
                   )}
                 </div>
@@ -230,81 +321,26 @@ const InteractiveAuditSection = () => {
           })}
         </div>
 
-        {/* RIGHT — Content */}
+        {/* RIGHT — Content panel — plain div, GSAP animates on activeIndex change */}
         <div className="cfu-aud-right">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeIndex}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
-              className="cfu-aud-content"
-            >
-              <motion.span
-                className="cfu-aud-tag"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.1, duration: 0.3 }}
-              >
-                {AUDIT_BUGS[activeIndex]?.tag}
-              </motion.span>
-              <motion.h4
-                className="cfu-aud-content-title"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15, duration: 0.4 }}
-              >
-                {AUDIT_BUGS[activeIndex]?.title}
-              </motion.h4>
-              <motion.p
-                className="cfu-aud-content-desc"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.22, duration: 0.4 }}
-              >
-                {AUDIT_BUGS[activeIndex]?.description}
-              </motion.p>
-            </motion.div>
-          </AnimatePresence>
+          <div ref={contentRef} className="cfu-aud-content">
+            <span className="cfu-aud-tag">{AUDIT_BUGS[activeIndex]?.tag}</span>
+            <h4 className="cfu-aud-content-title">{AUDIT_BUGS[activeIndex]?.title}</h4>
+            <p className="cfu-aud-content-desc">{AUDIT_BUGS[activeIndex]?.description}</p>
+          </div>
         </div>
       </div>
 
       {/* MOBILE ACCORDION LAYOUT (Visible only on mobile/tablet) */}
       <div className="cfu-aud-mobile-accordion">
-        {AUDIT_BUGS.map((bug, index) => {
-          const isOpen = index === activeIndex
-          return (
-            <div key={index} className={`cfu-aud-accordion-item ${isOpen ? 'open' : ''}`}>
-              <button
-                className="cfu-aud-accordion-header"
-                onClick={() => setActiveIndex(isOpen ? null : index)}
-                aria-expanded={isOpen}
-              >
-                <span className="cfu-aud-accordion-title">{bug.title}</span>
-                <span className="cfu-aud-accordion-icon">
-                  {isOpen ? '−' : '+'}
-                </span>
-              </button>
-              
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: 'easeInOut' }}
-                    className="cfu-aud-accordion-content"
-                  >
-                    <div className="cfu-aud-accordion-inner">
-                      <p className="cfu-aud-accordion-desc">{bug.description}</p>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          )
-        })}
+        {AUDIT_BUGS.map((bug, index) => (
+          <AccordionItem
+            key={index}
+            bug={bug}
+            isOpen={index === activeIndex}
+            onToggle={() => setActiveIndex(activeIndex === index ? null : index)}
+          />
+        ))}
       </div>
     </div>
   )
@@ -746,12 +782,12 @@ export default function CaseStudyContactForm() {
         <h2>Want to see more of my work?</h2>
         <p>Explore other case studies or get in touch.</p>
         <div className="cfu-cta-btns">
-          <Link to="/work" className="cfu-btn cfu-btn-ghost">← Back to Work</Link>
-          <Link to="/contact" className="cfu-btn cfu-btn-primary">Let's Talk →</Link>
+          <Button variant="secondary" size="md" to="/work">Back to Work</Button>
+          <Button variant="primary" size="md" to="/contact" showArrow arrowType="right">Let's Talk</Button>
         </div>
       </section>
 
-      <Footer />
+      <Footer variant="inner" />
     </div>
   )
 }

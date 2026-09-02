@@ -229,7 +229,8 @@ body {
     .carousel-track,
     .marquee-track,
     .marquee-group,
-    .tool-bubble-wrapper {
+    .tool-bubble-wrapper,
+    .cf-grid {
         max-width: none;
     }
 

@@ -1,13 +1,13 @@
 .blog-page {
   padding: 8rem 2rem 4rem;
-  background-color: #fafafa;
+  background-color: var(--bg);
   min-height: 100vh;
 }
 
 .blog-container {
   max-width: 800px;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: var(--surface);
   padding: 3rem 4rem;
   border-radius: 8px;
 }

@@ -1,5 +1,5 @@
-import { motion, AnimatePresence } from "framer-motion";
 import React, { useRef, useState, useEffect } from "react";
+import gsap from "gsap";
 import "./BackgroundBeamsWithCollision.css";
 
 export const BackgroundBeamsWithCollision = ({
@@ -81,6 +81,7 @@ export const BackgroundBeamsWithCollision = ({
 
 const CollisionMechanism = React.forwardRef(({ parentRef, containerRef, beamOptions = {} }, ref) => {
   const beamRef = useRef(null);
+  const tweenRef = useRef(null);
   const [collision, setCollision] = useState({
     detected: false,
     coordinates: null,
@@ -88,6 +89,30 @@ const CollisionMechanism = React.forwardRef(({ parentRef, containerRef, beamOpti
   const [beamKey, setBeamKey] = useState(0);
   const [cycleCollisionDetected, setCycleCollisionDetected] = useState(false);
 
+  // GSAP beam travel animation — replaces motion.div with repeat: Infinity
+  useEffect(() => {
+    if (!beamRef.current) return;
+
+    // Kill any previous tween
+    if (tweenRef.current) tweenRef.current.kill();
+
+    gsap.set(beamRef.current, { y: "-200px" });
+
+    tweenRef.current = gsap.to(beamRef.current, {
+      y: "1200px",
+      duration: beamOptions.duration || 8,
+      ease: "none",
+      repeat: -1,
+      repeatDelay: beamOptions.repeatDelay || 0,
+      delay: beamOptions.delay || 0,
+    });
+
+    return () => {
+      if (tweenRef.current) tweenRef.current.kill();
+    };
+  }, [beamKey, beamOptions.duration, beamOptions.repeatDelay, beamOptions.delay]);
+
+  // Collision detection interval
   useEffect(() => {
     const checkCollision = () => {
       if (
@@ -123,15 +148,14 @@ const CollisionMechanism = React.forwardRef(({ parentRef, containerRef, beamOpti
     return () => clearInterval(animationInterval);
   }, [cycleCollisionDetected, containerRef, parentRef]);
 
+  // Reset cycle after collision
   useEffect(() => {
     if (collision.detected && collision.coordinates) {
-      // Clear collision state after 2 seconds to prepare for next cycle
       const timer1 = setTimeout(() => {
         setCollision({ detected: false, coordinates: null });
         setCycleCollisionDetected(false);
       }, 2000);
 
-      // Increment beam key to trigger a reset and re-render of the animation
       const timer2 = setTimeout(() => {
         setBeamKey((prevKey) => prevKey + 1);
       }, 2000);
@@ -145,43 +169,21 @@ const CollisionMechanism = React.forwardRef(({ parentRef, containerRef, beamOpti
 
   return (
     <>
-      <motion.div
-        key={beamKey}
+      <div
         ref={beamRef}
-        animate="animate"
-        initial={{
-          y: "-200px",
-        }}
-        variants={{
-          animate: {
-            y: "1200px", // Animates down; collision interval will catch it and reset early
-          },
-        }}
-        transition={{
-          duration: beamOptions.duration || 8,
-          repeat: Infinity,
-          repeatType: "loop",
-          ease: "linear",
-          delay: beamOptions.delay || 0,
-          repeatDelay: beamOptions.repeatDelay || 0,
-        }}
-        style={{
-          left: beamOptions.initialX || "0px",
-        }}
+        style={{ left: beamOptions.initialX || "0px" }}
         className={`beams-laser-ray ${beamOptions.className || ""}`}
       />
-      <AnimatePresence>
-        {collision.detected && collision.coordinates && (
-          <Explosion
-            key={`${collision.coordinates.x}-${collision.coordinates.y}`}
-            style={{
-              left: `${collision.coordinates.x}px`,
-              top: `${collision.coordinates.y}px`,
-              transform: "translate(-50%, -50%)",
-            }}
-          />
-        )}
-      </AnimatePresence>
+      {collision.detected && collision.coordinates && (
+        <Explosion
+          key={`${collision.coordinates.x}-${collision.coordinates.y}`}
+          style={{
+            left: `${collision.coordinates.x}px`,
+            top: `${collision.coordinates.y}px`,
+            transform: "translate(-50%, -50%)",
+          }}
+        />
+      )}
     </>
   );
 });
@@ -189,35 +191,65 @@ const CollisionMechanism = React.forwardRef(({ parentRef, containerRef, beamOpti
 CollisionMechanism.displayName = "CollisionMechanism";
 
 const Explosion = ({ style }) => {
-  // Spark distribution calculations
-  const spans = Array.from({ length: 20 }, (_, index) => ({
-    id: index,
-    initialX: 0,
-    initialY: 0,
-    directionX: Math.floor(Math.random() * 80 - 40),
-    directionY: Math.floor(Math.random() * -50 - 10),
-  }));
+  const flareRef = useRef(null);
+  const containerRef = useRef(null);
+
+  // GSAP spark + flare animation — replaces motion.div / motion.span
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Animate the central flare
+      gsap.fromTo(
+        flareRef.current,
+        { opacity: 0, scale: 0.5 },
+        { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out",
+          onComplete: () => {
+            gsap.to(flareRef.current, { opacity: 0, scale: 1.5, duration: 1.2, ease: "power1.out" });
+          }
+        }
+      );
+
+      // Animate each spark
+      const sparks = containerRef.current?.querySelectorAll(".beams-explosion-spark");
+      if (sparks) {
+        sparks.forEach((spark) => {
+          const dirX = parseFloat(spark.dataset.dirx || 0);
+          const dirY = parseFloat(spark.dataset.diry || 0);
+          const dur = parseFloat(spark.dataset.dur || 0.8);
+
+          gsap.fromTo(
+            spark,
+            { x: 0, y: 0, opacity: 1 },
+            { x: dirX, y: dirY, opacity: 0, duration: dur, ease: "power2.out" }
+          );
+        });
+      }
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  // Pre-generate spark data (stable across renders)
+  const sparks = React.useMemo(
+    () =>
+      Array.from({ length: 20 }, (_, index) => ({
+        id: index,
+        dirX: Math.floor(Math.random() * 80 - 40),
+        dirY: Math.floor(Math.random() * -50 - 10),
+        dur: Math.random() * 1.5 + 0.5,
+      })),
+    []
+  );
 
   return (
-    <div style={style} className="beams-explosion-container">
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-        className="beams-explosion-flare"
-      ></motion.div>
-      {spans.map((span) => (
-        <motion.span
-          key={span.id}
-          initial={{ x: span.initialX, y: span.initialY, opacity: 1 }}
-          animate={{
-            x: span.directionX,
-            y: span.directionY,
-            opacity: 0,
-          }}
-          transition={{ duration: Math.random() * 1.5 + 0.5, ease: "easeOut" }}
+    <div ref={containerRef} style={style} className="beams-explosion-container">
+      <div ref={flareRef} className="beams-explosion-flare" />
+      {sparks.map((spark) => (
+        <span
+          key={spark.id}
           className="beams-explosion-spark"
+          data-dirx={spark.dirX}
+          data-diry={spark.dirY}
+          data-dur={spark.dur}
         />
       ))}
     </div>

@@ -3,6 +3,7 @@ import { useSEO } from '../hooks/useSEO'
 import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
+import Button from '../components/ui/Button'
 import './About.css'
 import aboutProfile from '../images/profile/about-image.jpg'
 import aboutImage2 from '../images/experience/somvanshi/images/Workplace_1.jpeg'
@@ -166,7 +167,7 @@ const About = () => {
         }, '-=0.4')
     }, heroRef)
 
-    return () => { }
+    return () => ctx.revert()
   }, [])
 
   /* ── Tooltip style: position:absolute on body + scrollY offset ──
@@ -231,12 +232,9 @@ const About = () => {
                   {/* Quick-stat chips removed */}
 
                   {/* CTA */}
-                  <Link to="/contact" className="about-mobile-cta">
+                  <Button variant="primary" size="lg" to="/contact" showArrow arrowType="right">
                     Let's Talk
-                    <svg className="arrow-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </Link>
+                  </Button>
                 </div>
 
               </div>
@@ -327,7 +325,7 @@ const About = () => {
             </div>
           </div>
         </section>
-        <Footer />
+        <Footer variant="inner" />
       </div>
 
       {/* ── Portal tooltip — rendered at document.body, escapes ALL overflow/transform ancestors ── */}

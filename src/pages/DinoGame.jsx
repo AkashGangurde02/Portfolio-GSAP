@@ -87,7 +87,7 @@ const DinoGame = () => {
                     Return to Portfolio
                 </Link>
             </div>
-            <Footer />
+            <Footer variant="inner" />
         </div>
     )
 }

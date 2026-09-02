@@ -1,400 +1,411 @@
-/* ═══════════════════════════════════════════════════════════════
-   CompanyFeedback.css  — v3 minimal redesign
-   Desktop  → white bg, title left, GSAP wheel-driven dark carousel
-   Mobile/Tablet → title top, native horizontal scroll + visible scrollbar
-   ═══════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════
+   CompanyFeedback.css — Testimonial Bento Grid
+   Matches Figma Wireframe 1:1
+   ═══════════════════════════════════════════════════════════════════ */
 
-/* ── SECTION SHELL ─────────────────────────────────────────────── */
+/* ── Section ── */
 .cf-section {
-    background-color: #ffffff;
-    padding: 6rem 5%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    position: relative;
-    z-index: 1;
+  background: #e9e9e9;
+  color: #111111;
+  font-family: 'Inter', 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 64px 5vw;
+  overflow: hidden;
 }
 
-/* White rounded card that wraps everything */
-.cf-container {
-    background-color: #121212;
-    width: 100%;
-    max-width: 1600px;
-    border-radius: 20px;
-    border: 1px solid #222222;
-    padding: 2.5rem;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.35);
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    box-sizing: border-box;
-    transition: border-color 0.4s ease, box-shadow 0.4s ease;
-}
-
-.cf-container:hover {
-    border-color: #2a2a2a;
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.45);
-}
-
-/* ── HEADER ────────────────────────────────────────────────────── */
+/* ── Header ── */
 .cf-header {
-    flex-shrink: 0;
+  max-width: 100%;
+  margin: 0;
+  padding: 0 0 2.5rem 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 3rem;
 }
 
-.cf-title {
-    font-size: clamp(1.5rem, 3vw, 2.2rem);
-    line-height: 1.2;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    color: #ffffff;
-    margin: 0;
+.cf-header-title {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: var(--heading-l);
+  font-weight: 500;
+  color: #111111;
+  letter-spacing: var(--ls-heading);
+  line-height: var(--lh-heading);
+  margin: 0;
+  flex-shrink: 0;
 }
 
-.cf-title-light {
-    color: #ffffff;
-    font-weight: 400;
+.cf-header-title-light {
+  color: #a0a0a0;
 }
 
-/* ── DARK CAROUSEL BLOCK ───────────────────────────────────────── */
-.cf-carousel-block {
-    display: flex;
-    flex-direction: column;
-    gap: 0;                /* scrollbar track sits flush under window */
+.cf-header-desc {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: var(--body-l);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
+  color: #777777;
+  margin: 0;
+  max-width: 480px;
 }
 
-/* ── CAROUSEL WINDOW (scroll container) ────────────────────────── */
-.cf-window {
-    background-color: transparent;
-    border-radius: 20px;
-    padding: 2.5rem 0 1.5rem 2.5rem; /* Spacious padding for bottom scrollbar */
-    overflow-x: auto;
-    overflow-y: hidden;
-    cursor: default;
-    min-height: 300px;
-    display: flex;
-    align-items: center;
+/* ── Grid ── */
+.cf-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  align-items: stretch;
+  min-height: 360px;
 }
 
-/* ── TRACK ─────────────────────────────────────────────────────── */
-.cf-track {
-    display: flex;
-    gap: 1.75rem;
-    width: max-content;
-    flex-shrink: 0;
-    align-items: stretch;
-    padding-right: 2.5rem;
-    will-change: transform;
+/* Column wrapper for 2-card stacks */
+.cf-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
 }
 
-/* ── CARDS ─────────────────────────────────────────────────────── */
+/* ── Base Card ── */
 .cf-card {
-    background: #1c1c1c;
-    border: 1px solid #262626;
-    border-bottom: 2px solid #9F7AEA;
-    border-radius: 14px;
-    padding: 1.75rem;
-    width: 300px;
-    height: 340px;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, border-bottom-color 0.3s ease, box-shadow 0.3s ease;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  cursor: pointer;
+  transition:
+    transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    border-color 0.3s ease;
+  will-change: transform;
 }
 
 .cf-card:hover {
-    transform: translateY(-5px);
-    border-bottom-color: #63B3ED;
-    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.4);
+  transform: translateY(-4px);
+  border-color: rgba(0, 0, 0, 0.22);
 }
 
-.cf-card-header h3 {
-    font-size: 1.1rem;
-    color: #ffffff;
-    font-weight: 600;
-    margin: 0;
+/* Card divider rule */
+.cf-card-rule {
+  width: 100%;
+  height: 1px;
+  background: #e0e0e0;
+  margin: 1.25rem 0 1rem;
 }
 
-.cf-card-body p {
-    font-size: 0.9rem;
-    color: #cccccc;
-    line-height: 1.6;
-    margin: 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 7;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+/* ── Stats Card (Column 1) ── */
+.cf-card--stats {
+  padding: 1.35rem 1.25rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.cf-card-footer {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding-top: 0.75rem;
-    border-top: 1px solid #262626;
+.cf-stats-top {
+  display: flex;
+  align-items: flex-start;
 }
 
-.cf-star {
-    color: #63B3ED;
-    font-size: 1.1rem;
+.cf-stats-score {
+  display: flex;
+  align-items: baseline;
 }
 
-.cf-rating {
-    color: #ffffff;
-    font-size: 1rem;
-    font-weight: 500;
+.cf-stats-num {
+  font-size: var(--display-l);
+  font-weight: 700;
+  color: #111111;
+  letter-spacing: var(--ls-display);
+  line-height: var(--lh-display);
 }
 
-
-/* ══════════════════════════════════════════════════════════════════
-   VISIBLE SLIM LIGHT SCROLLBAR — Desktop & Mobile
-   ══════════════════════════════════════════════════════════════════ */
-
-.cf-window {
-    scrollbar-width: thin;
-    scrollbar-color: #333333 #121212; /* Firefox styling: Grey thumb, dark track */
+.cf-stats-denom {
+  font-size: var(--body-s);
+  font-weight: 600;
+  color: #aaaaaa;
+  margin-left: 2px;
 }
 
-/* Slim elegant Webkit scrollbar (Chrome, Safari, Edge) */
-.cf-window::-webkit-scrollbar {
-    display: block;
-    height: 8px; /* Elegant slim profile */
+.cf-stats-bottom {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
-.cf-window::-webkit-scrollbar-track {
-    background: #121212; /* Dark background to match panel */
-    border-radius: 10px;
-    margin: 0 2.5rem; /* Spacious inset bounds */
+.cf-stats-trust {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.cf-window::-webkit-scrollbar-thumb {
-    background: #333333; /* Darker thumb color */
-    border-radius: 10px;
-    border: 2px solid #121212; /* Inset padding effect using container bg */
-    transition: background 0.3s ease;
+.cf-avatar-stack {
+  display: flex;
 }
 
-.cf-window::-webkit-scrollbar-thumb:hover {
-    background: #444444; /* Highlights thumb on hover */
+.cf-stack-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 2px solid #ffffff;
+  margin-left: -10px;
+  background: #e0e0e0;
 }
 
+.cf-stack-img:first-child {
+  margin-left: 0;
+}
 
-/* ── TABLET (≤ 1024px) ─────────────────────────────────────────── */
+.cf-trust-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cf-trust-stars {
+  font-size: 0.7rem;
+  color: #111111;
+  letter-spacing: 2px;
+}
+
+.cf-trust-text {
+  font-size: var(--caption);
+  color: #888888;
+  font-weight: 500;
+  line-height: var(--lh-caption);
+  letter-spacing: var(--ls-caption);
+}
+
+.cf-stats-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.85rem 1.5rem;
+  background: #000000;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: var(--body-m);
+  font-weight: 600;
+  letter-spacing: var(--ls-body);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cf-stats-cta:hover {
+  background: #222222;
+  transform: scale(1.02);
+}
+
+/* ── Person Card ── */
+.cf-card--person {
+  padding: 0.9rem 1.1rem;
+  flex-shrink: 0;
+}
+
+.cf-person-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cf-person-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.cf-card:hover .cf-person-avatar {
+  transform: scale(1.06);
+}
+
+.cf-person-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cf-person-name {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: var(--body-m);
+  font-weight: 600;
+  color: #111111;
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
+}
+
+.cf-person-co {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: var(--body-s);
+  color: #aaaaaa;
+  font-weight: 400;
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
+}
+
+/* ── Quote Card ── */
+.cf-card--quote {
+  padding: 1.45rem 1.25rem;
+}
+
+.cf-card--flex-fill {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.cf-card--quote-btm {
+  justify-content: flex-end;
+}
+
+.cf-quote-text {
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif;
+  font-size: var(--body-l);
+  font-weight: 500;
+  line-height: var(--lh-body);
+  color: #111111;
+  margin: 0;
+  letter-spacing: var(--ls-body);
+}
+
+/* Carousel controls hidden by default on desktop */
+.cf-carousel-controls {
+  display: none;
+}
+
+/* ── Responsive ── */
 @media (max-width: 1024px) {
-    .cf-section {
-        padding: 4rem 4%;
-    }
-
-    .cf-container {
-        padding: 2.5rem;
-        gap: 1.75rem;
-    }
-
-    .cf-title {
-        font-size: clamp(1.35rem, 2.5vw, 1.75rem);
-    }
+  .cf-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-
-/* ══════════════════════════════════════════════════════════════════
-   MOBILE + TABLET SCROLL LAYOUT (≤ 768px)
-   Architecture:
-   • GSAP never runs (guarded in useLayoutEffect)
-   • .cf-window → overflow-x: auto  (native scroll)
-   • .cf-window has bottom border-radius so scrollbar track is
-     integrated inside the dark block
-   ══════════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
-    .cf-section {
-        padding: 3rem 0;
-    }
+  .cf-section {
+    padding: 48px 0 56px;
+  }
 
-    .cf-container {
-        width: calc(100% - 2rem);
-        margin: 0 1rem;
-        padding: 1.5rem 1.25rem 1.75rem;
-        border-radius: 16px;
-        gap: 1.25rem;
-        max-width: 100%;
-        min-height: unset;
-        box-sizing: border-box;
-        overflow: visible;     /* must NOT clip child scroll */
-    }
+  .cf-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 0 20px 20px 20px;
+  }
 
-    .cf-title {
-        font-size: clamp(1.2rem, 5vw, 1.5rem);
-        line-height: 1.2;
-        letter-spacing: -0.03em;
-    }
+  .cf-header-title {
+    font-size: clamp(32px, 8.5vw, 42px);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+  }
 
-    /* Make the dark block include the scrollbar at the bottom */
-    .cf-window {
-        /* Enable native horizontal scroll */
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch;
-        touch-action: pan-x;
-        overscroll-behavior-x: contain;
-        scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
+  /* ── Horizontal Carousel Track ── */
+  .cf-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 16px !important;
+    padding: 10px 20px 24px 20px !important;
+    min-height: auto !important;
+    max-width: none !important;
+    width: 100% !important;
+    scrollbar-width: none; /* Firefox */
+  }
 
-        /* Restore bottom radius so scrollbar is inside the dark panel */
-        border-radius: 14px;
-        padding: 1.5rem 0 0 1.25rem;   /* no bottom padding — scrollbar sits at bottom */
-        min-height: unset;
-        height: auto;
-        display: block;
-        cursor: default;
+  .cf-grid::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
 
-        /* Let global sleek black scrollbar styles handle layout on mobile */
-        scrollbar-width: thin;
-    }
+  /* Stats Card in Carousel */
+  .cf-card--stats {
+    flex: 0 0 84vw !important;
+    max-width: 320px !important;
+    scroll-snap-align: center !important;
+    min-height: 280px !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05) !important;
+  }
 
-    .cf-window::-webkit-scrollbar {
-        height: 6px;
-    }
+  /* Testimonial Columns in Carousel */
+  .cf-col {
+    flex: 0 0 85vw !important;
+    max-width: 330px !important;
+    scroll-snap-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    height: auto !important;
+  }
 
-    .cf-window::-webkit-scrollbar-track {
-        margin: 0 1.25rem;
-    }
+  .cf-card {
+    border-radius: 12px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04) !important;
+  }
 
-    /* Track: no GSAP, just a plain flex row */
-    .cf-track {
-        gap: 10px;
-        width: max-content;
-        padding: 1.25rem 1.25rem 1rem 0;   /* bottom padding = space above scrollbar */
-        align-items: stretch;
-        transform: none !important;
-        will-change: auto;
-        touch-action: pan-x;
-    }
+  .cf-card--person {
+    padding: 1rem 1.25rem !important;
+  }
 
-    /* Cards */
-    .cf-card {
-        width: 76vw;
-        min-width: 220px;
-        max-width: 280px;
-        height: auto;
-        min-height: 220px;
-        padding: 1.1rem;
-        flex-shrink: 0;
-        scroll-snap-align: start;
-        transition: none;
-    }
+  .cf-card--quote {
+    padding: 1.35rem 1.25rem !important;
+  }
 
-    .cf-card:hover {
-        transform: none;
-    }
+  .cf-quote-text {
+    font-size: 14.5px !important;
+    line-height: 1.5 !important;
+    color: #111111 !important;
+  }
 
-    .cf-card-header h3 {
-        font-size: 0.9rem;
-    }
+  .cf-carousel-controls {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 16px !important;
+    margin-top: 16px !important;
+    padding: 0 20px !important;
+  }
 
-    .cf-card-body p {
-        font-size: 0.82rem;
-        line-height: 1.5;
-        -webkit-line-clamp: 7;
-    }
-
-    .cf-card-footer {
-        padding-top: 0.6rem;
-    }
-
-    .cf-star {
-        font-size: 1rem;
-    }
-
-    .cf-rating {
-        font-size: 0.95rem;
-    }
-}
-
-/* ── SMALL PHONES (≤ 480px) ────────────────────────────────────── */
-@media (max-width: 480px) {
-    .cf-card {
-        width: 80vw;
-        min-width: 200px;
-    }
-
-    .cf-title {
-        font-size: clamp(1.1rem, 5vw, 1.35rem);
-    }
-}
-
-
-/* ═══════════════════════════════════════════════════════════════
-   MODAL  (unchanged)
-   ═══════════════════════════════════════════════════════════════ */
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.45);
+  .cf-carousel-arrow-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--bg);
+    border: 1.5px solid #111111;
+    color: #111111;
     display: flex;
+    align-items: center;
     justify-content: center;
-    align-items: center;
-    z-index: 2000;
-    backdrop-filter: blur(8px);
-    opacity: 0;
-    animation: cfFadeIn 0.3s forwards;
-}
-
-.modal-content {
-    background: #ffffff;
-    padding: 3rem;
-    border-radius: 24px;
-    max-width: 600px;
-    width: 90%;
-    border: 1px solid var(--border);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
-    transform: scale(0.95);
-    animation: cfScaleUp 0.3s forwards;
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid var(--border-subtle);
-    padding-bottom: 1rem;
-}
-
-.modal-header h3 {
-    font-size: 1.8rem;
-    color: var(--text-primary);
-    margin: 0;
-}
-
-.modal-close-btn {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    font-size: 2rem;
     cursor: pointer;
-    line-height: 1;
-    transition: color 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
+  }
+
+  .cf-carousel-arrow-btn:active {
+    background-color: #111111;
+    color: #FFFFFF;
+    transform: scale(0.95);
+  }
 }
 
-.modal-close-btn:hover {
-    color: var(--text-primary);
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .cf-card,
+  .cf-person-avatar,
+  .cf-stats-cta {
+    transition: none !important;
+  }
 }
-
-.modal-body p {
-    font-size: 1.1rem;
-    color: var(--text-body);
-    line-height: 1.8;
-}
-
-.modal-footer {
-    margin-top: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-@keyframes cfFadeIn  { to { opacity: 1; } }
-@keyframes cfScaleUp { to { transform: scale(1); } }

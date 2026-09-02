@@ -1,16 +1,18 @@
 import { useSEO } from '../hooks/useSEO'
 import HeroSection from '../components/HeroSection'
+import AboutMeSection from '../components/AboutMeSection'
 import MarqueeStrip from '../components/MarqueeStrip'
-import WorksSection from '../components/WorksSection'
 import SpotifyCasePreview from '../components/SpotifyCasePreview'
+import MotionSection from '../components/MotionSection'
+import DesigningBetterPaths from '../components/DesigningBetterPaths'
 import SkillsSection from '../components/SkillsSection'
 import ProcessSection from '../components/ProcessSection'
-import AboutSection from '../components/AboutSection'
 import ExperienceSection from '../components/ExperienceSection'
 import CompanyFeedback from '../components/CompanyFeedback'
-// import ExperienceSnapshot from '../components/ExperienceSnapshot'
 import Footer from '../components/Footer'
 import ImpactSection from '../components/ImpactSection'
+import StickyScrollSection from '../components/StickyScrollSection'
+import ServicesPopup from '../components/ServicesPopup'
 
 const Home = () => {
   useSEO({
@@ -22,17 +24,16 @@ const Home = () => {
   return (
     <>
       <HeroSection />
+      <AboutMeSection />
+      <StickyScrollSection />
       <MarqueeStrip />
-      <AboutSection />
-      <WorksSection />
       <SpotifyCasePreview />
-      {/* <ExperienceSnapshot /> */}
+      <MotionSection />
+      <DesigningBetterPaths />
       <ExperienceSection />
-      {/* <ImpactSection /> */}
-      {/* <SkillsSection /> */}
-      {/* <ProcessSection /> */}
       <CompanyFeedback />
-      <Footer />
+      <Footer variant="home" />
+      <ServicesPopup />
     </>
   )
 }

@@ -12,7 +12,7 @@ const Contact = () => {
   return (
     <>
       <ContactForm />
-      <Footer />
+      <Footer variant="inner" />
     </>
   )
 }

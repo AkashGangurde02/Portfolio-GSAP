@@ -1,0 +1,191 @@
+/* ============================================================
+   STICKY SCROLL SECTION — Rotary Wheel Interaction
+   Restrained Swiss Editorial Visual System
+   ============================================================ */
+
+.sss-section {
+  position: relative;
+  width: 100%;
+  background-color: var(--bg, #F5F4F0);
+  border-top: 1px solid var(--border-light-18, rgba(27, 27, 26, 0.18));
+  border-bottom: 1px solid var(--border-light-18, rgba(27, 27, 26, 0.18));
+}
+
+.sss-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* ── TWO-COLUMN EDITORIAL LAYOUT ── */
+.sss-layout {
+  width: 100%;
+  max-width: 1440px;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(60px, 9vw, 140px);
+  box-sizing: border-box;
+}
+
+/* ── LEFT: STICKY STATEMENT ── */
+.sss-left {
+  flex: 1.6;
+  max-width: 680px;
+}
+
+.sss-statement {
+  font-family: 'Saans Trial', 'Geist', 'Inter', -apple-system, sans-serif;
+  font-size: clamp(1.8rem, 3.2vw, 3rem);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.035em;
+  color: var(--ink, #1B1B1A);
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* ── TOP CENTER SCROLL HINT ── */
+.sss-top-scroll-hint {
+  position: absolute;
+  top: clamp(24px, 4.5vh, 48px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+  user-select: none;
+  pointer-events: none;
+}
+
+.sss-top-hint-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink, #1B1B1A);
+  animation: sssMouseScroll 2.2s infinite ease-in-out;
+}
+
+.sss-top-hint-text {
+  font-family: 'Space Mono', 'Saans Trial', 'Inter', monospace, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted, #6F6F6A);
+}
+
+@keyframes sssMouseScroll {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translateY(5px);
+    opacity: 1;
+  }
+}
+
+/* ── RIGHT: ROTARY WHEEL STAGE ── */
+.sss-right {
+  flex: 1.2;
+  display: flex;
+  align-items: center;
+}
+
+.sss-wheel-stage {
+  position: relative;
+  width: 100%;
+  height: 240px; /* 3 slots of 80px */
+  overflow: hidden;
+
+  /* Gradient mask for smooth wheel depth transition at top/bottom */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 1) 22%,
+    rgba(0, 0, 0, 1) 78%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 1) 22%,
+    rgba(0, 0, 0, 1) 78%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.sss-wheel-list {
+  position: relative;
+  width: 100%;
+  will-change: transform;
+}
+
+.sss-wheel-item {
+  height: 80px;
+  line-height: 80px;
+  font-family: 'Saans Trial', 'Geist', 'Inter', -apple-system, sans-serif;
+  font-size: clamp(2.2rem, 4.2vw, 4rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: var(--ink, #1B1B1A);
+  white-space: nowrap;
+  transform-origin: left center;
+  will-change: opacity, transform, filter, color;
+  user-select: none;
+}
+
+/* ── TABLET & MOBILE (< 768px) ── */
+@media (max-width: 767px) {
+  .sss-layout {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    padding: 0 24px;
+  }
+
+  .sss-left {
+    max-width: 100%;
+  }
+
+  .sss-statement {
+    font-size: clamp(1.4rem, 5vw, 2.2rem);
+    white-space: normal;
+  }
+
+  .sss-right {
+    width: 100%;
+  }
+
+  .sss-wheel-stage {
+    height: 168px; /* 3 slots of 56px */
+  }
+
+  .sss-wheel-item {
+    height: 56px;
+    line-height: 56px;
+    font-size: clamp(1.6rem, 6.5vw, 2.6rem);
+  }
+}
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  .sss-wheel-list {
+    transform: none !important;
+  }
+
+  .sss-wheel-item {
+    opacity: 1 !important;
+    scale: 1 !important;
+    filter: none !important;
+    color: var(--ink, #1B1B1A) !important;
+  }
+}

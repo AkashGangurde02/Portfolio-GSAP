@@ -1,151 +1,242 @@
 /* ═══════════════════════════════════════════════════════════════════
-   PALETTE — Premium Minimalist Black & White Portfolio
-   70% White (#FFFFFF) | 20% Black/Charcoal (#000000) | 10% Black Accent (#000000)
-═══════════════════════════════════════════════════════════════════ */
+   RESTRICTED SWISS EDITORIAL COLOR SYSTEM
+   Warm Ivory (#F5F4F0) | Warm Stone (#E9E8E3) | Charcoal (#1B1B1A) 
+   Muted Gray (#6F6F6A) | Restrained Vermilion (#D94732)
+   ═══════════════════════════════════════════════════════════════════ */
 
 :root {
+  /* ── Core Swiss Editorial Color Variables ── */
+  --bg:          #F5F4F0;
+  --surface:     #E9E8E3;
+  --ink:         #1B1B1A;
+  --muted:       #6F6F6A;
+  --accent:      #D94732;
+
+  --color-success: #E7B3A7;
+  --color-error:   #FF9D8C;
+
+  --border-light-18: rgba(27, 27, 26, 0.18);
+  --border-light-25: rgba(27, 27, 26, 0.25);
+  --border-light-30: rgba(27, 27, 26, 0.30);
+
+  --border-dark-24:  rgba(245, 244, 240, 0.24);
+  --border-dark-36:  rgba(245, 244, 240, 0.36);
+
+  --overlay-dark:    rgba(27, 27, 26, 0.72);
+  --overlay-caption: rgba(27, 27, 26, 0.90);
+  --bg-header-light: rgba(245, 244, 240, 0.96);
+
+  /* ── Legacy Palette Mapping ── */
+  --color-dark:       #1B1B1A;
+  --color-slate:      #2A2A28;
+  --color-steel:      #6F6F6A;
+  --color-tangerine:  #D94732;
+  --color-offwhite:   #F5F4F0;
+
   /* ── Backgrounds ── */
-  --bg-page:       #FFFFFF;
-  --bg-alt:        #FFFFFF;
-  --bg-card:       #FFFFFF;
-  --bg-white:      #FFFFFF;
+  --bg-page:       #F5F4F0;
+  --bg-alt:        #E9E8E3;
+  --bg-card:       #F5F4F0;
+  --bg-white:      #F5F4F0;
 
   /* ── Borders ── */
-  --border:        #E5E5E5;
-  --border-subtle: #EEEEEE;
-  --border-faint:  #F7F7F7;
+  --border:        rgba(27, 27, 26, 0.18);
+  --border-subtle: rgba(27, 27, 26, 0.12);
+  --border-faint:  rgba(27, 27, 26, 0.08);
 
   /* ── Text ── */
-  --text-primary:  #000000;
-  --text-body:     #1A1A1A;
-  --text-muted:    #666666;
-  --text-faint:    #999999;
+  --text-primary:  #1B1B1A;
+  --text-body:     #1B1B1A;
+  --text-muted:    #6F6F6A;
+  --text-faint:    #6F6F6A;
 
-  /* ── Dark sections (navbar, footer, CTA band) ── */
-  --dark-bg:       #000000;
-  --dark-surface:  #111111;
-  --dark-border:   #222222;
-  --dark-text:     #FFFFFF;
-  --dark-muted:    #999999;
+  /* ── Dark sections (navbar, footer, contact section) ── */
+  --dark-bg:       #1B1B1A;
+  --dark-surface:  #1B1B1A;
+  --dark-border:   rgba(245, 244, 240, 0.24);
+  --dark-text:     #F5F4F0;
+  --dark-muted:    #6F6F6A;
 
-  /* ── Accent Black — used sparingly ── */
-  --accent:        #000000;
-  --accent-hover:  #333333;
-  --accent-subtle: #EEEEEE;
+  /* ── Accent Vermilion ── */
+  --accent-hover:  #C03C28;
+  --accent-subtle: rgba(217, 71, 50, 0.08);
+
+  /* ═══════════════════════════════════════════════════════════════════
+     STANDARDIZED TYPOGRAPHY SYSTEM TOKENS
+     ═══════════════════════════════════════════════════════════════════ */
+  --font-primary: 'Saans Trial', 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Font Weights */
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* Font Size Scale Tokens */
+  --display-xxl: 96px;
+  --display-xl:  80px;
+  --display-l:   64px;
+
+  --heading-xl:  56px;
+  --heading-l:   48px;
+  --heading-m:   40px;
+  --heading-s:   32px;
+
+  --title-l:     28px;
+  --title-m:     24px;
+  --title-s:     20px;
+
+  --body-l:      18px;
+  --body-m:      16px;
+  --body-s:      14px;
+
+  --caption:     12px;
+
+  /* Line Height Tokens */
+  --lh-display:  0.92;
+  --lh-heading:  1.0;
+  --lh-title:    1.2;
+  --lh-body:     1.6;
+  --lh-caption:  1.4;
+
+  /* Letter Spacing Tokens */
+  --ls-display:  -0.04em;
+  --ls-heading:  -0.03em;
+  --ls-title:    -0.02em;
+  --ls-body:     0;
+  --ls-caption:  0.01em;
 }
+
+/* ── Typography Utility Classes ── */
+.text-display-xxl { font-size: var(--display-xxl); line-height: var(--lh-display); letter-spacing: var(--ls-display); }
+.text-display-xl  { font-size: var(--display-xl);  line-height: var(--lh-display); letter-spacing: var(--ls-display); }
+.text-display-l   { font-size: var(--display-l);   line-height: var(--lh-display); letter-spacing: var(--ls-display); }
+
+.text-heading-xl  { font-size: var(--heading-xl);  line-height: var(--lh-heading); letter-spacing: var(--ls-heading); }
+.text-heading-l   { font-size: var(--heading-l);   line-height: var(--lh-heading); letter-spacing: var(--ls-heading); }
+.text-heading-m   { font-size: var(--heading-m);   line-height: var(--lh-heading); letter-spacing: var(--ls-heading); }
+.text-heading-s   { font-size: var(--heading-s);   line-height: var(--lh-heading); letter-spacing: var(--ls-heading); }
+
+.text-title-l     { font-size: var(--title-l);     line-height: var(--lh-title);   letter-spacing: var(--ls-title); }
+.text-title-m     { font-size: var(--title-m);     line-height: var(--lh-title);   letter-spacing: var(--ls-title); }
+.text-title-s     { font-size: var(--title-s);     line-height: var(--lh-title);   letter-spacing: var(--ls-title); }
+
+.text-body-l      { font-size: var(--body-l);      line-height: var(--lh-body);    letter-spacing: var(--ls-body); }
+.text-body-m      { font-size: var(--body-m);      line-height: var(--lh-body);    letter-spacing: var(--ls-body); }
+.text-body-s      { font-size: var(--body-s);      line-height: var(--lh-body);    letter-spacing: var(--ls-body); }
+
+.text-caption     { font-size: var(--caption);     line-height: var(--lh-caption); letter-spacing: var(--ls-caption); }
 
 /* ── Global base ── */
 body {
-  background-color: var(--bg-page) !important;
-  color: var(--text-body);
+  background-color: var(--bg) !important;
+  color: var(--ink) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   NAVBAR — stays dark
-═══════════════════════════════════════════════════════════════════ */
+   NAVBAR
+   ═══════════════════════════════════════════════════════════════════ */
 @media (max-width: 968px) {
   .navbar {
-    background-color: var(--dark-bg) !important;
+    background-color: var(--ink) !important;
     box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
   }
 
   .navbar-links.mobile-menu-open {
-    background-color: var(--dark-surface) !important;
-    border-color: var(--dark-border) !important;
+    background-color: var(--ink) !important;
+    border-color: var(--border-dark-24) !important;
     box-shadow: 0 12px 40px rgba(0,0,0,0.5) !important;
   }
 
   .navbar-links.mobile-menu-open li {
-    border-bottom-color: var(--dark-border) !important;
+    border-bottom-color: var(--border-dark-24) !important;
   }
 }
 
-/* Removed .navbar.scrolled override to let Navbar.css handle the light frosted background */
-
 /* ═══════════════════════════════════════════════════════════════════
    HOME SUB NAVBAR
-═══════════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════════ */
 .home-sub-navbar {
-  background: rgba(255, 255, 255, 0.96) !important;
-  border-bottom-color: var(--border) !important;
+  background: var(--bg-header-light) !important;
+  border-bottom-color: var(--border-light-18) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   HERO — light background
-═══════════════════════════════════════════════════════════════════ */
+   HERO — Warm Ivory
+   ═══════════════════════════════════════════════════════════════════ */
 .hero-section {
-  background-color: var(--bg-page) !important;
+  background-color: var(--bg) !important;
 }
 
 .hero-profile-image {
-  background-color: var(--bg-alt) !important;
+  background-color: var(--surface) !important;
 }
 
 .hero-stat-pill {
-  background: var(--bg-alt) !important;
-  border-color: var(--border) !important;
+  background: var(--surface) !important;
+  border-color: var(--border-light-18) !important;
 }
 
 .hero-impact-stats {
-  border-top-color: var(--border) !important;
-  border-bottom-color: var(--border) !important;
+  border-top-color: var(--border-light-18) !important;
+  border-bottom-color: var(--border-light-18) !important;
 }
 
 .hero-footer {
-  border-top-color: var(--border-subtle) !important;
+  border-top-color: var(--border-light-18) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
    WORKS SECTION
-═══════════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════════ */
 .works-section {
-  background-color: var(--bg-alt) !important;
-  border-bottom-color: var(--border) !important;
+  background-color: var(--bg) !important;
+  border-bottom-color: var(--border-light-18) !important;
 }
 
 .featured-work-card {
-  background-color: var(--bg-page) !important;
-  border-color: var(--border) !important;
+  background-color: var(--surface) !important;
+  border-color: var(--border-light-18) !important;
 }
 
 .featured-work-card:hover {
   border-color: var(--accent) !important;
-  box-shadow: 0 20px 48px rgba(0,0,0,0.08) !important;
+  box-shadow: 0 20px 48px rgba(27, 27, 26, 0.08) !important;
 }
 
 .work-card {
-  background-color: var(--bg-card) !important;
-  border-color: var(--border) !important;
+  background-color: var(--surface) !important;
+  border-color: var(--border-light-18) !important;
 }
 
 .work-card:hover {
   border-color: var(--accent) !important;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.08) !important;
+  box-shadow: 0 16px 40px rgba(27, 27, 26, 0.08) !important;
 }
 
 .featured-image-wrapper,
 .work-image-wrapper {
-  background-color: var(--bg-page) !important;
+  background-color: var(--surface) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   ABOUT SECTION
-═══════════════════════════════════════════════════════════════════ */
+   ABOUT SECTION — Warm Ivory
+   ═══════════════════════════════════════════════════════════════════ */
 .about-section {
-  background-color: var(--bg-page) !important;
-  border-bottom-color: var(--border-subtle) !important;
+  background-color: var(--bg) !important;
+  border-bottom-color: var(--border-light-18) !important;
 }
 
 .tool-icon-home,
 .tool-icon-placeholder-home {
-  background-color: var(--bg-alt) !important;
-  border-color: var(--border) !important;
+  background-color: var(--surface) !important;
+  border-color: var(--border-light-18) !important;
 }
 
 .about-strength-tag {
-  background: var(--bg-alt) !important;
-  border-color: var(--border) !important;
-  color: var(--text-body) !important;
+  background: var(--surface) !important;
+  border-color: var(--border-light-18) !important;
+  color: var(--ink) !important;
 }
 
 .about-strength-tag:hover {
@@ -155,162 +246,204 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   IMPACT SECTION
-═══════════════════════════════════════════════════════════════════ */
+   IMPACT SECTION — Warm Stone Surface
+   ═══════════════════════════════════════════════════════════════════ */
 .impact-section {
-  background-color: var(--bg-alt) !important;
-  border-bottom-color: var(--border) !important;
+  background-color: var(--surface) !important;
+  border-bottom-color: var(--border-light-18) !important;
 }
 
 .impact-card {
-  background: var(--bg-page) !important;
-  border-color: var(--border) !important;
+  background: var(--bg) !important;
+  border-color: var(--border-light-18) !important;
 }
 
 .impact-card:hover {
   border-color: var(--accent) !important;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.07) !important;
+  box-shadow: 0 16px 40px rgba(27, 27, 26, 0.07) !important;
 }
 
 .impact-card--dark {
-  background: var(--dark-bg) !important;
-  border-color: var(--dark-bg) !important;
+  background: var(--ink) !important;
+  border-color: var(--border-dark-24) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   MARQUEE / CLIENTS
-═══════════════════════════════════════════════════════════════════ */
+   MARQUEE / CLIENTS — Dark Charcoal
+   ═══════════════════════════════════════════════════════════════════ */
 .clients-section {
-  background-color: var(--bg-page) !important;
+  background-color: var(--bg) !important;
 }
 
 .marquee-main-strip {
-  background-color: #000000 !important;
+  background-color: var(--ink) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   COMPANY FEEDBACK
-═══════════════════════════════════════════════════════════════════ */
+   COMPANY FEEDBACK — Warm Ivory & Stone Surface
+   ═══════════════════════════════════════════════════════════════════ */
 .cf-section {
-  background-color: var(--bg-page) !important;
+  background-color: var(--bg) !important;
 }
 
 .cf-container {
-  background-color: var(--dark-surface) !important;
-  border-color: var(--dark-border) !important;
-}
-
-.cf-window {
-  background-color: var(--dark-bg) !important;
+  background-color: var(--bg) !important;
 }
 
 .cf-title {
-  color: #ffffff !important;
+  color: var(--ink) !important;
 }
 
-.cf-card-header h3 {
-  color: #ffffff !important;
+.cf-subtitle {
+  color: var(--muted) !important;
 }
 
-.cf-card-body p {
-  color: #ffffff !important;
+.cf-card-wrap {
+  background-color: var(--surface) !important;
+  border-color: var(--border-light-18) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   TESTIMONIALS
-═══════════════════════════════════════════════════════════════════ */
+   TESTIMONIALS — Dark Charcoal
+   ═══════════════════════════════════════════════════════════════════ */
 .testimonials-section {
-  background-color: var(--dark-bg) !important;
-  border-bottom-color: var(--dark-border) !important;
+  background-color: var(--ink) !important;
+  border-bottom-color: var(--border-dark-24) !important;
 }
 
 .testimonials-section .testimonial-card {
-  background-color: var(--dark-surface) !important;
-  border-color: var(--dark-border) !important;
+  background-color: var(--ink) !important;
+  border-color: var(--border-dark-24) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
    PROCESS / SKILLS / EXPERIENCE / AWARDS
-═══════════════════════════════════════════════════════════════════ */
-.process-section,
-.skills-section,
+   ═══════════════════════════════════════════════════════════════════ */
+.process-section {
+  background-color: var(--surface) !important;
+}
+
+.skills-section {
+  background-color: var(--bg) !important;
+}
+
 .experience-section {
-  background-color: var(--bg-page) !important;
+  background-color: var(--bg) !important;
 }
 
 .awards-section,
 .insights-section {
-  background-color: var(--bg-alt) !important;
+  background-color: var(--surface) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   CONTACT FORM
-═══════════════════════════════════════════════════════════════════ */
+   CONTACT FORM — Swiss Editorial Light Theme (Warm Ivory #F5F4F0)
+   ═══════════════════════════════════════════════════════════════════ */
 .contact-section {
-  background-color: var(--bg-page) !important;
+  background-color: var(--bg) !important;
+  color: var(--ink) !important;
+}
+
+.contact-title {
+  color: var(--ink) !important;
+}
+
+.contact-subtitle {
+  color: var(--muted) !important;
 }
 
 .contact-form {
-  background-color: var(--bg-card) !important;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.05) !important;
+  background-color: var(--surface) !important;
+  border: 1px solid var(--border-light-18) !important;
+  box-shadow: 0 4px 20px rgba(27, 27, 26, 0.05) !important;
 }
 
 .info-card {
-  background-color: var(--bg-card) !important;
-  border-color: var(--border) !important;
+  background-color: var(--surface) !important;
+  border: 1px solid var(--border-light-18) !important;
+}
+
+.info-card h3 {
+  color: var(--ink) !important;
+}
+
+.info-card p {
+  color: var(--muted) !important;
 }
 
 .info-icon {
-  background-color: var(--bg-page) !important;
+  background-color: rgba(27, 27, 26, 0.06) !important;
+  color: var(--ink) !important;
+}
+
+.form-group label,
+.form-group h3,
+.form-label {
+  color: var(--ink) !important;
 }
 
 .form-group input,
 .form-group textarea {
-  background-color: var(--bg-page) !important;
-  border-color: var(--border) !important;
-  color: var(--text-body) !important;
+  background-color: var(--bg) !important;
+  border: 1.5px solid var(--border-light-25) !important;
+  color: var(--ink) !important;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--muted) !important;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-  background-color: var(--bg-white) !important;
+  background-color: #FFFFFF !important;
   border-color: var(--accent) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   MODALS
-═══════════════════════════════════════════════════════════════════ */
+   MODALS — Swiss Editorial Overlay
+   ═══════════════════════════════════════════════════════════════════ */
 .hire-me-modal,
 .hire-me-modal-content,
 .password-modal,
 .password-modal-content {
-  background-color: var(--bg-card) !important;
-  border-color: var(--border) !important;
+  background-color: var(--bg) !important;
+  border-color: var(--border-light-18) !important;
+}
+
+.modal-backdrop,
+.hire-me-modal-backdrop {
+  background-color: var(--overlay-dark) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   FOOTER — dark
-═══════════════════════════════════════════════════════════════════ */
+   FOOTER — Dark Charcoal (#1B1B1A)
+   ═══════════════════════════════════════════════════════════════════ */
 .footer {
-  background-color: var(--dark-bg) !important;
+  background-color: var(--ink) !important;
+  color: var(--bg) !important;
+  padding-top: 3rem !important;
+  padding-bottom: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
 .footer-main {
-  border-top-color: var(--dark-border) !important;
+  border-top-color: var(--border-dark-24) !important;
 }
 
 .footer-bottom {
-  border-top-color: var(--dark-border) !important;
+  border-top-color: var(--border-dark-24) !important;
 }
 
 .suggestion-box {
-  background-color: var(--dark-surface) !important;
-  border-color: var(--dark-border) !important;
+  background-color: var(--surface) !important;
+  border-color: var(--border-light-18) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   STANDALONE PAGES
-═══════════════════════════════════════════════════════════════════ */
+   STANDALONE PAGES — Warm Ivory (#F5F4F0)
+   ═══════════════════════════════════════════════════════════════════ */
 .work-page,
 .work-page-section,
 .about-page,
@@ -319,12 +452,12 @@ body {
 .case-study-container,
 .experience-page,
 .experience-wrapper {
-  background-color: var(--bg-page) !important;
+  background-color: var(--bg) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
    TYPOGRAPHY
-═══════════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════════ */
 .hero-title,
 .works-title,
 .featured-title,
@@ -341,27 +474,28 @@ body {
 .main-typography h1,
 .card-header h3,
 .info-card h3 {
-  color: var(--text-primary) !important;
+  color: var(--ink) !important;
 }
 
-/* ── Title highlight spans across ALL sections ── */
+/* ── Section Title Editorial Highlights ── */
 .title-highlight,
 .sub-highlight,
 .hero-title-highlight {
-  background: linear-gradient(135deg, #63B3ED 0%, #9F7AEA 100%) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: var(--ink) !important;
+  background-clip: unset !important;
+  color: var(--ink) !important;
   font-weight: 500 !important;
   display: inline !important;
 }
 
 .text-light {
-  color: var(--text-muted) !important;
+  color: var(--muted) !important;
 }
 
 .tool-name {
-  color: var(--text-faint) !important;
+  color: var(--muted) !important;
 }
 
 /* Body text */
@@ -371,7 +505,7 @@ body {
 .home-about-description,
 .description-text,
 .card-body p {
-  color: var(--text-body) !important;
+  color: var(--ink) !important;
 }
 
 /* Muted/secondary */
@@ -386,23 +520,23 @@ body {
 .contact-subtitle,
 .scroll-hint,
 .info-card p {
-  color: var(--text-muted) !important;
+  color: var(--muted) !important;
 }
 
 .impact-stat-desc,
 .footer-credits,
 .testimonial-text {
-  color: var(--text-faint) !important;
+  color: var(--muted) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
    NAVBAR TEXT
-═══════════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════════ */
 @media (max-width: 968px) {
   .navbar-logo,
   .logo-year,
   .navbar-links a {
-    color: var(--dark-text) !important;
+    color: var(--bg) !important;
   }
 }
 
@@ -411,7 +545,7 @@ body {
 }
 
 .hamburger-menu span {
-  background-color: var(--dark-text) !important;
+  background-color: var(--bg) !important;
 }
 
 .hamburger-menu:hover span {
@@ -420,9 +554,9 @@ body {
 
 /* ═══════════════════════════════════════════════════════════════════
    SOCIAL LINKS
-═══════════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════════ */
 .social-link {
-  color: var(--text-primary) !important;
+  color: var(--ink) !important;
 }
 
 .social-link:hover {
@@ -431,21 +565,24 @@ body {
 
 /* ═══════════════════════════════════════════════════════════════════
    IMPACT STATS (Hero)
-═══════════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════════ */
 .impact-stat-number {
-  color: var(--text-primary) !important;
+  color: var(--ink) !important;
 }
 
 .impact-stat-title {
-  color: var(--text-muted) !important;
+  color: var(--muted) !important;
 }
 
 .impact-stat-divider {
-  background-color: var(--border) !important;
+  background-color: var(--accent) !important;
+  height: 2px !important;
+  width: 28px !important;
+  border-radius: 2px !important;
 }
 
 .impact-card-number {
-  color: var(--text-primary) !important;
+  color: var(--ink) !important;
 }
 
 .impact-divider {
@@ -457,8 +594,8 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   BUTTONS — Orange CTAs
-═══════════════════════════════════════════════════════════════════ */
+   BUTTONS — Restrained Vermilion (#D94732)
+   ═══════════════════════════════════════════════════════════════════ */
 .hero-cta-btn,
 .submit-btn {
   background-color: var(--accent) !important;
@@ -470,17 +607,17 @@ body {
 .submit-btn:hover {
   background-color: var(--accent-hover) !important;
   border-color: var(--accent-hover) !important;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1) !important;
+  box-shadow: 0 6px 20px rgba(217, 71, 50, 0.2) !important;
 }
 
-/* Secondary (Hire Me) — white fill, thin border, overrides the base rule */
+/* Secondary CTA (Hire Me) — stone surface fill, subtle border */
 .hero-cta-btn.secondary {
-  background-color: #ffffff !important;
-  color: #0D0D0D !important;
-  border: 1.5px solid rgba(0, 0, 0, 0.2) !important;
+  background-color: var(--surface) !important;
+  color: var(--ink) !important;
+  border: 1.5px solid var(--border-light-25) !important;
 }
 
-/* Secondary buttons (Hire Me, Know More, View all works) hover overrides */
+/* Secondary buttons hover overrides */
 .hero-cta-btn.secondary:hover,
 .about-secondary-btn:hover,
 .wsc-view-all-btn:hover {
@@ -488,37 +625,37 @@ body {
   border-color: var(--accent) !important;
   color: var(--accent) !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 4px 12px rgba(217, 71, 50, 0.1) !important;
 }
 
-/* Primary buttons hover purple glow */
+/* Primary buttons hover */
 .hero-cta-btn:not(.secondary):hover,
 .submit-btn:hover,
 .lets-talk-btn:hover {
-  background-color: #000000 !important;
-  border-color: #000000 !important;
-  box-shadow: 0 0 20px rgba(159, 122, 234, 0.4) !important;
+  background-color: var(--accent-hover) !important;
+  border-color: var(--accent-hover) !important;
+  box-shadow: 0 4px 16px rgba(217, 71, 50, 0.25) !important;
 }
 
 /* Lets talk — dark pill */
 .lets-talk-btn {
-  background-color: var(--dark-bg) !important;
-  color: #FFFFFF !important;
-  border-color: var(--dark-bg) !important;
+  background-color: var(--ink) !important;
+  color: var(--bg) !important;
+  border-color: var(--ink) !important;
 }
 
 .lets-talk-btn:hover {
   background-color: var(--accent) !important;
   border-color: var(--accent) !important;
   color: #FFFFFF !important;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1) !important;
+  box-shadow: 0 6px 20px rgba(217, 71, 50, 0.2) !important;
 }
 
 /* Work CTA */
 .work-cta {
-  background-color: var(--dark-bg) !important;
-  color: #FFFFFF !important;
-  border-color: var(--dark-bg) !important;
+  background-color: var(--ink) !important;
+  color: var(--bg) !important;
+  border-color: var(--ink) !important;
 }
 
 .work-card:hover .work-cta {
@@ -529,8 +666,8 @@ body {
 
 /* Outlined featured CTA */
 .featured-cta {
-  color: var(--text-primary) !important;
-  border-color: var(--text-primary) !important;
+  color: var(--ink) !important;
+  border-color: var(--border-light-30) !important;
   background-color: transparent !important;
 }
 
@@ -542,7 +679,7 @@ body {
 
 /* View-all link */
 .view-all-link {
-  color: var(--text-primary) !important;
+  color: var(--ink) !important;
 }
 
 .view-all-link:hover {
@@ -567,70 +704,71 @@ body {
 
 /* ═══════════════════════════════════════════════════════════════════
    PILLS / TAGS / LABELS
-═══════════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════════ */
 .hero-stat-pill {
-  color: var(--text-muted) !important;
+  color: var(--muted) !important;
 }
 
 .featured-category,
 .work-category-label {
-  color: var(--text-muted) !important;
+  color: var(--muted) !important;
   letter-spacing: 1.5px;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   CARD SHADOWS
-═══════════════════════════════════════════════════════════════════ */
+   CARD SHADOWS — Restrained & Subtle
+   ═══════════════════════════════════════════════════════════════════ */
 .featured-work-card:hover,
 .work-card:hover {
-  box-shadow: 0 16px 40px rgba(0,0,0,0.08) !important;
+  box-shadow: 0 16px 40px rgba(27, 27, 26, 0.08) !important;
 }
 
 .impact-card:hover {
-  box-shadow: 0 16px 40px rgba(0,0,0,0.07) !important;
+  box-shadow: 0 16px 40px rgba(27, 27, 26, 0.07) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
    DARK SECTION TEXT
-═══════════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════════ */
 .footer-subtitle,
 .footer-heading,
 .footer-nav-link,
 .arrow-down-icon {
-  color: var(--dark-text) !important;
+  color: var(--bg) !important;
 }
 
 .testimonial-name {
-  color: var(--dark-text) !important;
+  color: var(--bg) !important;
 }
 
 .footer-credits {
-  color: var(--dark-muted) !important;
+  color: var(--muted) !important;
 }
 
 .cf-window .cf-card-header h3 {
-  color: #ffffff !important;
+  color: var(--bg) !important;
 }
 
 .cf-window .cf-card-body p {
-  color: #ffffff !important;
+  color: var(--bg) !important;
 }
 
 .suggestion-box .testimonial-name {
-  color: var(--dark-text) !important;
+  color: var(--ink) !important;
 }
 
 .suggestion-box .testimonial-text {
-  color: var(--dark-muted) !important;
+  color: var(--muted) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
    SCROLL TO TOP
-═══════════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════════ */
 .scroll-top-btn,
 .scroll-to-top-btn {
-  background-color: var(--dark-bg) !important;
-  border-color: var(--dark-border) !important;
+  background-color: var(--bg) !important;
+  border-color: var(--border-light-18) !important;
+  color: var(--ink) !important;
 }
 
 /* Footer link underlines */
@@ -640,19 +778,19 @@ body {
 
 /* Form labels */
 .form-group label {
-  color: var(--text-body) !important;
+  color: var(--bg) !important;
 }
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: var(--text-faint) !important;
+  color: var(--muted) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   SECTION BLACK ACCENTS — consistent across all sections
-═══════════════════════════════════════════════════════════════════ */
+   SECTION EDITORIAL ACCENTS
+   ═══════════════════════════════════════════════════════════════════ */
 
-/* ── Eyebrow / category labels — orange ── */
+/* ── Eyebrow / category labels — Vermilion ── */
 .impact-eyebrow,
 .tools-heading,
 .featured-category,
@@ -667,22 +805,22 @@ body {
 .about-title,
 .wsc-section-title,
 .experience-section .section-title {
-  font-family: 'Inter', sans-serif !important;
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif !important;
   font-weight: 500 !important;
   letter-spacing: -0.04em !important;
   line-height: 1.15 !important;
-  color: #000000 !important;
+  color: var(--ink) !important;
 }
 
 .cf-title {
-  font-family: 'Inter', sans-serif !important;
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif !important;
   font-weight: 500 !important;
   letter-spacing: -0.04em !important;
-  line-height: 1.15 !important;
-  color: #ffffff !important;
+  line-height: 1.1 !important;
+  color: var(--ink) !important;
 }
 
-/* ── Orange accent bar above section headings ── */
+/* ── Vermilion accent bar above section headings ── */
 .works-title::before,
 .impact-title::before,
 .process-title::before,
@@ -700,23 +838,21 @@ body {
   margin-bottom: 0.75rem;
 }
 
-/* ── Process step numbers — orange tint ── */
+/* ── Process step numbers — Vermilion tint ── */
 .step-number {
   color: var(--accent) !important;
   opacity: 0.4;
 }
 
 .process-step:hover .step-number {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 /* ── About title highlight ── */
 .about-title .title-highlight {
-  background: linear-gradient(135deg, #63B3ED 0%, #9F7AEA 100%) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
-  font-weight: 700 !important;
+  color: var(--ink) !important;
+  -webkit-text-fill-color: var(--ink) !important;
+  font-weight: 500 !important;
 }
 
 /* ── Strength tag hover ── */
@@ -733,117 +869,90 @@ body {
   color: var(--accent) !important;
 }
 
-/* ── Hero stat dividers — gradient bar ── */
-.impact-stat-divider {
-  background: linear-gradient(90deg, #63B3ED, #9F7AEA) !important;
-  height: 2px !important;
-  width: 28px !important;
-  border-radius: 2px !important;
-}
-
-/* ── Dark section B&W hover contrast overrides ── */
+/* ── Footer nav link hover ── */
 .footer-nav-link:hover {
-  color: #FFFFFF !important;
+  color: var(--accent) !important;
 }
 
 .footer-nav-link::after {
-  background-color: #FFFFFF !important;
+  background-color: var(--accent) !important;
 }
 
 /* Works section card hover CTA link override */
 .wsc-card:hover .wsc-cta-link {
-  color: #63B3ED !important;
+  color: var(--accent) !important;
 }
 
 /* Experience item hover override */
 .experience-item-clickable:hover {
-  background-color: rgba(99, 179, 237, 0.04) !important;
+  background-color: var(--accent-subtle) !important;
 }
 
 /* ── ABOUT PAGE SPECIFIC OVERRIDES ── */
-
-/* About Page Titles & Headings Typography Consistency */
 .about-page-title,
 .about-hero-subheading,
 .about-page .section-title {
-  font-family: 'Inter', sans-serif !important;
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif !important;
   font-weight: 500 !important;
   letter-spacing: -0.04em !important;
   line-height: 1.15 !important;
-  color: #000000 !important;
+  color: var(--ink) !important;
 }
 
-/* About Page Title Light Highlight (About me) */
 .about-page-title .title-light {
-  background: linear-gradient(135deg, #63B3ED 0%, #9F7AEA 100%) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
+  color: var(--ink) !important;
+  -webkit-text-fill-color: var(--ink) !important;
   font-weight: 500 !important;
 }
 
-/* About Page CTA button hover override */
 .about-mobile-cta:hover {
-  background-color: rgba(99, 179, 237, 0.08) !important;
-  border-color: #63B3ED !important;
-  color: #63B3ED !important;
+  background-color: var(--accent-subtle) !important;
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 4px 12px rgba(99, 179, 237, 0.15) !important;
+  box-shadow: 0 4px 12px rgba(217, 71, 50, 0.15) !important;
 }
 
-/* Tool card hover glow */
 .tool-bubble-wrapper:hover .tool-card-square {
-  border-color: #63B3ED !important;
-  box-shadow: 0 10px 24px rgba(99, 179, 237, 0.12) !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 10px 24px rgba(217, 71, 50, 0.12) !important;
 }
 
-
-
-/* Tooltip portal styles matching theme */
 .tool-tooltip-portal {
-  border-top: 2.5px solid #9F7AEA !important;
+  border-top: 2.5px solid var(--accent) !important;
 }
 .tool-tooltip-portal .tooltip-name {
-  color: #9F7AEA !important;
+  color: var(--accent) !important;
 }
 
 /* ── WORK PAGE SPECIFIC OVERRIDES ── */
-
-/* Work Page Titles & Headings Typography Consistency */
 .work-headline-modern,
 .wc-title,
 .cta-headline {
-  font-family: 'Inter', sans-serif !important;
+  font-family: 'Saans Trial', 'Geist', 'Inter', sans-serif !important;
   font-weight: 500 !important;
   letter-spacing: -0.04em !important;
   line-height: 1.15 !important;
-  color: #000000 !important;
+  color: var(--ink) !important;
 }
 
-/* Work Page Card Hover CTA Link Color Override */
 .wc-card:hover .wc-cta-link {
-  color: #63B3ED !important;
+  color: var(--accent) !important;
 }
 
-/* Work Page Bottom CTA Button Hover Glow */
 .cta-button-large:hover {
-  background-color: #000000 !important;
-  box-shadow: 0 0 20px rgba(159, 122, 234, 0.4) !important;
+  background-color: var(--accent-hover) !important;
+  box-shadow: 0 4px 20px rgba(217, 71, 50, 0.3) !important;
 }
-
-
-
-
-
 
 @media (max-width: 968px) {
   .navbar-links.mobile-menu-open li:last-child a {
-    background-color: #FFFFFF !important;
-    color: #000000 !important;
-    border: 1.5px solid #FFFFFF !important;
+    background-color: var(--accent) !important;
+    color: #FFFFFF !important;
+    border: 1.5px solid var(--accent) !important;
   }
   .navbar-links.mobile-menu-open li:last-child a:hover {
-    background-color: #EEEEEE !important;
-    color: #000000 !important;
+    background-color: var(--accent-hover) !important;
+    color: #FFFFFF !important;
   }
 }

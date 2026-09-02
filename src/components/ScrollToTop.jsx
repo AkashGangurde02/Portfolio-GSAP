@@ -1,20 +1,23 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const ScrollToTop = () => {
-    const { pathname } = useLocation()
+  const { pathname } = useLocation()
 
-    useEffect(() => {
-        // Immediately scroll to top
-        window.scrollTo(0, 0)
+  useEffect(() => {
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { immediate: true })
+    } else {
+      window.scrollTo(0, 0)
+    }
 
-        // Also set it after a brief delay to ensure smooth scroll resets
-        setTimeout(() => {
-            window.scrollTo(0, 0)
-        }, 10)
-    }, [pathname])
+    setTimeout(() => {
+      ScrollTrigger.refresh()
+    }, 50)
+  }, [pathname])
 
-    return null
+  return null
 }
 
 export default ScrollToTop
