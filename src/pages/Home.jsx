@@ -17,7 +17,7 @@ import ServicesPopup from '../components/ServicesPopup'
 const Home = () => {
   useSEO({
     title: 'Akash Gangurde – UX/UI Designer Portfolio',
-    description: 'Award-winning UX/UI designer crafting mobile-first digital products. Explore case studies in product design, interaction design, food-tech, and music.',
+    description: 'UX/UI Designer crafting thoughtful, user-centered digital experiences and products.',
     canonical: '/',
     ogImage: '/og/og-default.png',
   })

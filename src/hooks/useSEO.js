@@ -35,7 +35,7 @@ export function useSEO({
     const fullOgImage = ogImage
       ? ogImage.startsWith('http') ? ogImage : `${BASE_URL}${ogImage}`
       : DEFAULT_OG_IMAGE
-    const metaDesc = description || 'UX/UI Designer crafting mobile-first digital products. Portfolio of case studies in product design, interaction design, and design systems.'
+    const metaDesc = description || 'UX/UI Designer crafting thoughtful, user-centered digital experiences and products.'
 
     // ── <title> ──────────────────────────────────────────────────────────────
     const prevTitle = document.title
