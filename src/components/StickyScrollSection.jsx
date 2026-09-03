@@ -10,7 +10,7 @@ const PHRASES = [
   'during,',
   'while waiting,',
   'when things go wrong,',
-  'and after.',
+  'after',
 ]
 
 const StickyScrollSection = () => {
