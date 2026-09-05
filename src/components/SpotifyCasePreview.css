@@ -303,8 +303,8 @@
   /* Move CTA Button to BOTTOM of section */
   .scp-cta-wrapper {
     order: 4 !important;
-    margin-top: 28px !important;
-    margin-bottom: 0 !important;
+    margin-top: 36px !important;
+    margin-bottom: 28px !important;
     width: 100% !important;
   }
 
@@ -336,7 +336,8 @@
   .scp-right-col {
     display: flex !important;
     flex-direction: column !important;
-    gap: 16px !important;
+    gap: 20px !important;
+    margin-top: 28px !important;
     width: 100% !important;
     order: 3 !important;
   }

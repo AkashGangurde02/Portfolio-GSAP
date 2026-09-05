@@ -267,11 +267,7 @@
   }
 
   .footer-links-grid {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 24px 20px !important;
-    width: 100% !important;
-    margin-right: 0 !important;
+    display: none !important;
   }
 
   .footer-link-col {

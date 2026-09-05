@@ -279,6 +279,11 @@
     background-color: var(--bg);
   }
 
+  .aboutme-watermark {
+    font-size: clamp(4.2rem, 12.5vw, 6.8rem);
+    top: 4.2rem;
+  }
+
   .aboutme-bg {
     display: none;
   }
@@ -337,7 +342,7 @@
 
   /* Card 3: Bottom-Right Offset Overlapping Image (Layered On Top) */
   .aboutme-card-3 {
-    top: 60px !important;
+    top: 88px !important;
     right: 0 !important;
     left: auto !important;
     margin-top: 0 !important;
@@ -391,7 +396,7 @@
   }
 
   .aboutme-scatter-stage {
-    height: 240px;
+    height: 265px;
     margin-bottom: 24px;
   }
 
@@ -401,9 +406,14 @@
   }
 
   .aboutme-card-3 {
-    top: 50px !important;
+    top: 78px !important;
     width: 56% !important;
     height: 165px !important;
+  }
+
+  .aboutme-watermark {
+    font-size: clamp(3.8rem, 12vw, 5.8rem);
+    top: 4.2rem;
   }
 
   .aboutme-heading {

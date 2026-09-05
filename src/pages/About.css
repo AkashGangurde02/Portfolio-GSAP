@@ -586,22 +586,22 @@
   }
 
   .about-page-title {
-    text-align: center;
+    text-align: left;
     margin-bottom: 3rem;
   }
 
   .about-hero-info-col {
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .about-mobile-cta {
-    align-self: center;
+    align-self: flex-start;
   }
 
   .section-title,
   .experience-section .section-title {
-    text-align: center;
+    text-align: left;
   }
 
 
