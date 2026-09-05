@@ -91,8 +91,8 @@ const StickyScrollSection = () => {
 
     // ── MOBILE (< 768px) ──
     mm.add('(max-width: 767px)', () => {
-      const itemHeight  = 56
-      const stageHeight = 168
+      const itemHeight  = 68
+      const stageHeight = 240
       const initialY    = stageHeight / 2 - itemHeight / 2
       const finalY      = initialY - (n - 1) * itemHeight
 
@@ -100,11 +100,11 @@ const StickyScrollSection = () => {
       els.forEach((el, i) => {
         const d = Math.abs(i - 0)
         gsap.set(el, {
-          opacity: d === 0 ? 1 : d === 1 ? 0.35 : 0.06,
-          scale  : d === 0 ? 1 : d === 1 ? 0.8 : 0.65,
-          color  : d === 0 ? '#1B1B1A' : '#8E8E93',
-          filter : d === 0 ? 'blur(0px)' : 'blur(1px)',
-          transformOrigin: 'left center',
+          opacity: d === 0 ? 1 : d === 1 ? 0.38 : 0.08,
+          scale  : d === 0 ? 1 : d === 1 ? 0.82 : 0.65,
+          color  : d === 0 ? '#1B1B1A' : '#999994',
+          filter : d === 0 ? 'blur(0px)' : 'blur(0.8px)',
+          transformOrigin: 'center center',
         })
       })
 
@@ -117,10 +117,10 @@ const StickyScrollSection = () => {
           tl.to(
             elForIndex(els, i),
             {
-              opacity : d === 0 ? 1 : d === 1 ? 0.35 : d === 2 ? 0.06 : 0,
-              scale   : d === 0 ? 1 : d === 1 ? 0.8 : 0.65,
-              color   : d === 0 ? '#1B1B1A' : '#8E8E93',
-              filter  : d === 0 ? 'blur(0px)' : 'blur(1px)',
+              opacity : d === 0 ? 1 : d === 1 ? 0.38 : d === 2 ? 0.08 : 0,
+              scale   : d === 0 ? 1 : d === 1 ? 0.82 : 0.65,
+              color   : d === 0 ? '#1B1B1A' : '#999994',
+              filter  : d === 0 ? 'blur(0px)' : 'blur(0.8px)',
               duration: 1,
               ease    : 'none',
             },
