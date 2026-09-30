@@ -48,20 +48,70 @@
   max-width: 480px;
 }
 
-/* ── Grid ── */
+/* ── Header Controls (Chevron Buttons) ── */
+.cf-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cf-nav-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: #111111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cf-nav-btn:hover {
+  background: #111111;
+  color: #ffffff;
+  border-color: #111111;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.cf-nav-btn:active {
+  transform: translateY(0) scale(0.95);
+}
+
+/* ── Grid (4 Cards Visible Carousel Track) ── */
 .cf-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
   gap: 12px;
   max-width: 100%;
   margin: 0;
-  padding: 0;
+  padding: 4px 0 16px 0;
   align-items: stretch;
   min-height: 360px;
+  scrollbar-width: none; /* Firefox */
 }
 
-/* Column wrapper for 2-card stacks */
+.cf-grid::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* Column wrapper for 2-card stacks & Stats Card (4 cards visible per row) */
+.cf-card--stats {
+  flex: 0 0 calc((100% - 36px) / 4);
+  min-width: 270px;
+  scroll-snap-align: start;
+}
+
 .cf-col {
+  flex: 0 0 calc((100% - 36px) / 4);
+  min-width: 270px;
+  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -253,20 +303,24 @@
   letter-spacing: var(--ls-body);
 }
 
+.cf-col > *:last-child {
+  margin-top: auto;
+}
+
 /* ── Quote Card ── */
 .cf-card--quote {
   padding: 1.45rem 1.25rem;
 }
 
 .cf-card--flex-fill {
-  flex: 1;
+  flex: 0 1 auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
 .cf-card--quote-btm {
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .cf-quote-text {
@@ -277,6 +331,10 @@
   color: #111111;
   margin: 0;
   letter-spacing: var(--ls-body);
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Carousel controls hidden by default on desktop */
@@ -285,9 +343,17 @@
 }
 
 /* ── Responsive ── */
-@media (max-width: 1024px) {
-  .cf-grid {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 1200px) {
+  .cf-card--stats,
+  .cf-col {
+    flex: 0 0 calc((100% - 24px) / 3);
+  }
+}
+
+@media (max-width: 900px) {
+  .cf-card--stats,
+  .cf-col {
+    flex: 0 0 calc((100% - 12px) / 2);
   }
 }
 

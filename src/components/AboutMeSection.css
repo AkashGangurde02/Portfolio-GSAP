@@ -275,13 +275,18 @@
 /* ── MOBILE (< 769px) — Wireframe Overlapping Layout ── */
 @media (max-width: 768px) {
   .aboutme-section {
-    padding: 48px 20px 56px;
+    padding: 60px 20px 88px;
+    min-height: 125vh;
     background-color: var(--bg);
   }
 
   .aboutme-watermark {
     font-size: clamp(4.2rem, 12.5vw, 6.8rem);
-    top: 4.2rem;
+    top: 13rem;
+  }
+
+  .aboutme-section > .pin-spacer {
+    top: 13rem !important;
   }
 
   .aboutme-bg {
@@ -293,33 +298,32 @@
     flex-direction: column;
   }
 
-  /* Re-order elements for wireframe hierarchy: Heading -> Overlapping Images -> Subtitle -> Button */
-  .aboutme-text-block {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    order: 1;
-  }
-
-  .aboutme-heading {
-    order: 1;
-    font-size: clamp(26px, 7vw, 34px);
-    font-weight: 600;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-    color: var(--ink);
-    margin: 0 0 20px 0;
-    text-align: left;
-  }
-
+  /* Re-order elements for mobile layout: Images first -> About Me Content after */
   .aboutme-scatter-stage {
-    order: 2;
+    order: 1;
     position: relative;
     width: 100%;
     height: 270px;
     margin-top: 0;
     margin-bottom: 28px;
     display: block;
+  }
+
+  .aboutme-text-block {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    order: 2;
+  }
+
+  .aboutme-heading {
+    font-size: clamp(26px, 7vw, 34px);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin: 0 0 16px 0;
+    text-align: left;
   }
 
   .aboutme-card {
@@ -392,7 +396,8 @@
 /* ── SMALL MOBILE (< 480px) ── */
 @media (max-width: 480px) {
   .aboutme-section {
-    padding: 40px 20px 48px;
+    padding: 52px 20px 80px;
+    min-height: 120vh;
   }
 
   .aboutme-scatter-stage {
@@ -413,7 +418,11 @@
 
   .aboutme-watermark {
     font-size: clamp(3.8rem, 12vw, 5.8rem);
-    top: 4.2rem;
+    top: 12.5rem;
+  }
+
+  .aboutme-section > .pin-spacer {
+    top: 12.5rem !important;
   }
 
   .aboutme-heading {

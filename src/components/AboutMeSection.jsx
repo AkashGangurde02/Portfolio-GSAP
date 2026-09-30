@@ -55,7 +55,7 @@ const AboutMeSection = () => {
         trigger: sectionRef.current,
         pin: '.aboutme-watermark',
         start: 'top top',
-        end: 'bottom 40%',
+        end: 'bottom 25%',
         pinSpacing: false,
       })
 

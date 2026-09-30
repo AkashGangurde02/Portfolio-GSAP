@@ -18,6 +18,7 @@ import DinoGame from './pages/DinoGame'
 import CursorFollower from './components/CursorFollower'
 import ScrollToTop from './components/ScrollToTop'
 import ScrollToTopButton from './components/ScrollToTopButton'
+import MobileNoticePopup from './components/MobileNoticePopup'
 import { useLenis } from './hooks/useLenis'
 
 // import WhatsAppFloat from './components/WhatsAppFloat'
@@ -33,6 +34,7 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
+      <MobileNoticePopup />
       {/* <IntroOverlay /> */}
       <CursorFollower />
       <div className="App">

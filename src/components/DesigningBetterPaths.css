@@ -86,6 +86,7 @@
 
 .dbp-quote-line-3 {
   margin-left: 0;
+  white-space: nowrap;
 }
 
 /* Responsive Adaptation */

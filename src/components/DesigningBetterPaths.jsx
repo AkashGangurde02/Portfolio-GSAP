@@ -104,8 +104,8 @@ export default function DesigningBetterPaths() {
         <div ref={rightTextRef} className="dbp-right">
           <h2 className="dbp-quote">
             <span className="dbp-quote-line dbp-quote-line-1">Users focus on walking,</span>
-            <span className="dbp-quote-line dbp-quote-line-2">I focus on designing better</span>
-            <span className="dbp-quote-line dbp-quote-line-3">paths.</span>
+            <span className="dbp-quote-line dbp-quote-line-2">I focus on designing</span>
+            <span className="dbp-quote-line dbp-quote-line-3">better paths.</span>
           </h2>
         </div>
       </div>

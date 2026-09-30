@@ -7,6 +7,7 @@ import Toast from './ui/Toast'
 import ameyaAvatar from '../images/feedback/ameya.jpg'
 import shraddhaAvatar from '../images/feedback/shraddha.jpg'
 import anonymousAvatar from '../images/feedback/anonymous.jpg'
+import leadAvatar from '../images/feedback/lead.jpg'
 import './CompanyFeedback.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -23,6 +24,12 @@ const REVIEWERS = [
     company: 'HR, Somvanshi Technologies',
     quote: 'Akash demonstrated strong creativity, design thinking, and a user-centered approach, while being proactive and receptive to feedback. His dedication and problem-solving mindset make him a valuable UI/UX and digital product designer.',
     avatar: shraddhaAvatar,
+  },
+  {
+    name: 'Team Lead & Mentor',
+    company: 'Somvanshi Technologies',
+    quote: "Akash was one of the best interns I've worked with, hands down. What stood out most was how he never just took a task and ran with it — he'd actually dig into why we needed it in the first place, and more often than not he'd come back with 2-3 different ways to solve it...",
+    avatar: leadAvatar,
   },
   {
     name: 'Company Leadership',
@@ -110,7 +117,7 @@ export default function CompanyFeedback() {
     }
   }
 
-  const [ceo, pm, dh] = REVIEWERS
+  const [ceo, pm, lead, grubwala] = REVIEWERS
 
   return (
     <section className="cf-section" id="feedback" ref={sectionRef}>
@@ -121,9 +128,33 @@ export default function CompanyFeedback() {
           Kind Words,<br />
           <span className="cf-header-title-light">Real Impact.</span>
         </h2>
+
+        {/* ── Desktop/Tablet Chevron Controls ── */}
+        <div className="cf-header-controls">
+          <button
+            type="button"
+            className="cf-nav-btn cf-nav-btn--prev"
+            onClick={scrollLeft}
+            aria-label="Previous feedback"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            className="cf-nav-btn cf-nav-btn--next"
+            onClick={scrollRight}
+            aria-label="Next feedback"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+        </div>
       </div>
 
-      {/* ── Grid (4 Columns matching Figma wireframe) ── */}
+      {/* ── Grid (5 Columns) ── */}
       <div className="cf-grid" ref={gridRef}>
 
         {/* Column 1: Stats Card */}
@@ -161,7 +192,7 @@ export default function CompanyFeedback() {
           </div>
         </div>
 
-        {/* Column 2: Person Top, Quote Bottom */}
+        {/* Column 2: Ameya (Person Top, Quote Bottom) */}
         <div className="cf-col">
           <div className="cf-card cf-card--person">
             <div className="cf-person-head">
@@ -178,7 +209,7 @@ export default function CompanyFeedback() {
           </div>
         </div>
 
-        {/* Column 3: Quote Top, Person Bottom */}
+        {/* Column 3: Shraddha (Quote Top, Person Bottom) */}
         <div className="cf-col">
           <div className="cf-card cf-card--quote cf-card--flex-fill">
             <p className="cf-quote-text">{pm.quote}</p>
@@ -195,22 +226,41 @@ export default function CompanyFeedback() {
           </div>
         </div>
 
-        {/* Column 4: Person Top, Quote Bottom */}
+        {/* Column 4: Team Lead (Person Top, Quote Bottom) */}
         <div className="cf-col">
           <div className="cf-card cf-card--person">
             <div className="cf-person-head">
-              <img src={dh.avatar} alt={dh.name} className="cf-person-avatar" />
+              <img src={lead.avatar} alt={lead.name} className="cf-person-avatar" />
               <div className="cf-person-info">
-                <span className="cf-person-name">{dh.name}</span>
-                <span className="cf-person-co">{dh.company}</span>
+                <span className="cf-person-name">{lead.name}</span>
+                <span className="cf-person-co">{lead.company}</span>
               </div>
             </div>
           </div>
 
           <div className="cf-card cf-card--quote cf-card--flex-fill cf-card--quote-btm">
-            <p className="cf-quote-text">{dh.quote}</p>
+            <p className="cf-quote-text">{lead.quote}</p>
           </div>
         </div>
+
+        {/* Column 5: Grubwala (Quote Top, Person Bottom) */}
+        {grubwala && (
+          <div className="cf-col">
+            <div className="cf-card cf-card--quote cf-card--flex-fill">
+              <p className="cf-quote-text">{grubwala.quote}</p>
+            </div>
+
+            <div className="cf-card cf-card--person">
+              <div className="cf-person-head">
+                <img src={grubwala.avatar} alt={grubwala.name} className="cf-person-avatar" />
+                <div className="cf-person-info">
+                  <span className="cf-person-name">{grubwala.name}</span>
+                  <span className="cf-person-co">{grubwala.company}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
       </div>
 
