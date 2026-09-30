@@ -151,52 +151,54 @@ const StickyScrollSection = () => {
 
   return (
     <section className="sss-section" aria-label="Design philosophy">
-      {/* sss-container commented out temporarily */}
-      {/* <div className="sss-container" ref={containerRef}>
-        
-        {/* ── TOP CENTER SCROLL HINT ── */}
-        {/* <div className="sss-top-scroll-hint">
-          <div className="sss-top-hint-icon" aria-hidden="true">
-            <svg width="22" height="32" viewBox="0 0 24 36" fill="none">
-              <rect x="4" y="2" width="16" height="24" rx="8" stroke="currentColor" strokeWidth="2" />
-              <line x1="12" y1="7" x2="12" y2="11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              <line x1="9" y1="17" x2="15" y2="17" stroke="currentColor" strokeWidth="1.5" />
-              <line x1="9" y1="19.5" x2="15" y2="19.5" stroke="currentColor" strokeWidth="1.5" />
-              <line x1="9" y1="22" x2="15" y2="22" stroke="currentColor" strokeWidth="1.5" />
-              <polygon points="12,34 6,27 18,27" fill="currentColor" />
-            </svg>
-          </div>
-          <span className="sss-top-hint-text">SCROLL TO EXPLORE</span>
-        </div>
+      {/* sss-container commented out temporarily — use false && to safely disable JSX with inner comments */}
+      {false && (
+        <div className="sss-container" ref={containerRef}>
 
-        <div className="sss-layout">
-
-          {/* ── LEFT: FIXED STICKY STATEMENT ── */}
-          <div className="sss-left">
-            <h2 className="sss-statement">
-              We Should design for what users do —
-            </h2>
+          {/* ── TOP CENTER SCROLL HINT ── */}
+          <div className="sss-top-scroll-hint">
+            <div className="sss-top-hint-icon" aria-hidden="true">
+              <svg width="22" height="32" viewBox="0 0 24 36" fill="none">
+                <rect x="4" y="2" width="16" height="24" rx="8" stroke="currentColor" strokeWidth="2" />
+                <line x1="12" y1="7" x2="12" y2="11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <line x1="9" y1="17" x2="15" y2="17" stroke="currentColor" strokeWidth="1.5" />
+                <line x1="9" y1="19.5" x2="15" y2="19.5" stroke="currentColor" strokeWidth="1.5" />
+                <line x1="9" y1="22" x2="15" y2="22" stroke="currentColor" strokeWidth="1.5" />
+                <polygon points="12,34 6,27 18,27" fill="currentColor" />
+              </svg>
+            </div>
+            <span className="sss-top-hint-text">SCROLL TO EXPLORE</span>
           </div>
 
-          {/* ── RIGHT: ROTARY WHEEL SELECTOR ── */}
-          <div className="sss-right" aria-live="polite">
-            <div className="sss-wheel-stage" ref={stageRef}>
-              <div className="sss-wheel-list" ref={listRef}>
-                {PHRASES.map((phrase, i) => (
-                  <div
-                    key={phrase}
-                    ref={(el) => (itemRefs.current[i] = el)}
-                    className="sss-wheel-item"
-                  >
-                    {phrase}
-                  </div>
-                ))}
+          <div className="sss-layout">
+
+            {/* ── LEFT: FIXED STICKY STATEMENT ── */}
+            <div className="sss-left">
+              <h2 className="sss-statement">
+                We Should design for what users do —
+              </h2>
+            </div>
+
+            {/* ── RIGHT: ROTARY WHEEL SELECTOR ── */}
+            <div className="sss-right" aria-live="polite">
+              <div className="sss-wheel-stage" ref={stageRef}>
+                <div className="sss-wheel-list" ref={listRef}>
+                  {PHRASES.map((phrase, i) => (
+                    <div
+                      key={phrase}
+                      ref={(el) => (itemRefs.current[i] = el)}
+                      className="sss-wheel-item"
+                    >
+                      {phrase}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
 
+          </div>
         </div>
-      </div> */}
+      )}
     </section>
   )
 }
